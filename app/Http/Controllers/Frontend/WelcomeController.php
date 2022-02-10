@@ -26,7 +26,7 @@ class WelcomeController extends Controller
     public function show($id)
     {
         $bread = $this->bread('Beranda', 'LOGIN', 'Formulir', url('/'));
-        $show = Paket::where('id', $id)->with(['akk', 'undangan', 'hps'])->firstOrFail();
+        $show = Paket::where('id', $id)->with(['akk', 'undangan', 'hpsTable'])->firstOrFail();
         return view('frontend.welcome.show', compact('bread', 'show'));
     }
 
