@@ -29,11 +29,11 @@ class RegisterController extends Controller
             $data    = $this->uploadRequest($request);
             $user    = User::create($data);
             $subject = 'PENDAFTARAN AKUN SIPEBEJE - BENGKULU UTARA';
-            // $email   = $this->sendEmail($user, $subject);
-            // if ($email == "Gagal") {
-            //     DB::rollback();
-            //     return redirect()->back()->withInput($request->input())->with(['status' => 'error', 'action' => 'error', 'title' =>  'DAFTAR AKUN', 'message' => $request->email.' tidak di temukan']);
-            // }
+            $email   = $this->sendEmail($user, $subject);
+            if ($email == "Gagal") {
+                DB::rollback();
+                return redirect()->back()->withInput($request->input())->with(['status' => 'error', 'action' => 'error', 'title' =>  'DAFTAR AKUN', 'message' => $request->email.' tidak di temukan']);
+            }
             DB::commit();
             return redirect()->route('frontend.confirm.email', $user->confirm_url);
         } catch (QueryException $qe) {
