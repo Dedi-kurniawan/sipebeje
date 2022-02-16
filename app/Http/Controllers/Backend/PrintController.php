@@ -15,14 +15,14 @@ class PrintController extends Controller
     {
         $bread = $this->bread('PAKET', 'UNDANGAN', 'CETAK', route('admin.paket.index'));
         $akses = $this->aksesRole();
-        $paket = Paket::where('id', $id)->where('desa_id', $akses['desa_id'])->firstOrFail();
+        $paket = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->firstOrFail();
         return view('backend.paket.cetak.undangan', compact('bread', 'paket'));
     }
 
     public function printUndangan(Request $request)
     {
         $akses    = $this->aksesRole();
-        Paket::where('id', $request->paket_id)->where('desa_id', $akses['desa_id'])->firstOrFail();
+        Paket::where('id', $request->paket_id)->OfDesaId($akses['desa_id'])->firstOrFail();
         $undanganVendor = UndanganVendor::where('paket_id', $request->paket_id)
                                          ->where('vendor_id', $request->vendor_id)
                                          ->with(['vendor', 'undangan', 'paket', 'paket.desa', 'paket.kecamatan', 'paket.aparatur'])->first();
@@ -37,15 +37,15 @@ class PrintController extends Controller
     public function printStepPertama($id)
     {
         $akses = $this->aksesRole();
-        $paket = Paket::where('id', $id)->where('desa_id', $akses['desa_id'])->with(['akk', 'hpsTable'])->firstOrFail();
+        $paket = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->with(['akk', 'hpsTable'])->firstOrFail();
         $pdf   = PDF::loadView('backend.paket.cetak.step_pertama', compact('paket'));
-        return $pdf->stream();
+        return $pdf->setPaper('a4', 'potrait')->stream();
     }
 
     public function printStepKedua($id)
     {
         $akses = $this->aksesRole();
-        $paket = Paket::where('id', $id)->where('desa_id', $akses['desa_id'])->with(['evaluasiPenawaran', 'negoHarga', 'suratPerjanjian', 'desa', 'vendor', 'vendor.user'])->firstOrFail();
+        $paket = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->with(['evaluasiPenawaran', 'negoHarga', 'suratPerjanjian', 'desa', 'vendor', 'vendor.user'])->firstOrFail();
         $pdf   = PDF::loadView('backend.paket.cetak.step_kedua', compact('paket'));
         return $pdf->setPaper('a4', 'potrait')->stream();
     }
