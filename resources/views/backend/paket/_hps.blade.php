@@ -38,9 +38,9 @@
                         <label for="example-input-normal" class="form-label">Satuan<span class="text-danger">*</span></label>
                         <select name="satuan" id="satuan" class="form-control {{ $errors->has('satuan') ? 'is-invalid' : '' }} selectForm" title="kolom satuan terbilang di larang kosong" required>
                             <option value="">pilih satuan</option>
-                            <option value="m">m</option>
-                            <option value="og">og</option>
-                            <option value="bh">bh</option>
+                            @foreach ($satuan as $s)
+                            <option value="{{ $s->nama }}">{{ $s->nama }}</option>
+                            @endforeach
                         </select>
                         {!! $errors->first('satuan', '<label id="satuan-error" class="error invalid-feedback" for="satuan">:message</label>')!!}
                     </div>

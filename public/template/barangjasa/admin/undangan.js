@@ -197,10 +197,10 @@ var dt_material = $('#dt_material').DataTable({
     ],
     ajax: {
         method: 'POST',
-    	url: HOST_URL + '/dt/admin/master/undangan-material',  
+    	url: HOST_URL + '/dt/admin/master/hps',   
         data: function (d) {
-            d.undangan_id = $("#undangan_id").val();
-        }         
+            d.paket_id = $("#paket_id_value").val();
+        }    
     },
     columns: [{
             data: 'DT_RowIndex',
@@ -220,29 +220,12 @@ var dt_material = $('#dt_material').DataTable({
             searchable: false,
         },
         {
-            data: 'harga_satuan_format',
-            name: 'harga_satuan_format',
-            orderable: false,
-            searchable: false,
-        },
-        {
             data: 'satuan',
             name: 'satuan',
             orderable: false,
             searchable: false,
-        },
-        {
-            data: 'action',
-            name: 'action',
-            orderable: false,
-            searchable: false,
-        }
-        
+        }        
     ],
-    columnDefs: [{
-        "targets": '_all',
-        "defaultContent": "-"
-    }],
     "language": {
         "lengthMenu": "_MENU_",
         "zeroRecords": "DATA TIDAK ADA ",
@@ -266,116 +249,116 @@ var dt_material = $('#dt_material').DataTable({
     },
 });
 
-function addMaterial(){
-    $(".modal-title").html("FORMULIR TAMBAH DATA PENGADAAN MATERIAL/JASA");
-    $("#submitData").val("add");
-    $(".method-hidden").html("");
-    $("#submitData").html('<i class="fa fa-save"></i> Simpan');
-    $("#formModal").modal("show");
-}
+// function addMaterial(){
+//     $(".modal-title").html("FORMULIR TAMBAH DATA PENGADAAN MATERIAL/JASA");
+//     $("#submitData").val("add");
+//     $(".method-hidden").html("");
+//     $("#submitData").html('<i class="fa fa-save"></i> Simpan');
+//     $("#formModal").modal("show");
+// }
 
-$("#submitData").click(function (event) {
-    event.preventDefault();
-    startLoading();
-    var validat = $("#form_validate_modal").valid();
-    var action = $(this).val();
-    if (!validat) {
-        finishLoading();
-        return false;
-    }
-    var url = HOST_URL + '/admin/add-material';
-    var title = "TAMBAH DATA";
-    $.ajax({
-        url: url,
-        method: "POST",
-        data: $('#form_validate_modal').serialize(),
-        dataType: 'json',
-        error: function (json) {
-            console.log(json);
-            finishLoading();
-            var errors = $.parseJSON(json.responseText);
-            $.each(errors.errors, function (key, value) {
-                $("input[name='" + key + "']").after("<label id='" + key + "-error' class='error invalid-feedback' for='" + key + "'>" + value + "</label>");
-                $("input[name='" + key + "']").addClass("is-invalid");
-            });
-        },
-        success: function (d) {
-            finishLoading();
-            if (d.status == 'success') {
-                console.log(d.message)
-                $("#formModal").modal("hide");
-                $("#form_validate_modal")[0].reset();
-                $(".method-hidden").html("");
-                dt_material.ajax.reload(null, false);
-                notifToast(action, title, d.message);
-                return false;
-            } else if ((d.status == 'error')) {
-                $("#formModal").modal("hide");
-                $("#form_validate_modal")[0].reset();
-                $(".method-hidden").html("");
-                dt_material.ajax.reload(null, false);
-                notifToast(d.status, title, d.message);
-                return false;
-            }
-        }
-    });
-});
+// $("#submitData").click(function (event) {
+//     event.preventDefault();
+//     startLoading();
+//     var validat = $("#form_validate_modal").valid();
+//     var action = $(this).val();
+//     if (!validat) {
+//         finishLoading();
+//         return false;
+//     }
+//     var url = HOST_URL + '/admin/add-material';
+//     var title = "TAMBAH DATA";
+//     $.ajax({
+//         url: url,
+//         method: "POST",
+//         data: $('#form_validate_modal').serialize(),
+//         dataType: 'json',
+//         error: function (json) {
+//             console.log(json);
+//             finishLoading();
+//             var errors = $.parseJSON(json.responseText);
+//             $.each(errors.errors, function (key, value) {
+//                 $("input[name='" + key + "']").after("<label id='" + key + "-error' class='error invalid-feedback' for='" + key + "'>" + value + "</label>");
+//                 $("input[name='" + key + "']").addClass("is-invalid");
+//             });
+//         },
+//         success: function (d) {
+//             finishLoading();
+//             if (d.status == 'success') {
+//                 console.log(d.message)
+//                 $("#formModal").modal("hide");
+//                 $("#form_validate_modal")[0].reset();
+//                 $(".method-hidden").html("");
+//                 dt_material.ajax.reload(null, false);
+//                 notifToast(action, title, d.message);
+//                 return false;
+//             } else if ((d.status == 'error')) {
+//                 $("#formModal").modal("hide");
+//                 $("#form_validate_modal")[0].reset();
+//                 $(".method-hidden").html("");
+//                 dt_material.ajax.reload(null, false);
+//                 notifToast(d.status, title, d.message);
+//                 return false;
+//             }
+//         }
+//     });
+// });
 
-$(document).on('click', '#undanganMaterial', function (e) {
-    e.preventDefault();
-    var id   = $(this).data('id');
-    var name = $(this).data('name');
-    Swal.fire({
-        title: "Apakah kamu yakin?",
-        text: "Menghapus "+name,
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Ya, Hapus!",
-        cancelButtonText: "Tidak, Batal!",
-        reverseButtons: true
-    }).then(function (result) {
-        if (result.value) {
-            var title = "Hapus Data";
-            var action = "delete";
-            $.ajax({
-                url: HOST_URL + '/admin/delete-material/' + id,
-                method: "DELETE",
-                dataType: 'json',
-                success: function (d) {
-                    if (d.status == 'success') {
-                        dt_material.ajax.reload(null, false);
-                        notifToast("error", title, d.message);
-                        return false;
-                    } else if (d.status == 'error') {
-                        dt_material.ajax.reload(null, false);
-                        notifToast("warning", title + " GAGAL" , d.message);
-                        return false;
-                    }
-                },
-                error: function (json) {
-                    dt_material.ajax.reload(null, false);
-                    notifToast("error", title +" GAGAL" , " Terjadi Kesalah Pada Server, Mohon Di Ulangi");
-                    return false;
-                },
-            });
-        } else if (result.dismiss === "cancel") {
-            Swal.fire(
-                "Batal",
-                "Kamu membatalkan  menghapus "+name,
-                "error"
-            )
-        }
-    });
-});
+// $(document).on('click', '#undanganMaterial', function (e) {
+//     e.preventDefault();
+//     var id   = $(this).data('id');
+//     var name = $(this).data('name');
+//     Swal.fire({
+//         title: "Apakah kamu yakin?",
+//         text: "Menghapus "+name,
+//         icon: "warning",
+//         showCancelButton: true,
+//         confirmButtonText: "Ya, Hapus!",
+//         cancelButtonText: "Tidak, Batal!",
+//         reverseButtons: true
+//     }).then(function (result) {
+//         if (result.value) {
+//             var title = "Hapus Data";
+//             var action = "delete";
+//             $.ajax({
+//                 url: HOST_URL + '/admin/delete-material/' + id,
+//                 method: "DELETE",
+//                 dataType: 'json',
+//                 success: function (d) {
+//                     if (d.status == 'success') {
+//                         dt_material.ajax.reload(null, false);
+//                         notifToast("error", title, d.message);
+//                         return false;
+//                     } else if (d.status == 'error') {
+//                         dt_material.ajax.reload(null, false);
+//                         notifToast("warning", title + " GAGAL" , d.message);
+//                         return false;
+//                     }
+//                 },
+//                 error: function (json) {
+//                     dt_material.ajax.reload(null, false);
+//                     notifToast("error", title +" GAGAL" , " Terjadi Kesalah Pada Server, Mohon Di Ulangi");
+//                     return false;
+//                 },
+//             });
+//         } else if (result.dismiss === "cancel") {
+//             Swal.fire(
+//                 "Batal",
+//                 "Kamu membatalkan  menghapus "+name,
+//                 "error"
+//             )
+//         }
+//     });
+// });
 
 
-$( "#nilai_total" ).change(function() {
-    rupiahTerbilang($("#nilai_total").val());    
-});
+// $( "#nilai_total" ).change(function() {
+//     rupiahTerbilang($("#nilai_total").val());    
+// });
 
-$( "#terbilang_rupiah" ).click(function() {
-    rupiahTerbilang($("#nilai_total").val());    
-});
+// $( "#terbilang_rupiah" ).click(function() {
+//     rupiahTerbilang($("#nilai_total").val());    
+// });
 
 function rupiahTerbilang(rupiah) {
     var url   = HOST_URL + '/admin/rupiah-terbilang?rupiah='+ rupiah;

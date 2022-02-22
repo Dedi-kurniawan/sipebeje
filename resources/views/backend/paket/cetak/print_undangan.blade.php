@@ -8,8 +8,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>SURAT UNDANGAN</title>
     <style>
-        body {
+       body {
             font-family: "Times New Roman", Times, serif;
+            /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+            font-size: 12px; */
+            margin: 0cm 1cm 1cm 1cm;
         }
 
         .kop-surat {
@@ -99,13 +102,13 @@
                 <td class="table-border text-center">VOLUME</td>
                 <td class="table-border text-center">SATUAN</td>
             </tr>
-            @forelse($undanganMaterial as $u)
-                <tr>
-                    <td class="table-border">{{ $loop->iteration }}</td>
-                    <td class="table-border">{{ $u->uraian }}</td>
-                    <td class="table-border">{{ $u->volume }}</td>
-                    <td class="table-border">{{ $u->satuan }}</td>
-                </tr>
+            @forelse($paket->hpsTable as $hps)
+            <tr>
+                <td class="table-border text-center">{{ $loop->iteration }}</td>
+                <td class="table-border">{{ $hps->uraian }}</td>
+                <td class="table-border text-center">{{ $hps->volume }}</td>
+                <td class="table-border text-center">{{ $hps->satuan }}</td>
+            </tr>
             @empty
                 <tr>
                     <td colspan="4"></td>
@@ -114,16 +117,16 @@
         </table>
     </div>
     <span style="margin-left: 18px;">Nilai total <span style="margin-left: 18px;">:</span> Rp.
-        {{ number_format($undanganVendor->undangan->nilai_total,2,',','.') }}
-        ({{ $undanganVendor->undangan->terbilang }})</span>
+        {{ number_format($paket->hps,2,',','.') }}
+        ({{ $paket->terbilang }})</span>
     <br>
     <span style="margin-left: 18px;">Sumber dana <span>:</span> APB Desa Tahun Anggaran
         {{ $undanganVendor->undangan->sumber_dana }}</span>
     <br><br>
     <span>2. Pelaksanaan Pengadaan</span><br>
     <span style="text-transform: capitalize;">&nbsp;&nbsp;&nbsp;&nbsp;Tempat dan alamat : Kantor Desa
-        {{ ucwords(strtolower($undanganVendor->paket->desa->nama)) }}</span><br>
-    <span style="margin-left: 10em;">{{ $undanganVendor->paket->desa->alamat }}</span><br>
+        {{ ucwords(strtolower($paket->desa->nama)) }}</span><br>
+    <span style="margin-left: 10em;">{{ $paket->desa->alamat }}</span><br>
     <span style="text-transform: capitalize;">&nbsp;&nbsp;&nbsp;&nbsp;Telepon/fax <span style="margin-left: 52px;">:</span> {{ ucwords(strtolower($undanganVendor->paket->desa->telepon)) }}</span>
     <p>Saudara diminta untuk memasukkan penawaran, teknis dan harga secara langsung sesuai dengan jadwal pelaksanaan sebagai berikut :</p>
     <div class="table-material">

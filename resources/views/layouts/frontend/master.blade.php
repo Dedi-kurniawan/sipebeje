@@ -8,6 +8,7 @@
         <meta content="SIPEBEJE" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="shortcut icon" href="{{ asset('template/images/logo/favicon.ico') }}">
+        <link href="{{ asset('backend/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('backend/css/config/default/bootstrap.min.css') }}" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
         <link href="{{ asset('backend/css/config/default/app.min.css') }}" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
         <link href="{{ asset('backend/css/config/default/bootstrap-dark.min.css') }}" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" />
@@ -16,6 +17,7 @@
         <link href="{{ asset('backend/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('backend/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+       
     </head>
     <body class="loading" data-layout-mode="horizontal" data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "topbar": {"color": "dark"}, "showRightSidebarOnPageLoad": true}'>
         <div id="wrapper">
@@ -31,20 +33,23 @@
                             <div class="col-md-6">
                                 <script>document.write(new Date().getFullYear())</script> &copy; Dinas Pemberdayaan Masyarakat dan Desa <a href="">Bengkulu Utara</a> 
                             </div>
-                            {{--  <div class="col-md-6">
+                             <div class="col-md-6">
                                 <div class="text-md-end footer-links d-none d-sm-block">
-                                    <a href="javascript:void(0);">About Us</a>
-                                    <a href="javascript:void(0);">Help</a>
-                                    <a href="javascript:void(0);">Contact Us</a>
+                                    <a href="javascript:void(0);">Aplikasi SIPEBEJE Vesi 1.0</a>
+                                    {{-- <a href="javascript:void(0);">Help</a>
+                                    <a href="javascript:void(0);">Contact Us</a> --}}
                                 </div>
-                            </div>  --}}
+                            </div> 
                         </div>
                     </div>
                 </footer>
             </div>
         </div>
-        {{-- <div class="rightbar-overlay"></div> --}}
+        <script>
+            var HOST_URL = "{{ url('/') }}";
+        </script>
         <script src="{{ asset('backend/js/vendor.min.js') }}"></script>
+        <script src="{{ asset('backend/libs/select2/js/select2.min.js') }}"></script>
         <script src="{{ asset('backend/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('backend/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
         <script src="{{ asset('backend/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>

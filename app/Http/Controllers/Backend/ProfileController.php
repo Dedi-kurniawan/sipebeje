@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Backend\BaseController as Controller;
+use App\Http\Requests\ProfileDesaRequest;
 use App\Http\Requests\ProfileVendorRequest;
 use App\Models\Desa;
 use App\Models\Kecamatan;
@@ -66,7 +67,7 @@ class ProfileController extends Controller
         return view('backend.profile.desa', compact('bread', 'desa'));
     }
 
-    public function desaPost(Request $request)
+    public function desaPost(ProfileDesaRequest $request)
     {
         DB::beginTransaction();
         try {
@@ -75,7 +76,12 @@ class ProfileController extends Controller
                 'full_field' => '1'
             ]);
             $desa = Desa::findOrFail($user->desa_id);
-            $desa->update($request->all());
+            $data = $request->except('logo');
+            $dir = "";
+            $imageName = date('Ymdhis').'.'.$request->logo->extension();   
+            $request->logo->move(public_path('template/images/desa/'), $imageName);
+            $data['logo'] = $imageName;
+            $desa->update($data);
             DB::commit();
             return redirect()->back()->with(['status' => 'success', 'action' => 'success', 'title' =>  'PROFILE DESA', 'message' => 'profile berhasil di update']);
         } catch (QueryException $qe) {

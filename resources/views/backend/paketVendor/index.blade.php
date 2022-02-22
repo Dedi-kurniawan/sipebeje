@@ -59,7 +59,7 @@
                             <tr>
                                 <th>NO</th>
                                 <th>DESA</th>
-                                <th>NAMA PAKET</th>
+                                <th>NAMA KEGIATAN</th>
                                 <th>HPS</th>
                                 <th>PENANGGUNG JAWAB</th>
                                 <th>PEMENANG</th>

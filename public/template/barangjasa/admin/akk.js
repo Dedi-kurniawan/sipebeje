@@ -4,45 +4,52 @@ $('.rupiah').mask('000.000.000.000.000,00', {
     reverse: true
 });
 
-$('#gambaran_pelaksanaan').summernote({
+var gambaran_pelaksanaan = $('#gambaran_pelaksanaan').summernote({
     placeholder: 'PENYEDIA WAJIB MEMBUAT JADWAL PELAKSANAAN KEGIATAN PEKERJAAN',
-    tabsize: 2,
-    height: 120,
+    tabsize: 0,
+    height: 90,
     toolbar: [
       ['style', ['style']],
       ['font', ['bold', 'underline', 'clear']],
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
       ['table', ['table']],
-      ['view', ['codeview', 'help']]
-    ]
+      ['view', ['codeview', 'help']],
+  ],
+  callbacks: {
+    onFocus: function (contents) {
+      if($('.summernote').summernote('isEmpty')){
+        $(".summernote").html(''); 
+      }
+    },
+  },
 });
 
 $('#spesifikasi_teknis').summernote({
     placeholder: 'URAIAN TAHAPAN-TAHAPAN PEKERJAAN',
-    tabsize: 2,
-    height: 120,
+    tabsize: 0,
+    height: 90,
     toolbar: [
       ['style', ['style']],
       ['font', ['bold', 'underline', 'clear']],
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
       ['table', ['table']],
-      ['view', ['codeview', 'help']]
+      ['view', ['codeview', 'help']],
     ]
 });
 
 $('#tenaga_kerja').summernote({
     placeholder: 'DAFTAR DALAM RANGKA PELAKSANAAN PADAT KARYA TUNAI DATA BERDASARKAN DATA DESA',
-    tabsize: 2,
-    height: 120,
+    tabsize: 0,
+    height: 90,
     toolbar: [
       ['style', ['style']],
       ['font', ['bold', 'underline', 'clear']],
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
       ['table', ['table']],
-      ['view', ['codeview', 'help']]
+      ['view', ['codeview', 'help']],
     ]
 });
 

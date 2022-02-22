@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form id="form_validate" method="POST" action="{{ route('admin.profile.desa.post') }}">
+                    <form id="form_validate" method="POST" action="{{ route('admin.profile.desa.post') }}" enctype="multipart/form-data">
                         @csrf
                         <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-circle me-1"></i> ADMIN DESA</h5>
                         <div class="row">
@@ -30,22 +30,35 @@
                                 </div>
                             </div>
                         </div>
-
                         <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-office-building me-1"></i> DESA</h5>
                         <div class="row">
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">Nama Desa <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control {{ $errors->has('nama') ? 'is-invalid' : '' }}" readonly id="nama" value="{{ old('nama', $desa->desa->nama) }}" placeholder="Nama perusahaan" required>
+                                    <input type="text" name="nama" class="form-control {{ $errors->has('nama') ? 'is-invalid' : '' }}" readonly id="nama" value="{{ old('nama', $desa->desa->nama) }}" placeholder="Nama perusahaan" required>
                                     {!! $errors->first('nama', '<label id="nama-error" class="error invalid-feedback" for="nama">:message</label>')!!}
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label for="nama" class="form-label">Kecamatan <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control {{ $errors->has('nama') ? 'is-invalid' : '' }}" readonly id="nama" value="{{ old('nama', $desa->desa->kecamatan->nama) }}" placeholder="Nama perusahaan" required>
-                                    {!! $errors->first('nama', '<label id="nama-error" class="error invalid-feedback" for="nama">:message</label>')!!}
+                                    <label for="kecamatan" class="form-label">Kecamatan <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control {{ $errors->has('kecamatan') ? 'is-invalid' : '' }}" readonly id="kecamatan" value="{{ old('kecamatan', $desa->desa->kecamatan->nama) }}" placeholder="Nama perusahaan" required>
+                                    {!! $errors->first('kecamatan', '<label id="kecamatan-error" class="error invalid-feedback" for="kecamatan">:message</label>')!!}
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Logo <span class="text-danger">*</span></label> <br>
+                                <img id="img" src="{{ $desa->desa->PhotoPath }}" class="rounded-circle img-thumbnail text-center" alt="profile-image" width="120" height="120">
+                                <input style="visibility:hidden" accept="image/*" name="logo" type="file" id="image-upload">
+                                <p></p>
+                                <button type="button" class="btn btn-success btn-xs waves-effect mb-2 waves-light" id="image-label">
+                                    <i class="fa fa-pen"></i> 
+                                    upload logo
+                                </button> <br>
+                                <span class="form-text text-muted">Hanya mendukung: png, jpg, jpeg</span>
+                                <p class="error-image text-danger font-italic text-small">{!! $errors->first('logo') !!}</p>
                             </div>
                         </div>
                         <div class="col-12">
@@ -69,7 +82,7 @@
                                     <select name="tahun_berdiri" id="tahun_berdiri" class="form-control selectFormClass {{ $errors->has('tahun_berdiri') ? 'is-invalid' : '' }}" required>
                                         <option value="">Tahun Berdiri</option>
                                         @for ($i = 1900; $i < date('Y')+5; $i++) 
-                                            <option value="{{ $i }}" {{ $desa->desa->tahun_berdiri == $i ? "selected" : "" }}>{{ $i }}</option>
+                                            <option value="{{ $i }}" {{ old('tahun_berdiri', $desa->desa->tahun_berdiri) == $i ? "selected" : "" }}>{{ $i }}</option>
                                         @endfor
                                     </select>
                                     {!! $errors->first('tahun_berdiri', '<label id="tahun_berdiri-error" class="error invalid-feedback" for="tahun_berdiri">:message</label>')!!}
@@ -87,20 +100,20 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="email" class="form-label">E-mail</label>
-                                    <input name="email" type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ $desa->desa->email }}" placeholder="email@desa.com">
+                                    <input name="email" type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email', $desa->desa->email) }}" placeholder="email@desa.com">
                                     {!! $errors->first('email', '<label id="email-error" class="error invalid-feedback" for="email">:message</label>')!!}
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label for="telepon" class="form-label">Handphone</label>
-                                    <input name="telepon" type="text" class="form-control {{ $errors->has('telepon') ? 'is-invalid' : '' }}" value="{{ $desa->desa->telepon }}" placeholder="0812123456789">
+                                    <input name="telepon" type="text" class="form-control {{ $errors->has('telepon') ? 'is-invalid' : '' }}" value="{{ old('telepon', $desa->desa->telepon) }}" placeholder="0812123456789">
                                     {!! $errors->first('telepon', '<label id="telepon-error" class="error invalid-feedback" for="telepon">:message</label>')!!}
                                 </div>
                             </div>
                         </div>
                         <div class="text-start">
-                            <button type="submit" class="btn btn-success waves-effect waves-light mt-2"><i class="mdi mdi-content-save"></i> UPDATE</button>
+                            <button type="submit" class="btn btn-success waves-effect waves-light mt-2" id="submitData"><i class="mdi mdi-content-save"></i> UPDATE</button>
                         </div>
                     </form>
                 </div>

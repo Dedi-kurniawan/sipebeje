@@ -6,12 +6,12 @@
             <span> Dashboard</span>
         </a>
     </li>
-    <li>
+    {{-- <li>
         <a href="{{ route('admin.paket-vendor.index') }}">
             <i data-feather="file-text"></i>
             <span>Paket</span>
         </a>
-    </li>
+    </li> --}}
     <li>
         <a href="{{ route('admin.undangan.paket') }}">
             <i data-feather="send"></i>

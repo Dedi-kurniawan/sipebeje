@@ -80,12 +80,12 @@
                                                 </table>
                                             </div>
                                             <br>
-                                            <div class="mb-3">
+                                            <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">1. Paket Pengadaan Material/Jasa<span class="text-danger">*</span></label>
                                             </div>
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                 <span onclick="addMaterial()" class="btn btn-primary mt-2">Tambah Material/Jasa</span>
-                                            </div>
+                                            </div> --}}
                                             <div class="table-responsive">
                                                 <table id="dt_material" class="table table-bordered nowrap w-100">
                                                     <thead>
@@ -93,16 +93,14 @@
                                                             <th>NO</th>
                                                             <th>URAIAN</th>
                                                             <th>VOLUME</th>
-                                                            <th>HARGA @</th>
                                                             <th>SATUAN</th>
-                                                            <th>AKSI</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Nilai total:<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <span class="btn input-group-text btn-dark waves-effect waves-light">Rp. </span>
@@ -118,8 +116,8 @@
                                                     {!! $errors->first('terbilang', '<label id="terbilang-error" class="error invalid-feedback" for="terbilang">:message</label>')!!}
                                                 </div>
                                                 <small class="text-info">Perbaiki secara manual jika terjadi kesalahan</small>
-                                            </div>
-                                            <div class="mb-3">
+                                            </div> --}}
+                                            <div class="mb-3 mt-2">
                                                 <label for="example-input-normal" class="form-label">Sumber dana (APB Desa Tahun Anggaran)<span class="text-danger">*</span></label>
                                                 <select name="sumber_dana" id="sumber_dana" class="form-control selectFormClass {{ $errors->has('sumber_dana') ? 'is-invalid' : '' }}" required>
                                                     <option value="">TAHUN</option>

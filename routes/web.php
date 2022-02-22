@@ -40,6 +40,8 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth'], fu
         Route::get('cetak-undangan/{id}', [App\Http\Controllers\Backend\PrintController::class, 'cetakUndangan'])->name('cetak-undangan');
         Route::get('print-undangan', [App\Http\Controllers\Backend\PrintController::class, 'printUndangan'])->name('print-undangan');
         Route::get('print-step-pertama/{id}', [App\Http\Controllers\Backend\PrintController::class, 'printStepPertama'])->name('print-step-pertama');
+        Route::get('print-kak/{id}', [App\Http\Controllers\Backend\PrintController::class, 'printKak'])->name('print-kak');
+        Route::get('print-hps/{id}', [App\Http\Controllers\Backend\PrintController::class, 'printHps'])->name('print-hps');
         Route::get('print-step-kedua/{id}', [App\Http\Controllers\Backend\PrintController::class, 'printStepKedua'])->name('print-step-kedua');
         Route::get('/notifikasi/{id}', [App\Http\Controllers\Backend\NotifikasiController::class, 'readNotification'])->name('read.notif');
         Route::get('/undangan-paket', [App\Http\Controllers\Backend\UndanganPaketController::class, 'undangan'])->name('undangan.paket');
@@ -63,6 +65,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth'], fu
 
 Route::group(['as' => 'frontend.'], function () {
     Route::get('/', [App\Http\Controllers\Frontend\WelcomeController::class, 'index'])->name('welcome.index');
+    Route::get('get-desa', [App\Http\Controllers\Frontend\WelcomeController::class, 'getDesa']);
     Route::get('show/{id}', [App\Http\Controllers\Frontend\WelcomeController::class, 'show'])->name('welcome.show');
     Route::get('/kontak-kami', [App\Http\Controllers\Frontend\WelcomeController::class, 'kontak'])->name('welcome.kontak');
     Route::resource('/register', App\Http\Controllers\Frontend\RegisterController::class);

@@ -12,6 +12,7 @@ use App\Models\EvaluasiPenawaran;
 use App\Models\Hps;
 use App\Models\NegoHarga;
 use App\Models\Paket;
+use App\Models\Satuan;
 use App\Models\SuratPerjanjian;
 use App\Models\Undangan;
 use App\Models\Vendor;
@@ -160,8 +161,9 @@ class PaketController extends Controller
         $bread    = $this->bread('STEP PERTAMA', 'Harga Perkiraan Sendiri (HPS)', 'Formulir', route('admin.paket.index'));
         $akses    = $this->aksesRole();
         $edit     = Paket::where('id', $id)->where('desa_id', $akses['desa_id'])->firstOrFail();
+        $satuan   = Satuan::orderby('nama', 'asc')->get();
         $tab      = "hps";
-        return view('backend.paket.hps', compact('bread', 'edit', 'tab'));
+        return view('backend.paket.hps', compact('bread', 'edit', 'tab', 'satuan'));
     }
 
     public function storeHps(HpsRequest $request)
@@ -180,7 +182,7 @@ class PaketController extends Controller
             $data['harga_satuan'] = $harga;
             $data['jumlah']       = $jumlah;
             if ($request->pajak == "0") {
-                $data['harga_pajak']  =  $jumlah;
+                $data['harga_pajak']  =  '0';
             } else {
                 $data['harga_pajak']  = ($request->pajak / 100) * $jumlah;
             }

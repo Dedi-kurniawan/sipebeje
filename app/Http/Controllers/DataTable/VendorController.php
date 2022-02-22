@@ -41,16 +41,14 @@ class VendorController extends Controller
     {
         $akses = $this->aksesRole();
         $data = UndanganVendor::where('vendor_id', $akses['vendor_id'])
-                ->OfStatus($request->status)->with(['paket', 'vendor', 'paket.desa'])->orderby('created_at', 'asc');
+                ->OfStatus($request->status)->with(['paket', 'vendor', 'paket.desa', 'paket.akk'])->orderby('created_at', 'asc');
         return DataTables::of($data)
             ->addIndexColumn()
-            ->addColumn('nama_format', function ($data) {
-                $route = route('admin.undangan.paket.show', $data->id);
-                $nama = $data->paket->NamaFormat;
-                return "<a href='$route'>$nama</a>";
-            })
             ->addColumn('hps_format', function ($data) {
                 return "Rp. " . $this->rupiahFormat($data->paket->hps);
+            })
+            ->addColumn('nama_kegiatan', function ($data) {
+                return ucwords(strtolower($data->paket->akk->dp_bidang)) ." ". ucwords(strtolower($data->paket->akk->dp_subbidang));
             })
             ->addColumn('status_format', function ($data) {
                 if ($data->status == "2") {

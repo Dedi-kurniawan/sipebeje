@@ -20,6 +20,20 @@ class Desa extends Model
         $this->attributes['nama'] = strtoupper($value);
     }
 
+    public function getPhotoPathAttribute()
+    {
+        $dir = "template/images/desa/";
+        if ($this->logo !== NULL){
+            if(file_exists(public_path($dir. $this->logo))){
+                return url($dir. $this->logo);
+            }else{
+                return url('template/images/default/no-image.png');
+            }
+        } else {           
+            return url('template/images/default/no-image.png');
+        }
+    }
+
     public function kecamatan()
     {
         return $this->belongsTo(Kecamatan::class);
@@ -38,4 +52,5 @@ class Desa extends Model
             return $query->where('kecamatan_id', $value);
         }
     }
+    
 }

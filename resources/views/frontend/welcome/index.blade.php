@@ -125,14 +125,48 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
+                <form method="GET" action="{{ route('frontend.welcome.index') }}" class="d-flex flex-wrap align-items-center">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="me-sm-3">
+                                    <label for="status-select" class="me-2">Kecamatan</label>
+                                    <select name="desa" class="form-select my-1 my-md-0 select_filter" id="kecamatan_filter">
+                                        @foreach ($kecamatan as $k)
+                                            <option value="{{ $k->id }}">{{ $k->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="me-sm-3">
+                                    <label for="status-select" class="me-2">Desa</label>
+                                    <select name="kecamatan" class="form-select my-1 my-md-0 select_filter" id="desa_filter"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for=""></label>
+                                <div class="text-md-start">
+                                    <button type="submit" class="btn btn-info waves-effect waves-light" id="button_filter"><i class="fa fa-search me-1"></i> Cari</button>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </form>
+            </div> <!-- end card -->
+        </div><!-- end col-->
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
                 <div class="card-body p-0">
                     <table id="datatable" class="table nowrap w-100">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Paket</th>
+                                <th>Nama Kegiatan</th>
                                 <th>Desa</th>
-                                <th>Hps</th>
+                                <th>Pagu Anggaran</th>
                                 <th>Akhir Pendaftaran</th>
                             </tr>
                         </thead>
@@ -143,19 +177,18 @@
                             @forelse ($paket as $p)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>
+                                    <td>{{ ucwords(strtolower($p->akk->dp_bidang)) }}, {{ ucwords(strtolower($p->akk->dp_subbidang)) }}</td>
+                                    {{-- <td>
                                         <a href="{{ route('frontend.welcome.show', $p->id) }}">
                                             {{ $p->NamaFormat }}
                                         </a>
-                                    </td>
+                                    </td> --}}
                                     <td>{{ $p->desa->nama }}</td>
-                                    <td>{{ $p->hps }}</td>
+                                    <td>Rp. {{ number_format($p->hps) }}</td>
                                     <td>{!! $p->TanggalSelesaiAt !!}</td>
                                 </tr>
                             @empty
-                                <tr>
-                                    <td colspan="6">DATA TIDAK DI TEMUKAN</td>
-                                </tr>
+                                
                             @endforelse
                         </tbody>
                     </table>
@@ -168,5 +201,5 @@
 @endsection
 @push('scripts')
 <script src="{{ asset('backend/libs/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
-<script src="{{ asset('template/barangjasa/frontend/welcome.js') }}"></script>
+<script src="{{ asset('template/barangjasa/frontend/welcome.js') }}?{{ date('Ymdhis') }}"></script>
 @endpush

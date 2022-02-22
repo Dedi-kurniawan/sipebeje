@@ -168,6 +168,13 @@ class Paket extends Model
         }
     }
 
+    public function scopeOfKecamatanId($query, $value)
+    {
+        if (!empty($value)) {
+            return $query->where('kecamatan_id', $value);
+        }
+    }
+
     public function scopeOfStatus($query, $value)
     {
         if (!empty($value)) {

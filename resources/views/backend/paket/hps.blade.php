@@ -54,9 +54,14 @@
                                     </table>
                                 </div>
                                 <div class="mt-3">
-                                    <a href="{{ route('admin.akk.edit', $edit->id) }}" class="btn btn-info width-md waves-effect waves-light float-start">
+                                    <a href="{{ route('admin.akk.edit', $edit->id) }}" class="btn btn-info width-md waves-effect waves-light">
                                         <i class="fe-arrow-left"></i> KERANGKA ACUAN KERJA (KAK)
                                     </a>
+                                    @if ($edit->akk_field == "1")
+                                        <a target="_blank" href="{{ route('admin.print-hps', $edit->id) }}" class="btn btn-warning width-md waves-effect waves-light text-white">
+                                            <i class="fa fa-download"></i> DOWNLOAD
+                                        </a>
+                                    @endif
                                     <a href="{{ route('admin.undangan.edit', $edit->id) }}" class="btn btn-primary width-md waves-effect waves-light float-end">
                                          UNDANGAN <i class="fe-arrow-right"></i>
                                      </a>

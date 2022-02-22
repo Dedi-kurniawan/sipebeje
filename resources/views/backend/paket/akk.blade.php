@@ -113,7 +113,7 @@
                                                 </div> 
                                                 <div class="col-md-6 col-lg-6 mb-2 col-12">
                                                     <label for="example-input-normal" class="form-label">KEGIATAN<span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control {{ $errors->has('dp_kegiatan') ? 'is-invalid' : '' }}" maxlength="255" autocomplete="off" name="dp_kegiatan" value="{{ old('dp_kegiatan', $edit->akk->dp_kegiatan) }}"  id="dp_kegiatan" title="kolom kegiatan di larang kosong" placeholder="KEGIATAN" required/>
+                                                    <input type="text" class="form-control {{ $errors->has('dp_kegiatan') ? 'is-invalid' : '' }}" maxlength="255" autocomplete="off" name="dp_kegiatan" value="{{ old('dp_kegiatan', $edit->akk->dp_kegiatan) == NULL ? $edit->nama : $edit->akk->dp_kegiatan }}"  id="dp_kegiatan" title="kolom kegiatan di larang kosong" placeholder="KEGIATAN" required/>
                                                     {!! $errors->first('dp_kegiatan', '<label id="dp_kegiatan-error" class="error invalid-feedback" for="dp_kegiatan">:message</label>')!!}  
                                                 </div>                                               
                                             </div>
@@ -140,10 +140,13 @@
                                             </div>
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">X.	METODE PENGADAAN<span class="text-danger">*</span></label>
+                                                @php
+                                                    $metode_pengadaan =  $edit->akk->metode_pengadaan == NULL ? $edit->jenis : $edit->akk->metode_pengadaan
+                                                @endphp
                                                 <select name="metode_pengadaan" class="form-control selectFormClass {{ $errors->has('metode_pengadaan') ? 'is-invalid' : '' }}" id="metode_pengadaan" required>
                                                     <option value="">PILIH METODE PENGADAAN</option>
-                                                    <option value="Pengadaan Langsung" {{ old('metode_pengadaan', $edit->akk->metode_pengadaan) == "Pengadaan Langsung" ? "selected" : "" }}>Pengadaan Langsung</option>
-                                                    <option value="Tender" {{ old('metode_pengadaan', $edit->akk->metode_pengadaan) == "Tender" ? "selected" : "" }}>Tender</option>
+                                                    <option value="Pengadaan Langsung" {{ old('metode_pengadaan', $metode_pengadaan) == "Pengadaan Langsung" ? "selected" : "" }}>Pengadaan Langsung</option>
+                                                    <option value="Tender" {{ old('metode_pengadaan', $metode_pengadaan) == "Tender" ? "selected" : "" }}>Tender</option>
                                                 </select>
                                                 {!! $errors->first('metode_pengadaan', '<label id="metode_pengadaan-error" class="error invalid-feedback" for="metode_pengadaan">:message</label>')!!}
                                             </div>
@@ -175,6 +178,11 @@
                                                 <button type="submit" class="btn btn-info width-md waves-effect waves-light">
                                                    <i class="fa fa-save"></i> SIMPAN
                                                 </button>
+                                                @if ($edit->akk_field == "1")
+                                                    <a target="_blank" href="{{ route('admin.print-kak', $edit->id) }}" class="btn btn-warning width-md waves-effect waves-light text-white">
+                                                        <i class="fa fa-download"></i> DOWNLOAD
+                                                    </a>
+                                                @endif
                                                 <a href="{{ route('admin.hps.edit', $edit->id) }}" class="btn btn-primary width-md waves-effect waves-light float-end">
                                                      HARGA PERKIRAAN KERJA (HPS) <i class="fe-arrow-right"></i>
                                                  </a>

@@ -31,8 +31,8 @@ var dt_undangan = $('#dt_undangan').DataTable({
             searchable: false,
         },
         {
-            data: 'nama_format',
-            name: 'nama_format',
+            data: 'nama_kegiatan',
+            name: 'nama_kegiatan',
             orderable: false,
             searchable: false,
         },
