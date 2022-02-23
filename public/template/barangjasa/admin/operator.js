@@ -1,7 +1,7 @@
 "use strict";
 
 function createData() {
-    $(".modal-title").html("FORMULIR TAMBAH DATA KECAMATAN");
+    $(".modal-title").html("FORMULIR TAMBAH DATA OPERATOR DESA");
     $("#submitData").val("add");
     $(".method-hidden").html("");
     $("#submitData").html('<i class="fa fa-save"></i> Simpan');
@@ -158,8 +158,8 @@ $('#datatable tbody').on('click', '#editData', function() {
                 }
             });
             $("#id_edit").val(id);
-            $(".modal-title").html("FORMULIR UBAH DATA KECAMATAN");
-            $(".text-title").html("UBAH KECAMATAN");
+            $(".modal-title").html("FORMULIR UBAH DATA OPERATOR DESA");
+            $(".text-title").html("UBAH OPERATOR DESA");
             $("#submitData").val("edit");
             $("#submitData").html('<i class="fa fa-edit"></i> Ubah');
             $(".method-hidden").html("<input type='hidden' name='_method' value='PUT'/>")

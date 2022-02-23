@@ -15,7 +15,8 @@ class PaketController extends Controller
 {
     public function paket(Request $request)
     {
-        $data = Paket::OfDesaId($request->desa_id)->OfStatus($request->status)
+        $akses = $this->aksesRole();
+        $data = Paket::OfDesaId($akses['desa_id'])->OfStatus($request->status)
                 ->OfNama($request->search)->with(['desa', 'aparatur'])->orderby('created_at', 'asc');
         return DataTables::of($data)
             ->addIndexColumn()

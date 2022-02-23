@@ -44,7 +44,7 @@ class OperatorController extends Controller
             $data['desa_id'] = $request->desa_id;          
             $data['confirmed'] = '1';
             $data['status'] = '1';
-            $data['full_field'] = '1';
+            $data['full_field'] = '0';
             $data['role'] = 'desa';
             $data['confirm_url'] = $request->email.'_'.Str::random(20).'-'.date('Ymdhis');
             $data['url_name'] = $request->email.'_'.Str::random(20).'-'.date('Ymdhis');
