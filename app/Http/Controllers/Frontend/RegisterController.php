@@ -109,7 +109,7 @@ class RegisterController extends Controller
         //     $mail->from(env('MAIL_SENDER'), "SIKO Bengkulu Utara");
         // });
         Mail::send('frontend.register.email', $data, function($message) use ($email, $subject) {
-            $message->from('admin@siko.bengkuluutarakab.go.id', 'SIKO Bengkulu Utara');
+            $message->from('notifikasi@info.bengkuluutarakab.go.id', 'SIKO Bengkulu Utara');
             $message->to($email)->subject($subject);
         });
         if (Mail::failures()) {

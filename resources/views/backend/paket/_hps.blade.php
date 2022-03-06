@@ -49,12 +49,14 @@
                         <select name="pajak" id="pajak" class="form-control {{ $errors->has('pajak') ? 'is-invalid' : '' }} selectForm" title="kolom pajak terbilang di larang kosong" required>
                             <option value="">pilih pajak</option>
                             <option value="0">0 %</option>
+                            <option value="0.5">0.5 %</option>
                             <option value="1.5">1.5 %</option>
                             <option value="2">2 %</option>
                             <option value="2.5">2.5 %</option>
                             <option value="5">5 %</option>
                             <option value="10">10 %</option>
                             <option value="11">11 %</option>
+                            <option value="11.5">11.5 %</option>
                         </select>
                         {!! $errors->first('pajak', '<label id="pajak-error" class="error invalid-feedback" for="pajak">:message</label>')!!}
                     </div>

@@ -22,7 +22,7 @@ class WelcomeController extends Controller
         ];
         $kecamatan = Kecamatan::orderby('nama', 'asc')->get();
         $paket = Paket::OfKecamatanId($request->kecamatan)->OfDesaId($request->desa)->where('status', '!=', 'draft')->with(['desa', 'akk'])->get();
-        return view('frontend.welcome.index', compact('bread', 'data', 'paket', 'kecamatan'));
+        return view('frontend.welcome.front', compact('bread', 'data', 'paket', 'kecamatan'));
     }
 
     public function show($id)

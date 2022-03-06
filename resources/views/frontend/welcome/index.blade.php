@@ -10,6 +10,35 @@
         </div>
     </div>     
     <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block w-100" src="https://images.unsplash.com/photo-1646041293273-788e7543dd3d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=30" alt="First slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="https://images.unsplash.com/photo-1644916081706-e98b1fadc319?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=30" alt="Second slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="https://images.unsplash.com/photo-1644946882015-cbc3c92d0526?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=30" alt="Third slide">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <div class="row">
         <div class="col-md-6 col-xl-3">
             <div class="card">
                 <div class="card-body">
@@ -178,21 +207,14 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ ucwords(strtolower($p->akk->dp_bidang)) }}, {{ ucwords(strtolower($p->akk->dp_subbidang)) }}</td>
-                                    {{-- <td>
-                                        <a href="{{ route('frontend.welcome.show', $p->id) }}">
-                                            {{ $p->NamaFormat }}
-                                        </a>
-                                    </td> --}}
                                     <td>{{ $p->desa->nama }}</td>
                                     <td>Rp. {{ number_format($p->hps) }}</td>
                                     <td>{!! $p->TanggalSelesaiAt !!}</td>
                                 </tr>
-                            @empty
-                                
+                            @empty                                
                             @endforelse
                         </tbody>
                     </table>
-
                 </div> <!-- end card body-->
             </div> <!-- end card -->
         </div><!-- end col-->
