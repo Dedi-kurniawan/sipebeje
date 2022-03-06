@@ -8,6 +8,7 @@
         <meta content="SIPEBEJE" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="shortcut icon" href="{{ asset('template/images/logo/favicon.ico') }}">
+        <link href="{{ asset('backend/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css">
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/materialdesignicons.min.css') }}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}"/>
@@ -313,7 +314,6 @@
         <script src="{{ asset('frontend/js/app.js') }}"></script>
         {{-- <script src="{{ asset('backend/js/vendor.min.js') }}"></script> --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{{ asset('backend/libs/select2/js/select2.min.js') }}"></script>
         <script src="{{ asset('backend/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('backend/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
         <script src="{{ asset('backend/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
@@ -321,6 +321,7 @@
         <script src="{{ asset('backend/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
         <script src="{{ asset('backend/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
         <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('backend/libs/select2/js/select2.min.js') }}"></script>
         <script src="{{ asset('template/barangjasa/frontend/welcome.js') }}?{{ date('Ymdhis') }}"></script>
         
     </body>
