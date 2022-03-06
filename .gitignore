@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/backend/images
+/app/Http/Controllers/Frontend/RegisterController.php
 /storage/*.key
 /vendor
 .env
