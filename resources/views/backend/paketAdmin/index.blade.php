@@ -91,4 +91,5 @@
 @endsection
 @push('scripts')
 <script src="{{ asset('template/barangjasa/admin/paket-admin.js') }}?{{ date('ymdshi') }}"></script>
+@include('layouts.frontend.partials.notif')
 @endpush

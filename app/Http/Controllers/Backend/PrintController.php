@@ -49,31 +49,52 @@ class PrintController extends Controller
         $akses = $this->aksesRole();
         $paket = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->with(['evaluasiPenawaran', 'negoHarga', 'suratPerjanjian', 'desa', 'vendor', 'vendor.user'])->firstOrFail();
         if ($paket->akk_field == "0") {
-            return redirect()->route('admin.akk.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP SATU TERLEBIH DAHULU']);
+            if ($akses['role'] == 'desa') {
+                return redirect()->route('admin.akk.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI KAK DI STEP SATU TERLEBIH DAHULU']);
+            }
+            return redirect()->back()->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP SATU', 'message' => 'OPERATOR DESA BELUM MELENGKAPI KAK DI STEP SATU']);            
         }
 
-        if ($paket->hps_field == "0") {
-            return redirect()->route('admin.hps.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP SATU TERLEBIH DAHULU']);
+        if ($paket->hps_field == "0") {            
+            if ($akses['role'] == 'desa') {
+                return redirect()->route('admin.hps.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP SATU', 'message' => 'LENGKAPI HPS DI STEP SATU TERLEBIH DAHULU']);
+            }
+            return redirect()->back()->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP SATU', 'message' => 'OPERATOR DESA BELUM MELENGKAPI HPS DI STEP SATU']);
         }
 
         if ($paket->undangan_field == "0") {
-            return redirect()->route('admin.undangan.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP SATU TERLEBIH DAHULU']);
+            if ($akses['role'] == 'desa') {
+                return redirect()->route('admin.undangan.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP SATU', 'message' => 'LENGKAPI UNDANGAN DI STEP SATU TERLEBIH DAHULU']);
+            }
+            return redirect()->back()->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP SATU', 'message' => 'OPERATOR DESA BELUM MELENGKAPI UNDANGAN DI STEP SATU']);
         }
 
         if ($paket->evaluasi_field == "0") {
-            return redirect()->route('admin.evaluasi-penawaran.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP DUA TERLEBIH DAHULU']);
+            if ($akses['role'] == 'desa') {
+                return redirect()->route('admin.evaluasi-penawaran.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI EVALUASI PENAWARAN DI STEP DUA TERLEBIH DAHULU']);
+            }
+            return redirect()->back()->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'OPERATOR DESA BELUM MELENGKAPI EVALUASI PENAWARAN DI STEP DUA']);
         }
 
         if ($paket->hasil_evaluasi_field == "0") {
-            return redirect()->route('admin.hasil-evaluasi-penawaran.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP DUA TERLEBIH DAHULU']);
+            if ($akses['role'] == 'desa') {
+                return redirect()->route('admin.hasil-evaluasi-penawaran', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI HASIL EVALUASI PENAWARAN DI STEP DUA TERLEBIH DAHULU']);
+            }
+            return redirect()->back()->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'OPERATOR DESA BELUM MELENGKAPI HASIL EVALUASI PENAWARAN DI STEP DUA']);
         }
 
         if ($paket->nego_harga_field == "0") {
-            return redirect()->route('admin.nego-harga.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP DUA TERLEBIH DAHULU']);
+            if ($akses['role'] == 'desa') {
+                return redirect()->route('admin.nego-harga.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI HASIL HASIL NEGO HARGA DI STEP DUA TERLEBIH DAHULU']);
+            }
+            return redirect()->back()->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'OPERATOR DESA BELUM MELENGKAPI HASIL HASIL NEGO HARGA DI STEP DUA']);
         }
 
         if ($paket->perjanjian_field == "0") {
-            return redirect()->route('admin.surat-perjanjian.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP DUA TERLEBIH DAHULU']);
+            if ($akses['role'] == 'desa') {
+                return redirect()->route('admin.surat-perjanjian.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI HASIL SURAT PERJANJIAN DI STEP DUA TERLEBIH DAHULU']);
+            }
+            return redirect()->back()->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'OPERATOR DESA BELUM MELENGKAPI HASIL SURAT PERJANJIAN DI STEP DUA']);
         }
         
         $pdf   = PDF::loadView('backend.paket.cetak.step_kedua', compact('paket'));
