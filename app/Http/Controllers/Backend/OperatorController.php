@@ -103,7 +103,7 @@ class OperatorController extends Controller
             }
             $update->update($data); 
             DB::commit();
-            return response()->json(['status' => 'info', 'message' => 'UBAH DATA ' .$update->name. ' BERHASIL']);
+            return response()->json(['status' => 'success', 'message' => 'UBAH DATA ' .$update->name. ' BERHASIL']);
         } catch (QueryException $qe) {
             DB::rollback();
             return response()->json(['status' => 'error', 'message' => 'Terjadi Kesalah Pada Server, Mohon Di Ulangi']);

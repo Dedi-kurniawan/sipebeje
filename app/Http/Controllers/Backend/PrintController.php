@@ -45,8 +45,37 @@ class PrintController extends Controller
 
     public function printStepKedua($id)
     {
+        
         $akses = $this->aksesRole();
         $paket = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->with(['evaluasiPenawaran', 'negoHarga', 'suratPerjanjian', 'desa', 'vendor', 'vendor.user'])->firstOrFail();
+        if ($paket->akk_field == "0") {
+            return redirect()->route('admin.akk.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP SATU TERLEBIH DAHULU']);
+        }
+
+        if ($paket->hps_field == "0") {
+            return redirect()->route('admin.hps.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP SATU TERLEBIH DAHULU']);
+        }
+
+        if ($paket->undangan_field == "0") {
+            return redirect()->route('admin.undangan.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP SATU TERLEBIH DAHULU']);
+        }
+
+        if ($paket->evaluasi_field == "0") {
+            return redirect()->route('admin.evaluasi-penawaran.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP DUA TERLEBIH DAHULU']);
+        }
+
+        if ($paket->hasil_evaluasi_field == "0") {
+            return redirect()->route('admin.hasil-evaluasi-penawaran.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP DUA TERLEBIH DAHULU']);
+        }
+
+        if ($paket->nego_harga_field == "0") {
+            return redirect()->route('admin.nego-harga.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP DUA TERLEBIH DAHULU']);
+        }
+
+        if ($paket->perjanjian_field == "0") {
+            return redirect()->route('admin.surat-perjanjian.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP DUA TERLEBIH DAHULU']);
+        }
+        
         $pdf   = PDF::loadView('backend.paket.cetak.step_kedua', compact('paket'));
         return $pdf->setPaper('a4', 'potrait')->stream();
     }
