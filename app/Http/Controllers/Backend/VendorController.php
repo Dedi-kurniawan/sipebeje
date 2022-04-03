@@ -51,9 +51,8 @@ class VendorController extends Controller
     {
         DB::beginTransaction();
         try {
-            $data   = $request->only(['nama_perusahaan', 'alamat', 'email_perusahaan', 'telepon', 'kecamatan_id', 'desa_id', 'npwp']);
+            $data   = $request->only(['nama_perusahaan', 'alamat', 'email_perusahaan', 'telepon', 'kecamatan_id', 'desa_id', 'npwp', 'deskripsi']);
             $akses  = $this->aksesRole();
-            $data['create_by']    = $this->userId();
             $create = Vendor::create($data); 
             $user = User::create([
                 'name'      => $request->name,
@@ -68,7 +67,7 @@ class VendorController extends Controller
             return redirect()->back()->with(['status' => 'success', 'action' => 'success', 'title' => 'TAMBAH DATA', 'message' => $create->nama_perusahaan.'  BERHASIL DI TAMBAH']);
         } catch (QueryException $qe) {
             DB::rollback();
-            return response()->json(['status' => 'error', 'message' => 'Terjadi Kesalah Pada Server, Mohon Di Ulangi']);
+            return redirect()->back()->with(['status' => 'error', 'message' => 'Terjadi Kesalah Pada Server, Mohon Di Ulangi']);
         }
     }
 

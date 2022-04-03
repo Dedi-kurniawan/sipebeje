@@ -60,7 +60,7 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="email_perusahaan" class="form-label">E-mail perusahaan</label>
-                                    <input name="email_perusahaan" type="email" class="form-control {{ $errors->has('email_perusahaan') ? 'is-invalid' : '' }}" id="email_perusahaan" value="{{ old('email_perusahaan') }}" placeholder="Email perusahaan" required>
+                                    <input name="email_perusahaan" type="email" class="form-control {{ $errors->has('email_perusahaan') ? 'is-invalid' : '' }}" id="email_perusahaan" value="{{ old('email_perusahaan') }}" placeholder="Email perusahaan">
                                     {!! $errors->first('email_perusahaan', '<label id="email_perusahaan-error" class="error invalid-feedback" for="email_perusahaan">:message</label>')!!}
                                 </div>
                             </div>
@@ -91,12 +91,21 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-3">
+                                    <label for="deskripsi" class="form-label">Deskripsi Usaha<span class="text-danger">*</span></label>
+                                    <textarea name="deskripsi" class="form-control {{ $errors->has('deskripsi') ? 'is-invalid' : '' }}" id="deskripsi" rows="4" placeholder="Deskripsi..." required>{{ old('deskripsi') }}</textarea>
+                                    {!! $errors->first('deskripsi', '<label id="deskripsi-error" class="error invalid-feedback" for="deskripsi">:message</label>')!!}
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
                                     <label for="alamat" class="form-label">Alamat <span class="text-danger">*</span></label>
                                     <textarea name="alamat" class="form-control {{ $errors->has('alamat') ? 'is-invalid' : '' }}" id="alamat" rows="4" placeholder="Alamat..." required>{{ old('alamat') }}</textarea>
                                     {!! $errors->first('alamat', '<label id="alamat-error" class="error invalid-feedback" for="alamat">:message</label>')!!}
                                 </div>
                             </div>
-                        </div> 
+                        </div>                         
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">

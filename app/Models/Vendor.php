@@ -12,7 +12,7 @@ class Vendor extends Model
     protected $table = "vendor";
     
     protected $fillable = [
-        'nama_perusahaan', 'alamat', 'logo', 'email_perusahaan', 'telepon', 'kecamatan_id', 'desa_id', 'kategori_id', 'npwp', 'create_by'
+        'nama_perusahaan', 'alamat', 'logo', 'email_perusahaan', 'telepon', 'kecamatan_id', 'desa_id', 'kategori_id', 'npwp', 'deskripsi'
     ];
 
     public function kecamatan()

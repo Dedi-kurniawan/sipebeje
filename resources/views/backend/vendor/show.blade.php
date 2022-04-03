@@ -24,9 +24,11 @@
                         {{ $show->nama_perusahaan }}
                     </h3>
                     <div class="badge bg-secondary text-light mb-3">{{ $show->npwp }}</div>
-
+                    <h5>Deskripsi Usaha:</h5>
+                    <p class="text-muted mb-2">
+                        {{ $show->deskripsi }}
+                    </p>
                     <h5>Alamat:</h5>
-
                     <p class="text-muted mb-2">
                         {{ $show->alamat }}
                     </p>
