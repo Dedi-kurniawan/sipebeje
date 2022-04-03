@@ -32,12 +32,10 @@
                             <div class="col-md-3">
                                 <div class="me-sm-3">
                                     <label for="status-select" class="me-2">Kecamatan</label>
-                                    <select class="form-select my-1 my-md-0 select_filter" id="kecamatan_filter"
-                                        {{ $akses['disabled_kecamatan'] }}>
+                                    <select class="form-select my-1 my-md-0 select_filter" id="kecamatan_filter">
+                                        <option value="">SEMUA KECAMATAN</option>
                                         @foreach ($kecamatan as $k)
-                                        <option value="{{ $k->id }}"
-                                            {{ $k->id == $akses['kecamatan_id'] ? "selected" : "" }}>{{ $k->nama }}
-                                        </option>
+                                            <option value="{{ $k->id }}">{{ $k->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -45,9 +43,8 @@
                             <div class="col-md-3">
                                 <div class="me-sm-3">
                                     <label for="status-select" class="me-2">Desa</label>
-                                    <input type="hidden" id="desa_filter_value" value="{{ $akses['desa_id'] }}">
-                                    <select class="form-select my-1 my-md-0 select_filter" id="desa_filter"
-                                        {{ $akses['disabled_desa'] }}>
+                                    <select class="form-select my-1 my-md-0 select_filter" id="desa_filter">
+                                        <option value="">SEMUA DESA</option>
                                     </select>
                                 </div>
                             </div>
@@ -67,18 +64,24 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    @if ($akses['role'] == "admin" || $akses['role'] == "kabupaten")
+                        <a href="{{ route('admin.vendor.create') }}" class="btn btn-sm btn-blue waves-effect waves-light float-end">
+                            <i class="mdi mdi-plus-circle"></i> Data Baru
+                        </a>
+                    @endif
                     <h4 class="header-title">Menampilkan Data {{ $bread['second'] }}</h4>
                     <p class="text-muted font-13 mb-4">
                         Total : <span id="total_data"></span> {{ $bread['second'] }}</span>
                     </p>
-                    <table id="dt_paket" class="table dt-responsive nowrap w-100">
+                    <table id="datatable" class="table dt-responsive nowrap w-100">
                         <thead>
                             <tr>
                                 <th>NO</th>
                                 <th>DESA</th>
-                                <th>NAMA PAKET</th>
-                                <th>HPS</th>
-                                <th>CETAK</th>
+                                <th>NAMA</th>
+                                <th>NPWP</th>
+                                <th>TELEPON</th>
+                                <th>ALAMAT</th>
                                 <th>AKSI</th>
                             </tr>
                         </thead>
@@ -91,6 +94,6 @@
 </div>
 @endsection
 @push('scripts')
-<script src="{{ asset('template/barangjasa/admin/paket-admin.js') }}?{{ date('ymdshi') }}"></script>
+<script src="{{ asset('template/barangjasa/admin/vendor.js') }}?{{ date('ymdshi') }}"></script>
 @include('layouts.frontend.partials.notif')
 @endpush

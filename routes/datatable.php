@@ -8,6 +8,7 @@ Route::group(['prefix' => 'admin/master'], function () {
     Route::post('kategori', [App\Http\Controllers\DataTable\MasterController::class, 'kategori']);
     Route::post('operator', [App\Http\Controllers\DataTable\MasterController::class, 'operator']);
     Route::post('aparatur', [App\Http\Controllers\DataTable\MasterController::class, 'aparatur']);
+    Route::post('vendor', [App\Http\Controllers\DataTable\MasterController::class, 'vendor']);
     Route::post('paket', [App\Http\Controllers\DataTable\PaketController::class, 'paket']);
     Route::post('hps', [App\Http\Controllers\DataTable\PaketController::class, 'hps']);
     Route::post('undangan-vendor', [App\Http\Controllers\DataTable\PaketController::class, 'undanganVendor']);

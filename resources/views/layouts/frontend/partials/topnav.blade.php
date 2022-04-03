@@ -18,11 +18,11 @@
                             <i class="fe-book me-1"></i> Kontak Kami
                         </a>
                     </li>  
-                    <li class="nav-item dropdown">
+                    {{-- <li class="nav-item dropdown">
                         <a class="nav-link arrow-none" href="{{ route('frontend.register.index') }}">
                             <i class="fe-users me-1"></i> Daftar Vendor
                         </a>
-                    </li>                                        
+                    </li>                                         --}}
                 </ul> 
             </div> 
         </nav>

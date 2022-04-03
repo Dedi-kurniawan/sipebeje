@@ -43,9 +43,9 @@
                         <li class="nav-item">
                             <a href="#contact" class="nav-link">Kontak Kami</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('frontend.register.index') }}" class="nav-link">Daftar Vendor</a>
-                        </li>
+                        </li> --}}
                     </ul>
                     @guest
                         <a href="{{ route('frontend.login') }}" class="btn btn-info navbar-btn">Login</a>

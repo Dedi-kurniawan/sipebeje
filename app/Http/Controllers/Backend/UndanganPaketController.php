@@ -31,10 +31,9 @@ class UndanganPaketController extends Controller
     public function undanganKonfirmasi($id)
     {
         $bread    = $this->bread('Main Menu', 'Undangan', 'Konfirmasi Undangan', route('admin.undangan.paket'));
-        $show     = Paket::where('id', $id)->with(['desa', 'undangan', 'desa.kecamatan'])->firstOrFail();
+        $show     = Paket::where('id', $id)->with(['desa', 'undangan', 'desa.kecamatan', 'hpsTable'])->firstOrFail();
         $undangan = UndanganVendor::where('undangan_id', $show->undangan->id)->where('vendor_id', $this->vendorId())->firstOrFail();
-        $material = UndanganMaterial::where('undangan_id', $show->undangan->id)->get();
-        return view('backend.undangan.undangan', compact('bread', 'show', 'undangan', 'material'));   
+        return view('backend.undangan.undangan', compact('bread', 'show', 'undangan'));   
     }
 
     public function undanganKonfirmasiPost(Request $request)

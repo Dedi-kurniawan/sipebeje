@@ -31,7 +31,7 @@ class ProfileDesaRequest extends FormRequest
             'telepon'          => 'required',
             'pendamping_desa'  => 'required',
             'alamat'           => 'required',
-            'logo'             => 'required|image|mimes:jpeg,png,jpg|max:2048|dimensions:min_width=200,min_height=200,max_width=300,max_height=300',
+            // 'logo'             => 'required|image|mimes:jpeg,png,jpg|max:2048|dimensions:min_width=200,min_height=200,max_width=300,max_height=300',
         ];
     }
 }

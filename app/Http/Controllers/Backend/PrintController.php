@@ -31,7 +31,7 @@ class PrintController extends Controller
         $pdf = PDF::loadView('backend.paket.cetak.print_undangan', compact('undanganVendor', 'paket'));
         return $pdf->download('surat_undangan.pdf');
         // $pdf = PDF::loadView('backend.paket.cetak.print_undangan', compact('undanganVendor'));    
-        // return $pdf->stream();
+        // return $pdf->setPaper('a4', 'potrait')->stream();
         // return view('backend.paket.cetak.print_undangan', compact('undanganVendor'));
     }
 
@@ -40,7 +40,8 @@ class PrintController extends Controller
         $akses = $this->aksesRole();
         $paket = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->with(['akk', 'hpsTable'])->firstOrFail();
         $pdf   = PDF::loadView('backend.paket.cetak.step_pertama_print', compact('paket'));
-        return $pdf->setPaper('a4', 'potrait')->stream();
+        // return $pdf->setPaper('a4', 'potrait')->stream();
+        return $pdf->setPaper('a4', 'potrait')->download('step_pertama.pdf');
     }
 
     public function printStepKedua($id)
@@ -78,7 +79,7 @@ class PrintController extends Controller
 
         if ($paket->hasil_evaluasi_field == "0") {
             if ($akses['role'] == 'desa') {
-                return redirect()->route('admin.hasil-evaluasi-penawaran', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI HASIL EVALUASI PENAWARAN DI STEP DUA TERLEBIH DAHULU']);
+                return redirect()->route('admin.hasil-evaluasi-penawaran.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI HASIL EVALUASI PENAWARAN DI STEP DUA TERLEBIH DAHULU']);
             }
             return redirect()->back()->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'OPERATOR DESA BELUM MELENGKAPI HASIL EVALUASI PENAWARAN DI STEP DUA']);
         }
@@ -98,7 +99,7 @@ class PrintController extends Controller
         }
         
         $pdf   = PDF::loadView('backend.paket.cetak.step_kedua', compact('paket'));
-        return $pdf->setPaper('a4', 'potrait')->stream();
+        return $pdf->setPaper('a4', 'potrait')->download();
     }
 
     public function printKak($id)

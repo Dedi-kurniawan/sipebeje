@@ -83,7 +83,7 @@
             <table width="100%">
                 <tr>
                     <td>
-                        <img alt="Logo" src="{{ $paket->desa->PhotoPath }}" class="text-right" align="bottom" width="70" height="80" />
+                        <img alt="Logo" src="{{ asset('template/images/logo/logo-sm.png') }}" class="text-right" align="bottom" width="70" height="80" />
                     </td>
                     <td class="text-center">
                         <div class="kop-surat">

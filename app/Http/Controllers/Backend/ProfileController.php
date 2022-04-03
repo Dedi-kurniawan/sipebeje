@@ -77,10 +77,10 @@ class ProfileController extends Controller
             ]);
             $desa = Desa::findOrFail($user->desa_id);
             $data = $request->except('logo');
-            $dir = "";
-            $imageName = date('Ymdhis').'.'.$request->logo->extension();   
-            $request->logo->move(public_path('template/images/desa/'), $imageName);
-            $data['logo'] = $imageName;
+            // $dir = "";
+            // $imageName = date('Ymdhis').'.'.$request->logo->extension();   
+            // $request->logo->move(public_path('template/images/desa/'), $imageName);
+            // $data['logo'] = $imageName;
             $desa->update($data);
             DB::commit();
             return redirect()->back()->with(['status' => 'success', 'action' => 'success', 'title' =>  'PROFILE DESA', 'message' => 'profile berhasil di update']);

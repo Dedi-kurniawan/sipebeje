@@ -18,10 +18,17 @@
             <span> Aparatur Desa</span>
         </a>
     </li>
+    <li>
+        <a href="{{ route('admin.vendor.index') }}">
+            <i data-feather="home"></i>
+            <span>Vendor</span>
+        </a>
+    </li>
      <li>
         <a href="{{ route('admin.profile.desa') }}">
             <i data-feather="bar-chart-2"></i>
             <span>Profile Desa</span>
         </a>
     </li>
+    
 </ul>

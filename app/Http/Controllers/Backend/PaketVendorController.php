@@ -18,7 +18,7 @@ class PaketVendorController extends Controller
     {
         $bread    = $this->bread('Main Menu', 'Paket', 'Detail Paket', route('admin.undangan.paket'));
         $akses    = $this->aksesRole();
-        $show     = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->with(['akk', 'hpsTable', 'undanganVendor'])->firstOrFail();
+        $show     = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->with(['akk', 'hpsTable'])->firstOrFail();
         return view('backend.paketVendor.show', compact('bread', 'show'));
     }
 }

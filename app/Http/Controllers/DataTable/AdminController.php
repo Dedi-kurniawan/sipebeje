@@ -30,6 +30,9 @@ class AdminController extends Controller
                     'id' => $data->id,
                 ]);
             })
+            ->addColumn('action', function ($data) {
+                return "<button id='deleteData' data-id='$data->id' data-name='$data->nama' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash'></i> Hapus</button>";
+            })
             ->rawColumns(['action', 'nama_format'])
             ->toJson();
     }

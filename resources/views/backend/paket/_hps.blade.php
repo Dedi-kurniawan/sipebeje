@@ -57,6 +57,8 @@
                             <option value="10">10 %</option>
                             <option value="11">11 %</option>
                             <option value="11.5">11.5 %</option>
+                            <option value="12.5">12.5 %</option>
+                            <option value="13.5">13.5 %</option>
                         </select>
                         {!! $errors->first('pajak', '<label id="pajak-error" class="error invalid-feedback" for="pajak">:message</label>')!!}
                     </div>

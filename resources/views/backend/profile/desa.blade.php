@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        {{-- <div class="col-6">
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Logo <span class="text-danger">*</span></label> <br>
                                 <img id="img" src="{{ $desa->desa->PhotoPath }}" class="rounded-circle img-thumbnail text-center" alt="profile-image" width="120" height="120">
@@ -60,7 +60,7 @@
                                 <span class="form-text text-muted">Hanya mendukung: png, jpg, jpeg</span>
                                 <p class="error-image text-danger font-italic text-small">{!! $errors->first('logo') !!}</p>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Kepala Desa <span class="text-danger">*</span></label>

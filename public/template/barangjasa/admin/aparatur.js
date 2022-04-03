@@ -310,8 +310,6 @@ $("#kecamatan_filter").on("change", function (e) {
     return getFilterDesa($("#kecamatan_filter").val());
 });
 
-getFilterDesa($("#kecamatan_filter").val(), $("#desa_filter_value").val());
-
 function getFilterDesa(kecamatan_id, desa_id) {
     $.ajax({
         url: HOST_URL + '/admin/get-desa',

@@ -16,13 +16,17 @@ class BaseController extends Controller
     public function aksesRole()
     {
         if (Auth::user()->role == "desa") {
-            $desa_id        = Auth::user()->desa_id;
+            $desa_id   = Auth::user()->desa_id;
+            $user_id   = Auth::user()->id;
         }else{
-            $desa_id        = "";
+            $desa_id   = "";
+            $user_id   = "";
         }
         return [
             'desa_id' => $desa_id,
             'vendor_id' => Auth::user()->vendor_id,
+            'user_id' => $user_id,
+            'role' => Auth::user()->role,
         ];
     }
 }

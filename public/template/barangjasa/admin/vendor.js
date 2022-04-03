@@ -1,11 +1,31 @@
 "use strict";
 
-var dt_paket = $('#dt_paket').DataTable({
+$("#kecamatan_filter").on("change", function (e) {
+    return getFilterDesa($("#kecamatan_filter").val());
+});
+
+function getFilterDesa(kecamatan_id, desa_id) {
+    $.ajax({
+        url: HOST_URL + '/admin/get-desa',
+        method: "GET",
+        data: {
+            kecamatan_id : kecamatan_id,
+            desa_id : desa_id,
+        },
+        dataType: 'json',
+        success: function(data) {
+            console.log(data)
+            $("#desa_filter").html('');
+            $("#desa_filter").html(data.options);
+            return false;
+        }
+    });
+} 
+
+var table = $('#datatable').DataTable({
     processing: true,
     serverSide: true,
-    "scrollX": true,
-    searching: false,
-    responsive: false,
+    responsive: true,
     "pageLength": 50,
     "lengthMenu": [
         [25, 50, 100, 200, -1],
@@ -13,12 +33,12 @@ var dt_paket = $('#dt_paket').DataTable({
     ],
     ajax: {
         method: 'POST',
-    	url: HOST_URL + '/dt/admin/master/paket-admin',  
+    	url: HOST_URL + '/dt/admin/master/vendor',  
         data: function (d) {
-            d.nama = $("#nama_filter").val();
-            d.status = $("#status_filter").val();
+            d.kecamatan_id = $("#kecamatan_filter").val();
             d.desa_id = $("#desa_filter").val();
-        }         
+            d.nama_perusahaan = $("#nama_filter").val();
+        }     
     },
     columns: [{
             data: 'DT_RowIndex',
@@ -32,20 +52,26 @@ var dt_paket = $('#dt_paket').DataTable({
             searchable: false,
         },
         {
-            data: 'nama_format',
-            name: 'nama_format',
+            data: 'nama_perusahaan',
+            name: 'nama_perusahaan',
             orderable: false,
             searchable: false,
         },
         {
-            data: 'hps_format',
-            name: 'hps_format',
+            data: 'npwp',
+            name: 'npwp',
             orderable: false,
             searchable: false,
         },
         {
-            data: 'cetak',
-            name: 'cetak',
+            data: 'telepon',
+            name: 'telepon',
+            orderable: false,
+            searchable: false,
+        },
+        {
+            data: 'alamat',
+            name: 'alamat',
             orderable: false,
             searchable: false,
         },
@@ -54,7 +80,8 @@ var dt_paket = $('#dt_paket').DataTable({
             name: 'action',
             orderable: false,
             searchable: false,
-        }      
+        }
+        
     ],
     columnDefs: [{
         "targets": '_all',
@@ -80,21 +107,21 @@ var dt_paket = $('#dt_paket').DataTable({
         $("#total_data").html(json.recordsTotal);
         $(".dataTables_paginate > .pagination").addClass("pagination-rounded");
         finishLoadingFilter();
-    },
+    }
 });
 
-$("#button_filter").on("click", function () {
+$("#button_filter").on("click", function() {
     startLoadingFilter();
-    dt_paket.ajax.reload(null, false);
+    table.ajax.reload();
 });
 
-$("#kecamatan_filter").on("change", function (e) {
-    return getFilterDesa($("#kecamatan_filter").val());
+$("#kecamatan_id").on("change", function (e) {
+    return getDesa($("#kecamatan_id").val(), "");
 });
 
-getFilterDesa($("#kecamatan_filter").val(), $("#desa_filter_value").val());
+getDesa($("#kecamatan_id").val(), $("#desa_selected").val());
 
-function getFilterDesa(kecamatan_id, desa_id) {
+function getDesa(kecamatan_id, desa_id) {
     $.ajax({
         url: HOST_URL + '/admin/get-desa',
         method: "GET",
@@ -105,8 +132,8 @@ function getFilterDesa(kecamatan_id, desa_id) {
         dataType: 'json',
         success: function(data) {
             console.log(data)
-            $("#desa_filter").html('');
-            $("#desa_filter").html(data.options);
+            $("#desa_id").html('');
+            $("#desa_id").html(data.options);
             return false;
         }
     });
@@ -114,8 +141,7 @@ function getFilterDesa(kecamatan_id, desa_id) {
 
 $(document).on('click', '#deleteData', function (e) {
     e.preventDefault();
-    var id = $(this).data('id');
-    console.log(id)
+    var id   = $(this).data('id');
     var name = $(this).data('name');
     Swal.fire({
         title: "Apakah kamu yakin?",
@@ -127,27 +153,27 @@ $(document).on('click', '#deleteData', function (e) {
         reverseButtons: true
     }).then(function (result) {
         if (result.value) {
-            var title = "Hapus Paket";
+            var title = "Hapus Data";
             var action = "delete";
             $.ajax({
-                url: HOST_URL + '/admin/paket/' + id,
+                url: HOST_URL + '/admin/vendor/' + id,
                 method: "DELETE",
                 dataType: 'json',
                 success: function (d) {
                     finishLoading();
                     console.log(d)
                     if (d.status == 'success') {
-                        dt_paket.ajax.reload(null, false);
-                        notifToast('warning', title, d.message);
+                        table.ajax.reload(null, false);
+                        notifToast("error", title, d.message);
                         return false;
                     } else if (d.status == 'error') {
-                        dt_paket.ajax.reload(null, false);
-                        notifToast("error", title + " GAGAL" , d.message);
+                        table.ajax.reload(null, false);
+                        notifToast("warning", title + " GAGAL" , d.message);
                         return false;
                     }
                 },
                 error: function (json) {
-                    dt_paket.ajax.reload(null, false);
+                    table.ajax.reload(null, false);
                     notifToast("error", title +" GAGAL" , " Minta admin untuk menghapus data");
                     return false;
                 },

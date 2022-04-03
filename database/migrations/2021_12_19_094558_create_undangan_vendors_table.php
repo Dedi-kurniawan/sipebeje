@@ -17,7 +17,7 @@ class CreateUndanganVendorsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('undangan_id');
             $table->foreign('undangan_id')->references('id')->on('undangan')->onDelete('cascade');
-            $table->unsignedBigInteger('vendor_id')->comment('ikut tender')->onDelete('cascade');;
+            $table->unsignedBigInteger('vendor_id')->comment('ikut tender')->onDelete('cascade');
             $table->foreign('vendor_id')->references('id')->on('vendor');
             $table->enum('status', ['0', '1', '2'])->comment('0 : belum di konfirmasi, 1 : tidak ikut, 2 : ikut');
             $table->timestamps();

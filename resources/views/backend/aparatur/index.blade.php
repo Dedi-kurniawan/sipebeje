@@ -45,9 +45,11 @@
                             <div class="col-md-3">
                                 <div class="me-sm-3">
                                     <label for="status-select" class="me-2">Desa</label>
-                                    <input type="hidden" id="desa_filter_value" value="{{ $akses['desa_id'] }}">
-                                    <select class="form-select my-1 my-md-0 select_filter" id="desa_filter"
-                                        {{ $akses['disabled_desa'] }}>
+                                    <select class="form-select my-1 my-md-0 select_filter" id="desa_filter" {{ $akses['disabled_desa'] }}>
+                                        @if ($akses['role'] == "desa")
+                                            <option value="{{ $akses['desa_id'] }}">{{ $akses['desa'] }}</option>
+                                        @endif 
+                                            <option value="">SEMUA DESA</option>
                                     </select>
                                 </div>
                             </div>

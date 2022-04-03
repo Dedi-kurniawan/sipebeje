@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth'], function () {
-    Route::group(['middleware' => 'fullfield'], function () {
+    // Route::group(['middleware' => 'fullfield'], function () {
+        Route::resource('/vendor', App\Http\Controllers\Backend\VendorController::class);
         Route::resource('/kecamatan', App\Http\Controllers\Backend\KecamatanController::class);
         Route::resource('/desa', App\Http\Controllers\Backend\DesaController::class);
         Route::resource('/kategori', App\Http\Controllers\Backend\KategoriController::class);
@@ -52,7 +53,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth'], fu
         Route::get('/paket-vendor/{id}/show', [App\Http\Controllers\Backend\PaketVendorController::class, 'show'])->name('paket-vendor.show');
         Route::get('/paket-admin', [App\Http\Controllers\Backend\PaketAdminController::class, 'index'])->name('paket-admin.index');
         Route::get('/paket-admin/{id}/show', [App\Http\Controllers\Backend\PaketAdminController::class, 'show'])->name('paket-admin.show');        
-    });
+    // });
     Route::get('profile-vendor', [App\Http\Controllers\Backend\ProfileController::class, 'vendor'])->name('profile.vendor');
     Route::post('profile-vendor', [App\Http\Controllers\Backend\ProfileController::class, 'vendorPost'])->name('profile.vendor.post');
     Route::get('profile-desa', [App\Http\Controllers\Backend\ProfileController::class, 'desa'])->name('profile.desa');
@@ -68,7 +69,7 @@ Route::group(['as' => 'frontend.'], function () {
     Route::get('get-desa', [App\Http\Controllers\Frontend\WelcomeController::class, 'getDesa']);
     Route::get('show/{id}', [App\Http\Controllers\Frontend\WelcomeController::class, 'show'])->name('welcome.show');
     Route::get('/kontak-kami', [App\Http\Controllers\Frontend\WelcomeController::class, 'kontak'])->name('welcome.kontak');
-    Route::resource('/register', App\Http\Controllers\Frontend\RegisterController::class);
+    // Route::resource('/register', App\Http\Controllers\Frontend\RegisterController::class);
     Route::get('login', [App\Http\Controllers\Frontend\LoginController::class, 'formLogin'])->name('login');
     Route::post('login', [App\Http\Controllers\Frontend\LoginController::class, 'login'])->name('login.post');
     Route::post('logout', [App\Http\Controllers\Frontend\LoginController::class, 'logout'])->name('logout');

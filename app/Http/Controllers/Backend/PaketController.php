@@ -221,7 +221,7 @@ class PaketController extends Controller
         DB::beginTransaction();
         try {
             $akses  = $this->aksesRole();
-            $delete = Paket::where('id', $id)->where('desa_id', $akses['desa_id'])->firstOrFail();
+            $delete = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->firstOrFail();
             if ($akses['role'] == "desa") {
                 if ($delete->status != "selesai") {
                     $delete->delete();
@@ -232,7 +232,6 @@ class PaketController extends Controller
                 }
             }            
             $delete->delete();
-            return response()->json(['status' => 'success', 'message' => 'HAPUS '. $delete->nama. ' BERHASIL']);
             DB::commit();
             return response()->json(['status' => 'success', 'message' => 'HAPUS '. $delete->nama. ' BERHASIL']);
         } catch (QueryException $qe) {

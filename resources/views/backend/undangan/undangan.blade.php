@@ -90,7 +90,7 @@
                                 @php
                                     $no = 1;
                                 @endphp
-                                @forelse ($material as $m)
+                                @forelse ($show->hpsTable as $m)
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $m->uraian }}</td>

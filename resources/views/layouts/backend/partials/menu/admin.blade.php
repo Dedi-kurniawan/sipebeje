@@ -18,6 +18,12 @@
             <span> Aparatur Desa</span>
         </a>
     </li>
+    <li>
+        <a href="{{ route('admin.vendor.index') }}">
+            <i data-feather="home"></i>
+            <span>Vendor</span>
+        </a>
+    </li>
     <li class="menu-title mt-2">MASTER</li>
     <li>
         <a href="#sidebarEcommerce" data-bs-toggle="collapse">

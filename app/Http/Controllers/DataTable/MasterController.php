@@ -8,6 +8,7 @@ use App\Models\Desa;
 use App\Models\Kategori;
 use App\Models\Kecamatan;
 use App\Models\User;
+use App\Models\Vendor;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 
@@ -77,9 +78,6 @@ class MasterController extends Controller
         $data = User::OfRole('desa')->with('desa')->orderby('name', 'asc');
         return DataTables::of($data)
         ->addIndexColumn()
-        ->addColumn('status_format', function($data){
-            return $data->StatusFormatAt;
-        })
         ->addColumn('action',function($data){
             $edit = route('admin.operator.edit', $data->id);
             return view('layouts.backend.partials.action.default',[
@@ -109,6 +107,33 @@ class MasterController extends Controller
                 'edit'  => $edit,
                 'id'    => $data->id,
                 'name'  => $data->nama,
+            ]);
+        })
+        ->rawColumns(['action', 'status_format'])
+        ->toJson();
+    }
+
+    public function vendor(Request $request)
+    {
+        $akses = $this->aksesRole();
+        $data = Vendor::OfKecamatan($request->kecamatan_id)
+                ->OfDesa($request->desa_id)
+                ->OfNama($request->nama_perusahaan)
+                ->with(['desa:id,nama'])
+                ->orderby('nama_perusahaan', 'asc');
+        return DataTables::of($data)
+        ->addIndexColumn()
+        ->addColumn('action',function($data) use ($akses){
+            $edit = route('admin.vendor.edit', $data->id);
+            $show = route('admin.vendor.show', $data->id);
+            return view('layouts.backend.partials.action.vendor',[
+                'edit'  => $edit,
+                'show'  => $show,
+                'id'    => $data->id,
+                'name'  => $data->nama_perusahaan,
+                'create_by' => $data->create_by,
+                'user_id'   => $akses['user_id'],
+                'role'      => $akses['role']
             ]);
         })
         ->rawColumns(['action', 'status_format'])
