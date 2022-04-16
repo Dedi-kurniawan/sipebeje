@@ -101,21 +101,47 @@
     </div>
     <br>
     <div class="f-11">
+        <div class="text-center">
+            <span class="text-bold">HARGA PERKIRAAN SENDIRI (HPS)</span><br>
+            <span class="text-bold text-uppercase">KEGIATAN {{ $paket->akk->kegiatan }} <br>
+                DUSUN {{ $paket->akk->dusun }} RT {{ $paket->akk->rt }}
+            </span>
+        </div>
+        <br>
         <table class="table-bordered">
             <tr>
                 <td>NO</td>
                 <td>URAIAN</td>
                 <td>VOLUME</td>
                 <td>SATUAN</td>
+                <td>HARGA SATUAN</td>                
+                <td>JUMLAH</td>
+                <td>PAJAK</td>
+                <td>TOTAL (Jumlah + Pajak)</td>
+                
             </tr>
+            @php
+                $total = 0; 
+            @endphp
             @foreach($paket->hpsTable as $hps)
+            @php
+                 $total += ($hps->jumlah + $hps->harga_pajak); 
+            @endphp
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $hps->uraian }}</td>
                     <td>{{ $hps->volume }}</td>
                     <td>{{ $hps->satuan }}</td>
+                    <td>{{ number_format($hps->harga_satuan,2,',','.') }}</td>
+                    <td>{{ number_format($hps->jumlah,2,',','.') }}</td>
+                    <td>{{ $hps->pajak }} %</td>
+                    <td>{{ number_format($hps->jumlah + $hps->harga_pajak,2,',','.') }}</td>
                 </tr>
             @endforeach
+            <tr>
+                <td colspan="6" class="text-bold">TOTAL</td>
+                <td colspan="2">Rp {{ number_format($total,2,',','.') }}</td>
+            </tr>
         </table>
     </div>
     <br>

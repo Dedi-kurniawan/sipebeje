@@ -82,7 +82,7 @@
                                     <th>NO</th>
                                     <th>URAIAN</th>
                                     <th>VOLUME</th>
-                                    <th>HARGA @</th>
+                                    {{-- <th>HARGA @</th> --}}
                                     <th>SATUAN</th>
                                 </tr>
                             </thead>
@@ -95,7 +95,7 @@
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $m->uraian }}</td>
                                         <td>{{ $m->volume }}</td>
-                                        <td>{{ number_format($m->harga_satuan,2,',','.') }}</td>
+                                        {{-- <td>{{ number_format($m->harga_satuan,2,',','.') }}</td> --}}
                                         <td>{{ $m->satuan }}</td>
                                     </tr>
                                 @empty
@@ -135,6 +135,7 @@
                                     <th>NO</th>
                                     <th>URAIAN</th>
                                     <th>VOLUME</th>
+                                    <th>HARGA @</th>
                                     <th>SATUAN</th>
                                 </tr>
                             </thead>
@@ -144,8 +145,10 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -155,7 +158,7 @@
                         </table>
                     </div>      
                     <div class="mt-2">
-                        ApabilaSaudara memerlukan keterangan dan penjelasan lebih lanjut, dapat menghubungi Tim Pengelola Kegiatan (TPK) Desa {{ $show->desa->nama }}. sesuai alamat tersebut diatas sampai dengan batas akhir pemasukan Dokumen Penawaran.
+                        Apabila Saudara memerlukan keterangan dan penjelasan lebih lanjut, dapat menghubungi Tim Pengelola Kegiatan (TPK) Desa {{ $show->desa->nama }}. sesuai alamat tersebut diatas sampai dengan batas akhir pemasukan Dokumen Penawaran.
                         <br>Demikian disampaikan untuk diketahui.
                     </div>   
                     <div class="float-end">

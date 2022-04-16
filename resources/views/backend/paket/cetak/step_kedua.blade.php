@@ -87,6 +87,7 @@
         <div class="text-center">
             <span>BERITA ACARA EVALUASI HARGA</span>
         </div>
+        <br>
         <span>Nomor &nbsp;&nbsp;&nbsp;&nbsp;: {{ $paket->evaluasiPenawaran->nomor }}</span><br>
         <span>Kegiatan &nbsp;: {{ $paket->evaluasiPenawaran->kegiatan }}</span>
         <p style="text-align: justify">
