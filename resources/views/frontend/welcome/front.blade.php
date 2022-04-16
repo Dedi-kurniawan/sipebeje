@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky-dark" id="sticky">
             <div class="container-fluid">
                 <!-- LOGO -->
-                <a class="logo text-uppercase" href="index.html">
+                <a class="logo text-uppercase" href="{{ url('/') }}">
                     <img src="{{ asset('template/images/logo/logo-light.png') }}" alt="" class="logo-light" height="30" />
                     <img src="{{ asset('template/images/logo/logo-dark.png') }}" alt="" class="logo-dark" height="30" />
                 </a>
