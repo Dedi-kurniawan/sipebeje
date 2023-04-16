@@ -39,7 +39,7 @@
                                     style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                     <tr>
                                         <td style="text-align: center">
-                                            <a href="#" style="display: block;margin-bottom: 10px;"> 
+                                            <a href="#" style="display: block;margin-bottom: 10px;">
                                                 <img src="https://diskominfo.bengkuluutarakab.go.id/wp-content/uploads/2019/11/Logo-Bengkulu-Utara-1-1.png" height="50" alt="logo" /></a>
                                             <br />
                                         </td>
@@ -66,7 +66,7 @@
                                             itemtype="http://schema.org/HttpActionHandler"
                                             style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
                                             valign="top">
-                                            <a href="{{ route('frontend.verify.code', $confirmation_code) }}" class="btn-primary" itemprop="url" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #6658dd; margin: 0; border-color: #6658dd; border-style: solid; border-width: 8px 16px;">Confirm email address</a>
+                                            <a href="#" class="btn-primary" itemprop="url" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #6658dd; margin: 0; border-color: #6658dd; border-style: solid; border-width: 8px 16px;">Confirm email address</a>
                                         </td>
                                     </tr>
                                     <tr
