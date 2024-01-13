@@ -9,6 +9,7 @@ use App\Models\Kategori;
 use App\Models\Kecamatan;
 use App\Models\User;
 use App\Models\Vendor;
+use App\Models\Satuan;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 
@@ -50,6 +51,23 @@ class MasterController extends Controller
             ]);
         })
         ->rawColumns(['action'])
+        ->toJson();
+    }
+
+    public function satuan()
+    {
+        $data = Satuan::orderby('nama', 'asc');
+        return DataTables::of($data)
+        ->addIndexColumn()
+        ->addColumn('action',function($data){
+            $edit = route('admin.satuan.edit', $data->id);
+            return view('layouts.backend.partials.action.default',[
+                'edit'  => $edit,
+                'id'    => $data->id,
+                'name'  => $data->nama,
+            ]);
+        })
+        ->rawColumns(['action', 'status_format'])
         ->toJson();
     }
 
@@ -139,5 +157,4 @@ class MasterController extends Controller
         ->rawColumns(['action', 'status_format'])
         ->toJson();
     }
-
 }

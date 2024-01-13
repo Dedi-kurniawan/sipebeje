@@ -21,7 +21,7 @@ var dt_paket = $('#dt_paket').DataTable({
         data: function (d) {
             d.search = $("#search_filter").val();
             d.status = $("#status_filter").val();
-        }         
+        }
     },
     columns: [{
             data: 'DT_RowIndex',
@@ -70,7 +70,6 @@ var dt_paket = $('#dt_paket').DataTable({
             orderable: false,
             searchable: false,
         }
-        
     ],
     columnDefs: [{
         "targets": '_all',
@@ -157,18 +156,16 @@ $('.rupiah').mask('000.000.000.000.000,00', {
 });
 
 $( "#hps" ).change(function() {
-    rupiahTerbilang($("#hps").val());    
+    rupiahTerbilang($("#hps").val());
 });
 
 $( "#terbilang_rupiah" ).click(function() {
-    rupiahTerbilang($("#hps").val());    
+    rupiahTerbilang($("#hps").val());
 });
-
 
 $("#cetakUndangan").click(function () {
     $("#").modal("show");
 });
-
 
 function rupiahTerbilang(rupiah) {
     var url   = HOST_URL + '/admin/rupiah-terbilang?rupiah='+ rupiah;

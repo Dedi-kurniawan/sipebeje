@@ -273,7 +273,7 @@
 <div style="float: right;">
     <table>
         <tr>
-            <td>Bengkulu Utara, {{ $paket->akk->CreatedAtFormat }}</td>
+            <td>{{ ucwords(strtolower($paket->desa->nama)) }}, {{ $paket->akk->CreatedAtFormat }}</td>
         </tr>
         <tr>
             <td>PELAKSANA KEGIATAN</td>

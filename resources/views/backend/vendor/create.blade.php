@@ -51,20 +51,29 @@
                         <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-office-building me-1"></i> PERUSAHAAN</h5>
                         <div class="row">
                             <div class="col-md-6">
+                                <label for="example-input-normal" class="form-label">Jenis Usaha</label>
+                                <select name="kategori_id" class="form-control selectFormClass" id="kategori_id">
+                                    <option value="">Jenis Usaha</option>
+                                    @foreach ($kategori as $x)
+                                        <option value="{{ $x->id }}">{{ $x->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="nama_perusahaan" class="form-label">Nama perusahaan <span class="text-danger">*</span></label>
                                     <input name="nama_perusahaan" type="text" class="form-control {{ $errors->has('nama_perusahaan') ? 'is-invalid' : '' }}" id="nama_perusahaan" value="{{ old('nama_perusahaan') }}" placeholder="Nama perusahaan" required>
                                     {!! $errors->first('nama_perusahaan', '<label id="nama_perusahaan-error" class="error invalid-feedback" for="nama_perusahaan">:message</label>')!!}
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="email_perusahaan" class="form-label">E-mail perusahaan</label>
                                     <input name="email_perusahaan" type="email" class="form-control {{ $errors->has('email_perusahaan') ? 'is-invalid' : '' }}" id="email_perusahaan" value="{{ old('email_perusahaan') }}" placeholder="Email perusahaan">
                                     {!! $errors->first('email_perusahaan', '<label id="email_perusahaan-error" class="error invalid-feedback" for="email_perusahaan">:message</label>')!!}
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">

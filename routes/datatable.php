@@ -6,6 +6,7 @@ Route::group(['prefix' => 'admin/master'], function () {
     Route::post('kecamatan', [App\Http\Controllers\DataTable\MasterController::class, 'kecamatan']);
     Route::post('desa', [App\Http\Controllers\DataTable\MasterController::class, 'desa']);
     Route::post('kategori', [App\Http\Controllers\DataTable\MasterController::class, 'kategori']);
+    Route::post('satuan', [App\Http\Controllers\DataTable\MasterController::class, 'satuan']);
     Route::post('operator', [App\Http\Controllers\DataTable\MasterController::class, 'operator']);
     Route::post('aparatur', [App\Http\Controllers\DataTable\MasterController::class, 'aparatur']);
     Route::post('vendor', [App\Http\Controllers\DataTable\MasterController::class, 'vendor']);
@@ -18,4 +19,10 @@ Route::group(['prefix' => 'admin/master'], function () {
     Route::post('undangan-paket', [App\Http\Controllers\DataTable\VendorController::class, 'undangan']);
     Route::post('paket-vendor', [App\Http\Controllers\DataTable\VendorController::class, 'paket']);
     Route::post('paket-admin', [App\Http\Controllers\DataTable\AdminController::class, 'paket']);
+    Route::post('surat-pesanan', [App\Http\Controllers\DataTable\AdminController::class, 'suratPesanan']);
+    Route::post('surat-pesanan-detail', [App\Http\Controllers\DataTable\AdminController::class, 'suratPesananDetail']);
+    Route::post('ba-barang', [App\Http\Controllers\DataTable\AdminController::class, 'baBarang']);
+    Route::post('ba-barang-detail', [App\Http\Controllers\DataTable\AdminController::class, 'baBarangDetail']);
+    Route::post('ba-pekerjaan', [App\Http\Controllers\DataTable\AdminController::class, 'baPekerjaan']);
+    Route::post('ba-pekerjaan-detail', [App\Http\Controllers\DataTable\AdminController::class, 'baPekerjaanDetail']);
 });

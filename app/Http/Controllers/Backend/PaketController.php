@@ -26,7 +26,9 @@ class PaketController extends Controller
     {
         $bread = $this->bread('Main Menu', 'Paket', 'Table', route('admin.paket.index'));
         $akses = $this->aksesRole();
-        $aparatur = Aparatur::where('desa_id', $akses['desa_id'])->get();
+        $aparatur = Aparatur::where('desa_id', $akses['desa_id'])
+                            ->whereNotIn('jabatan', ['KEPALA DESA', 'SEKRETARIS DESA', 'KAUR KEUANGAN'])
+                            ->get();
         return view('backend.paket.index', compact('bread', 'aparatur'));
     }
 
@@ -85,8 +87,9 @@ class PaketController extends Controller
         $akses    = $this->aksesRole();
         $aparatur = Aparatur::where('desa_id', $akses['desa_id'])->get();
         $edit     = Paket::where('id', $id)->where('desa_id', $akses['desa_id'])->firstOrFail();
+        $satuan   = Satuan::orderby('nama', 'asc')->get();
         $tab      = "paket";
-        return view('backend.paket.edit', compact('bread', 'aparatur', 'edit', 'tab'));
+        return view('backend.paket.edit', compact('bread', 'aparatur', 'edit', 'tab', 'satuan'));
     }
 
     public function update(PaketRequest $request, $id)
@@ -104,9 +107,9 @@ class PaketController extends Controller
                 return redirect()->route('admin.akk.edit', $update->id)->with(['status' => 'success', 'action' => 'success', 'title' =>  'UBAH PAKET', 'message' => 'UBAH PAKET BERHASIL']);
             }
 
-            if ($update->hps_field == "0") {
-                return redirect()->route('admin.hps.edit', $update->id)->with(['status' => 'success', 'action' => 'success', 'title' =>  'UBAH PAKET', 'message' => 'UBAH PAKET BERHASIL']);
-            }
+            // if ($update->hps_field == "0") {
+            //     return redirect()->route('admin.hps.edit', $update->id)->with(['status' => 'success', 'action' => 'success', 'title' =>  'UBAH PAKET', 'message' => 'UBAH PAKET BERHASIL']);
+            // }
 
             if ($update->undangan_field == "0") {
                 return redirect()->route('admin.undangan.edit', $update->id)->with(['status' => 'success', 'action' => 'success', 'title' =>  'UBAH PAKET', 'message' => 'UBAH PAKET BERHASIL']);
@@ -142,9 +145,9 @@ class PaketController extends Controller
             $update = Akk::findOrFail($paket->akk->id);
             $update->update($data);
             DB::commit();
-            if ($paket->hps_field == "0") {
-                return redirect()->route('admin.hps.edit', $paket->id)->with(['status' => 'success', 'action' => 'success', 'title' =>  'UBAH KAK', 'message' => 'UBAH KAK BERHASIL']);;
-            }
+            // if ($paket->hps_field == "0") {
+            //     return redirect()->route('admin.hps.edit', $paket->id)->with(['status' => 'success', 'action' => 'success', 'title' =>  'UBAH KAK', 'message' => 'UBAH KAK BERHASIL']);;
+            // }
 
             if ($paket->undangan_field == "0") {
                 return redirect()->route('admin.undangan.edit', $paket->id)->with(['status' => 'success', 'action' => 'success', 'title' =>  'UBAH KAK', 'message' => 'UBAH KAK BERHASIL']);;
@@ -172,9 +175,11 @@ class PaketController extends Controller
         try {
             $akses  = $this->aksesRole();
             $paket  = Paket::where('id', $request->paket_id)->where('desa_id', $akses['desa_id'])->firstOrFail();
+
             $paket->update([
                 'hps_field' => '1'
             ]);
+
             $data   = $request->all();
             $rupiah = str_replace('.', '', $request->harga_satuan);
             $harga = substr($rupiah, 0, -3);
@@ -230,7 +235,7 @@ class PaketController extends Controller
                 }else {
                     return response()->json(['status' => 'error', 'message' => 'Hanya Admin kabupaten yang di izinkan hapus data']);
                 }
-            }            
+            }
             $delete->delete();
             DB::commit();
             return response()->json(['status' => 'success', 'message' => 'HAPUS '. $delete->nama. ' BERHASIL']);

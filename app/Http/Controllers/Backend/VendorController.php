@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Backend\BaseController as Controller;
 use App\Http\Requests\VendorRequest;
+use App\Models\Kategori;
 use App\Models\Kecamatan;
 use App\Models\User;
 use App\Models\Vendor;
@@ -38,7 +39,8 @@ class VendorController extends Controller
     {
         $bread = $this->bread('Main Menu', 'Vendor', 'Tambah Baru', route('admin.vendor.index'));
         $kecamatan = Kecamatan::select('id', 'nama')->get();
-        return view('backend.vendor.create', compact('bread', 'kecamatan'));
+        $kategori = Kategori::where('status', 1)->get();
+        return view('backend.vendor.create', compact('bread', 'kecamatan', 'kategori'));
     }
 
     /**
@@ -51,7 +53,7 @@ class VendorController extends Controller
     {
         DB::beginTransaction();
         try {
-            $data   = $request->only(['nama_perusahaan', 'alamat', 'email_perusahaan', 'telepon', 'kecamatan_id', 'desa_id', 'npwp', 'deskripsi']);
+            $data   = $request->only(['nama_perusahaan', 'alamat', 'email_perusahaan', 'telepon', 'kecamatan_id', 'desa_id', 'npwp', 'deskripsi', 'kategori_id']);
             $akses  = $this->aksesRole();
             $create = Vendor::create($data); 
             $user = User::create([
@@ -95,7 +97,8 @@ class VendorController extends Controller
         $bread = $this->bread('Main Menu', 'Vendor', 'Ubah', route('admin.vendor.index'));
         $edit = Vendor::with('user')->findOrFail($id);
         $kecamatan = Kecamatan::select('id', 'nama')->get();
-        return view('backend.vendor.edit', compact('bread', 'kecamatan', 'edit'));
+        $kategori = Kategori::where('status', 1)->get();
+        return view('backend.vendor.edit', compact('bread', 'kecamatan', 'edit', 'kategori'));
     }
 
     /**

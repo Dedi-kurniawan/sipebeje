@@ -38,12 +38,12 @@
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Nomor:<span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control {{ $errors->has('nomor') ? 'is-invalid' : '' }}" autocomplete="off" name="nomor" value="{{ old('nomor', $paket->negoHarga->nomor) }}"  id="nomor" title="kolom nomor di larang kosong" placeholder="Nomor..." required/>
-                                                {!! $errors->first('nomor', '<label id="nomor-error" class="error invalid-feedback" for="nomor">:message</label>')!!}  
+                                                {!! $errors->first('nomor', '<label id="nomor-error" class="error invalid-feedback" for="nomor">:message</label>')!!}
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Tanggal:<span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" autocomplete="off" name="tanggal" value="{{ old('tanggal', $paket->negoHarga->tanggal) }}"  id="tanggal" title="kolom tanggal di larang kosong" placeholder="Nomor..." required/>
-                                                {!! $errors->first('tanggal', '<label id="tanggal-error" class="error invalid-feedback" for="tanggal">:message</label>')!!}  
+                                                <input type="date" class="form-control {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" autocomplete="off" readonly name="tanggal" value="{{ old('tanggal', empty($paket->negoHarga->tanggal) ? $paket->evaluasiPenawaran->tanggal : $paket->negoHarga->tanggal) }}"  id="tanggal" title="kolom tanggal di larang kosong" placeholder="Nomor..." required/>
+                                                {!! $errors->first('tanggal', '<label id="tanggal-error" class="error invalid-feedback" for="tanggal">:message</label>')!!}
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Jam:<span class="text-danger">*</span></label>

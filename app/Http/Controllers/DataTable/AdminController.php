@@ -6,6 +6,14 @@ use App\Http\Controllers\DataTable\BaseController as Controller;
 use App\Models\Paket;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+
+use App\Models\SuratPesanan;
+use App\Models\SuratPesananDetail;
+use App\Models\BaBarang;
+use App\Models\BaBarangDetail;
+use App\Models\BaPekerjaan;
+use App\Models\BaPekerjaanDetail;
 
 class AdminController extends Controller
 {
@@ -34,6 +42,229 @@ class AdminController extends Controller
                 return "<button id='deleteData' data-id='$data->id' data-name='$data->nama' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash'></i> Hapus</button>";
             })
             ->rawColumns(['action', 'nama_format'])
+            ->toJson();
+    }
+
+    public function suratPesanan(Request $request)
+    {
+        $data = SuratPesanan::select(
+                                'surat_pesanan.*',
+                                'desa.nama as nama_desa', 'desa.alamat as alamat_desa',
+                                'vendor.nama_perusahaan as nama_vendor', 'vendor.alamat as alamat_vendor',
+                                'aparatur.nama as nama_aparatur'
+                            )
+                            ->join('desa', 'desa.id', '=', 'surat_pesanan.desa_id')
+                            ->join('vendor', 'vendor.id', '=', 'surat_pesanan.vendor_id')
+                            ->join('aparatur', 'aparatur.id', '=', 'surat_pesanan.aparatur_id');
+
+        $akses = $this->aksesRole();
+        if($akses['role'] == 'desa') {
+            $data->where('surat_pesanan.desa_id', $akses['desa_id']);
+        }
+
+        if($request->desa_id) {
+            $data->where('surat_pesanan.desa_id', $request->desa_id);
+        }
+
+        if($request->search) {
+            $keyword = $request->search;
+            $data->where(function($query) use ($keyword) {
+                $pattern = '%' . $keyword . '%';
+                $query->orWhere('surat_pesanan.nomor_surat', 'like', $pattern);
+            });
+        }
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('tanggal', function ($data) {
+                return Carbon::parse($data->tanggal)->format('d-m-Y');
+            })
+            ->addColumn('tanggal_lambat', function ($data) {
+                return Carbon::parse($data->tanggal_lambat)->format('d-m-Y');
+            })
+            ->addColumn('action', function ($data) use ($akses) {
+                $route = route('admin.surat-pesanan.edit', $data->id);
+                $cetak = route('admin.surat-pesanan.cetak', $data->id);
+                $action = "<a href={$cetak} data-id='$data->id' data-name='$data->nama_desa' class='btn btn-sm btn-outline-info'>
+                                <i class='fa fa-print'></i> Cetak
+                            </a>";
+
+                if($akses['role'] == 'desa') {
+                    $action .= "<a href={$route} data-id='$data->id' data-name='$data->nama_desa' class='btn btn-sm btn-outline-success'>
+                                    <i class='fa fa-edit'></i> Ubah
+                                </a>";
+                    $action .= "<button id='deleteData' data-id='$data->id' data-name='$data->nama_desa' class='btn btn-sm btn-outline-danger'>
+                                    <i class='fa fa-trash'></i> Hapus
+                                </button>";
+                }
+
+                return $action;
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    public function suratPesananDetail(Request $request)
+    {
+        $data = SuratPesananDetail::where('surat_pesanan_id', $request->surat_pesanan_id);
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('total', function ($data) {
+                return number_format($data->qty * $data->sp, 2);
+            })
+            ->addColumn('sp', function ($data) {
+                return number_format($data->sp, 2);
+            })
+            ->addColumn('action', function ($data) {
+                return "<button id='deleteData' data-id='$data->id' data-name='$data->nama' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash'></i> Hapus</button>";
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    public function baBarang(Request $request)
+    {
+        $data = BaBarang::select(
+                                'ba_barang.*',
+                                'desa.nama as nama_desa', 'desa.alamat as alamat_desa',
+                                'aparatur.nama as pihak_1'
+                            )
+                            ->join('desa', 'desa.id', '=', 'ba_barang.desa_id')
+                            ->join('aparatur', 'aparatur.id', '=', 'ba_barang.aparatur_id');
+
+        $akses = $this->aksesRole();
+        if($akses['role'] == 'desa') {
+            $data->where('ba_barang.desa_id', $akses['desa_id']);
+        }
+
+        if($request->desa_id) {
+            $data->where('ba_barang.desa_id', $request->desa_id);
+        }
+
+        if($request->search) {
+            $keyword = $request->search;
+            $data->where(function($query) use ($keyword) {
+                $pattern = '%' . $keyword . '%';
+                $query->orWhere('ba_barang.nomor_surat', 'like', $pattern);
+            });
+        }
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('tanggal', function ($data) {
+                return Carbon::parse($data->tanggal)->format('d-m-Y');
+            })
+            ->addColumn('action', function ($data) use ($akses) {
+                $route = route('admin.ba-barang.edit', $data->id);
+                $cetak = route('admin.ba-barang.cetak', $data->id);
+                $action = "<a href={$cetak} data-id='$data->id' data-name='$data->nama_desa' class='btn btn-sm btn-outline-info'>
+                                <i class='fa fa-print'></i> Cetak
+                            </a>";
+
+                if($akses['role'] == 'desa') {
+                    $action .= "<a href={$route} data-id='$data->id' data-name='$data->nama_desa' class='btn btn-sm btn-outline-success'>
+                                    <i class='fa fa-edit'></i> Ubah
+                                </a>";
+                    $action .= "<button id='deleteData' data-id='$data->id' data-name='$data->nama_desa' class='btn btn-sm btn-outline-danger'>
+                                    <i class='fa fa-trash'></i> Hapus
+                                </button>";
+                }
+
+                return $action;
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    public function baBarangDetail(Request $request)
+    {
+        $data = BaBarangDetail::where('ba_barang_id', $request->ba_barang_id);
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('total', function ($data) {
+                return number_format($data->qty * $data->harga_satuan, 2);
+            })
+            ->addColumn('harga_satuan', function ($data) {
+                return number_format($data->harga_satuan, 2);
+            })
+            ->addColumn('action', function ($data) {
+                return "<button id='deleteData' data-id='$data->id' data-name='$data->nama' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash'></i> Hapus</button>";
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    public function baPekerjaan(Request $request)
+    {
+        $data = BaPekerjaan::select(
+                                'ba_pekerjaan.*',
+                                'desa.nama as nama_desa', 'desa.alamat as alamat_desa',
+                                'aparatur.nama as ketua_tpk',
+                                'kepala_desa.nama as kepala_desa'
+                            )
+                            ->join('desa', 'desa.id', '=', 'ba_pekerjaan.desa_id')
+                            ->join('aparatur', 'aparatur.id', '=', 'ba_pekerjaan.aparatur_id')
+                            ->join('aparatur as kepala_desa', 'kepala_desa.id', '=', 'ba_pekerjaan.kepala_desa_id');
+
+        $akses = $this->aksesRole();
+        if($akses['role'] == 'desa') {
+            $data->where('ba_pekerjaan.desa_id', $akses['desa_id']);
+        }
+
+        if($request->desa_id) {
+            $data->where('ba_pekerjaan.desa_id', $request->desa_id);
+        }
+
+        if($request->search) {
+            $keyword = $request->search;
+            $data->where(function($query) use ($keyword) {
+                $pattern = '%' . $keyword . '%';
+                $query->orWhere('ba_pekerjaan.nomor_surat', 'like', $pattern);
+            });
+        }
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('tanggal', function ($data) {
+                return Carbon::parse($data->tanggal)->format('d-m-Y');
+            })
+            ->addColumn('tanggal_nota_barang', function ($data) {
+                return Carbon::parse($data->tanggal_nota_barang)->format('d-m-Y');
+            })
+            ->addColumn('action', function ($data) use ($akses) {
+                $route = route('admin.ba-pekerjaan.edit', $data->id);
+                $cetak = route('admin.ba-pekerjaan.cetak', $data->id);
+                $action = "<a href={$cetak} data-id='$data->id' data-name='$data->nama_desa' class='btn btn-sm btn-outline-info'>
+                                <i class='fa fa-print'></i> Cetak
+                            </a>";
+
+                if($akses['role'] == 'desa') {
+                    $action .= "<a href={$route} data-id='$data->id' data-name='$data->nama_desa' class='btn btn-sm btn-outline-success'>
+                                    <i class='fa fa-edit'></i> Ubah
+                                </a>";
+                    $action .= "<button id='deleteData' data-id='$data->id' data-name='$data->nama_desa' class='btn btn-sm btn-outline-danger'>
+                                    <i class='fa fa-trash'></i> Hapus
+                                </button>";
+                }
+
+                return $action;
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    public function baPekerjaanDetail(Request $request)
+    {
+        $data = baPekerjaanDetail::where('ba_pekerjaan_id', $request->ba_pekerjaan_id);
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('action', function ($data) {
+                return "<button id='deleteData' data-id='$data->id' data-name='$data->nama' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash'></i> Hapus</button>";
+            })
+            ->rawColumns(['action'])
             ->toJson();
     }
 }

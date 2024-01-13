@@ -23,7 +23,6 @@
 
                     <h4 class="header-titl text-uppercase"> FORMULIR {{ $bread['second'] }}</h4>
                     <p class="mb-3">{{ $paket->nama }}</p> 
-                    
                     <div id="rootwizard">
                         <ul class="nav nav-pills bg-light nav-justified form-wizard-header mb-3">
                             @include('backend.paket.stepdua._tab')
@@ -165,7 +164,7 @@
                                                 </a>
                                                 <button class="btn btn-primary width-md waves-effect waves-light float-end">
                                                     <i class="fe-save"></i> SELESAI PAKET
-                                                </button>      
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

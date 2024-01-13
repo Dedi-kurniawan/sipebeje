@@ -23,6 +23,7 @@
                     {{-- {{ $errors }} --}}
                     <form id="form_validate" method="POST" action="{{ route('admin.vendor.update', $edit->id) }}">
                         @csrf
+                        @method('PUT')
                         <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-account me-1"></i> PERSONAL AKUN</h5>
                         <div class="row">
                             <div class="col-md-6">
@@ -52,17 +53,57 @@
                         <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-office-building me-1"></i> PERUSAHAAN</h5>
                         <div class="row">
                             <div class="col-md-6">
+                                <label for="example-input-normal" class="form-label">Jenis Usaha</label>
+                                <select name="kategori_id" class="form-control selectFormClass" id="kategori_id">
+                                    <option value="">Jenis Usaha</option>
+                                    @foreach ($kategori as $x)
+                                        <option value="{{ $x->id }}" {{ $edit->kategori_id == $x->id ? "selected" : "" }}>{{ $x->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="nama_perusahaan" class="form-label">Nama perusahaan <span class="text-danger">*</span></label>
                                     <input name="nama_perusahaan" type="text" class="form-control {{ $errors->has('nama_perusahaan') ? 'is-invalid' : '' }}" id="nama_perusahaan" value="{{ old('nama_perusahaan', $edit->nama_perusahaan) }}" placeholder="Nama perusahaan" required>
                                     {!! $errors->first('nama_perusahaan', '<label id="nama_perusahaan-error" class="error invalid-feedback" for="nama_perusahaan">:message</label>')!!}
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="email_perusahaan" class="form-label">E-mail perusahaan <span class="text-danger">*</span></label>
                                     <input name="email_perusahaan" type="email" class="form-control {{ $errors->has('email_perusahaan') ? 'is-invalid' : '' }}" id="email_perusahaan" value="{{ old('email_perusahaan', $edit->email_perusahaan) }}" placeholder="Email perusahaan" required>
                                     {!! $errors->first('email_perusahaan', '<label id="email_perusahaan-error" class="error invalid-feedback" for="email_perusahaan">:message</label>')!!}
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="kecamatan_id" class="form-label">Kecamatan <span class="text-danger">*</span></label>
+                                    <select name="kecamatan_id" class="form-control {{ $errors->has('kecamatan_id') ? 'is-invalid' : '' }} selectFormClass" id="kecamatan_id" required>
+                                        <option value="">Pilih Kecamatan</option>
+                                        @foreach ($kecamatan as $k)
+                                            <option value="{{ $k->id }}" {{ $edit->kecamatan_id == $k->id ? "selected" : "" }}>{{ $k->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    {!! $errors->first('kecamatan_id', '<label id="kecamatan_id-error" class="error invalid-feedback" for="kecamatan_id">:message</label>')!!}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <input type="hidden" id="desa_selected" value="{{ $edit->desa_id }}">
+                                    <label for="desa_id" class="form-label">Desa <span class="text-danger">*</span></label>
+                                    <select name="desa_id" class="form-control {{ $errors->has('desa_id') ? 'is-invalid' : '' }} selectFormClass" id="desa_id" required></select>
+                                    {!! $errors->first('desa_id', '<label id="desa_id-error" class="error invalid-feedback" for="desa_id">:message</label>')!!}
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="deskripsi" class="form-label">Deskripsi Usaha<span class="text-danger">*</span></label>
+                                    <textarea name="deskripsi" class="form-control {{ $errors->has('deskripsi') ? 'is-invalid' : '' }}" id="deskripsi" rows="4" placeholder="Deskripsi..." required>{{ $edit->deskripsi }}</textarea>
+                                    {!! $errors->first('deskripsi', '<label id="deskripsi-error" class="error invalid-feedback" for="deskripsi">:message</label>')!!}
                                 </div>
                             </div>
                         </div> 
@@ -102,6 +143,7 @@
 </div>
 @endsection
 @push('scripts')
+<script src="{{ asset('template/barangjasa/admin/vendor.js') }}?{{ date('ymdshi') }}"></script>
 @include('layouts.frontend.partials.notif')
 @endpush
 

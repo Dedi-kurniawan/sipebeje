@@ -18,10 +18,10 @@ var dt_vendor = $('#dt_vendor').DataTable({
     ],
     ajax: {
         method: 'POST',
-    	url: HOST_URL + '/dt/admin/master/undangan-vendor',  
+    	url: HOST_URL + '/dt/admin/master/undangan-vendor',
         data: function (d) {
             d.undangan_id = $("#undangan_id").val();
-        }         
+        }
     },
     columns: [{
             data: 'DT_RowIndex',
@@ -199,7 +199,7 @@ var dt_material = $('#dt_material').DataTable({
         method: 'POST',
     	url: HOST_URL + '/dt/admin/master/hps',   
         data: function (d) {
-            d.paket_id = $("#paket_id_value").val();
+            d.paket_id = $("#paket_id").val();
         }    
     },
     columns: [{

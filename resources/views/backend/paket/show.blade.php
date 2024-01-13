@@ -77,7 +77,7 @@
                                 <td class="text-uppercase fw-bold" colspan="2">DUSUN {{ $show->akk->dusun }} RT {{ $show->akk->rt }}</td>
                             </tr>
                         </thead>
-                    <table>                            
+                    <table>
                     <table class="table table-bordered table-sm w-100">
                         <tbody>
                             <tr>
@@ -177,7 +177,7 @@
                                     <td>{{ $hps->satuan }}</td>
                                     <td>{{ number_format($hps->jumlah,2,',','.') }}</td>
                                     <td>{{ $hps->pajak }} %</td>
-                                    <td>{{ number_format($hps->jumlah-$hps->harga_pajak,2,',','.') }}</td>
+                                    <td>{{ number_format($hps->jumlah + $hps->harga_pajak,2,',','.') }}</td>
                                     <td>{{ $hps->keterangan }}</td>
                                 </tr>
                             @endforeach

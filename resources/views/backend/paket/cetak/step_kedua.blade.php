@@ -71,8 +71,6 @@
 
     </style>
 </head>
-
-
 <body>
     <div>
         <div class="kop-surat">
@@ -106,7 +104,7 @@
     <div style="float: right;">
         <table>
             <tr>
-                <td>Bengkulu Utara, {{ $paket->evaluasiPenawaran->CreatedAtFormat }}</td>
+                <td>{{ ucwords(strtolower($paket->desa->nama)) }}, {{ $paket->evaluasiPenawaran->CreatedAtFormat }}</td>
             </tr>
             <tr>
                 <td>Untuk dan atas nama TPK</td>
@@ -165,7 +163,6 @@
             Catatan: <br>
             MN : Memenuhi<br>
             TM : Tidak Memenuhi
-
         </p>
     </div>
     <div class="page-break"></div>
@@ -281,7 +278,7 @@
             <td rowspan="2">Penyedia</td>
         </tr>
         <tr>
-            <td>Bengkulu Utara, tanggal tsb.diatas <br>Untuk dan atas nama TPK</td>
+            <td>{{ ucwords(strtolower($paket->desa->nama)) }}, tanggal tsb.diatas <br>Untuk dan atas nama TPK</td>
             <td></td>
         </tr>
         <tr>
@@ -604,7 +601,7 @@
             <td rowspan="2">&nbsp;</td>
         </tr>
         <tr>
-            <td>Bengkulu Utara, {{ $paket->suratPerjanjian->CreatedFormatAt }}</td>
+            <td>{{ ucwords(strtolower($paket->desa->nama)) }}, {{ $paket->suratPerjanjian->CreatedFormatAt }}</td>
             <td></td>
         </tr>
         <tr>
@@ -620,7 +617,7 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>{{ $paket->vendor_id == NULL ? "-" : $paket->vendor->nama_perusahaan }}</td>
+            <td>{{ $paket->vendor_id == NULL ? "-" : ucwords(strtolower($paket->vendor->nama_perusahaan)) }}</td>
             <td class="text-center">{{ ucwords(strtolower($paket->aparatur->nama)) }}</td>
         </tr>
     </table>

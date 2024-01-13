@@ -52,7 +52,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth'], fu
         Route::get('/paket-vendor', [App\Http\Controllers\Backend\PaketVendorController::class, 'index'])->name('paket-vendor.index');
         Route::get('/paket-vendor/{id}/show', [App\Http\Controllers\Backend\PaketVendorController::class, 'show'])->name('paket-vendor.show');
         Route::get('/paket-admin', [App\Http\Controllers\Backend\PaketAdminController::class, 'index'])->name('paket-admin.index');
-        Route::get('/paket-admin/{id}/show', [App\Http\Controllers\Backend\PaketAdminController::class, 'show'])->name('paket-admin.show');        
+        Route::get('/paket-admin/{id}/show', [App\Http\Controllers\Backend\PaketAdminController::class, 'show'])->name('paket-admin.show');
     // });
     Route::get('profile-vendor', [App\Http\Controllers\Backend\ProfileController::class, 'vendor'])->name('profile.vendor');
     Route::post('profile-vendor', [App\Http\Controllers\Backend\ProfileController::class, 'vendorPost'])->name('profile.vendor.post');
@@ -61,6 +61,22 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth'], fu
     Route::get('profile-akun', [App\Http\Controllers\Backend\ProfileController::class, 'akun'])->name('profile.akun');
     Route::post('profile-akun', [App\Http\Controllers\Backend\ProfileController::class, 'akunPost'])->name('profile.akun.post');
     Route::get('get-desa', [App\Http\Controllers\Backend\ProfileController::class, 'getDesa']);
+    Route::resource('/satuan', App\Http\Controllers\Backend\SatuanController::class);
+    Route::resource('/surat-pesanan', App\Http\Controllers\Backend\SuratPesananController::class);
+    Route::resource('/surat-pesanan-detail', App\Http\Controllers\Backend\SuratPesananDetailController::class);
+    Route::get('surat-pesanan-cetak/{id}', [App\Http\Controllers\Backend\SuratPesananController::class, 'cetak'])->name('surat-pesanan.cetak');
+
+    Route::resource('/ba-barang', App\Http\Controllers\Backend\BaBarangController::class);
+    Route::resource('/ba-barang-detail', App\Http\Controllers\Backend\BaBarangDetailController::class);
+    Route::get('ba-barang-cetak/{id}', [App\Http\Controllers\Backend\BaBarangController::class, 'cetak'])->name('ba-barang.cetak');
+
+    Route::resource('/ba-pekerjaan', App\Http\Controllers\Backend\BaPekerjaanController::class);
+    Route::resource('/ba-pekerjaan-detail', App\Http\Controllers\Backend\BaPekerjaanDetailController::class);
+    Route::get('ba-pekerjaan-cetak/{id}', [App\Http\Controllers\Backend\BaPekerjaanController::class, 'cetak'])->name('ba-pekerjaan.cetak');
+
+    Route::get('laporan', [App\Http\Controllers\Backend\ReportController::class, 'index'])->name('laporan.index');
+    Route::get('laporan/cetak', [App\Http\Controllers\Backend\ReportController::class, 'cetak'])->name('laporan.cetak');
+    Route::get('laporan/penyedia', [App\Http\Controllers\Backend\ReportController::class, 'penyedia'])->name('laporan.penyedia');
 });
 
 

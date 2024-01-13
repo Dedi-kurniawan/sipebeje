@@ -183,9 +183,9 @@
                                                         <i class="fa fa-download"></i> DOWNLOAD
                                                     </a>
                                                 @endif
-                                                <a href="{{ route('admin.hps.edit', $edit->id) }}" class="btn btn-primary width-md waves-effect waves-light float-end">
-                                                     HARGA PERKIRAAN KERJA (HPS) <i class="fe-arrow-right"></i>
-                                                 </a>
+                                                <a href="{{ route('admin.undangan.edit', $edit->id) }}" class="btn btn-primary width-md waves-effect waves-light float-end">
+                                                    UNDANGAN <i class="fe-arrow-right"></i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

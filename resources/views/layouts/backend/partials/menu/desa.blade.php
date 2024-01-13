@@ -30,5 +30,24 @@
             <span>Profile Desa</span>
         </a>
     </li>
-    
+    <li>
+        <a href="#sidebarEcommerce" data-bs-toggle="collapse">
+            <i data-feather="align-justify"></i>
+            <span> Bukti Pengadaan </span>
+            <span class="menu-arrow"></span>
+        </a>
+        <div class="collapse" id="sidebarEcommerce">
+            <ul class="nav-second-level">
+                <li>
+                    <a href="{{ route('admin.surat-pesanan.index') }}">Surat Pesanan</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.ba-barang.index') }}">BA Serah Terima Barang</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.ba-pekerjaan.index') }}">BA Serah Terima Pekerjaan</a>
+                </li>
+            </ul>
+        </div>
+    </li>
 </ul>

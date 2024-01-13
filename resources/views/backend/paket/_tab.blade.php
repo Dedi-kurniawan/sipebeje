@@ -11,13 +11,13 @@
         <i class="mdi {{ $edit->akk_field == "0" ? "mdi-close-thick text-danger" : "mdi-check-bold text-success" }}"></i>
     </a>
 </li>
-<li class="nav-item" data-target-form="#otherForm">
+{{-- <li class="nav-item" data-target-form="#otherForm">
     <a href="{{ route('admin.hps.edit', $edit->id) }}" class="nav-link rounded-0 pt-2 pb-2 {{ $tab == "hps" ? "active" : "" }}">
         <i class="fas fa-money-check me-1"></i>
         <span class="d-none d-sm-inline text-uppercase">Harga Perkiraan Sendiri (HPS)</span>
         <i class="mdi {{ $edit->hps_field == "0" ? "mdi-close-thick text-danger" : "mdi-check-bold text-success" }}"></i>
     </a>
-</li>
+</li> --}}
 <li class="nav-item" data-target-form="#otherForm">
     <a href="{{ route('admin.undangan.edit', $edit->id) }}" class="nav-link rounded-0 pt-2 pb-2 {{ $tab == "undangan" ? "active" : "" }}">
         <i class="mdi mdi-checkbox-marked-circle-outline me-1"></i>

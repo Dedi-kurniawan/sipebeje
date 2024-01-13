@@ -27,8 +27,8 @@
                             <label for="example-input-normal" class="form-label">Jenis:<span class="text-danger">*</span></label>
                             <select name="jenis" class="form-control selectForm {{ $errors->has('jenis') ? 'is-invalid' : '' }}" id="jenis" required>
                                 <option value="">Pilih Jenis</option>
-                                <option value="Pengadaan Langsung" {{ old('jenis') == "Pengadaan Langsung" ? "selected" : "" }}>Pengadaan Langsung</option>
-                                <option value="Tender" {{ old('jenis') == "Tender" ? "selected" : "" }}>Tender</option>
+                                <option value="Metode Penawaran" {{ old('jenis') == "Metode Penawaran" ? "selected" : "" }}>Metode Penawaran</option>
+                                <option value="Metode Lelang" {{ old('jenis') == "Metode Lelang" ? "selected" : "" }}>Metode Lelang</option>
                             </select>
                             {!! $errors->first('jenis', '<label id="jenis-error" class="error invalid-feedback" for="jenis">:message</label>')!!}
                         </div>
@@ -37,7 +37,7 @@
                             <select name="aparatur_id" class="form-control selectForm {{ $errors->has('aparatur_id') ? 'is-invalid' : '' }}" id="aparatur_id" required title="Kolom penanggung jawab di larang kosong">
                                 <option value="">Pilih Penanggung Jawab</option>
                                 @foreach ($aparatur as $a)
-                                    <option value="{{ $a->id }}" {{ old('aparatur_id') == $a->id ? "selected" : "" }}>{{ $a->nama }}-{{ $a->jabatan }}</option>
+                                    <option value="{{ $a->id }}" {{ old('aparatur_id') == $a->id ? "selected" : "" }}>{{ $a->nama }} - {{ $a->jabatan }}</option>
                                 @endforeach
                             </select>
                             {!! $errors->first('aparatur_id', '<label id="aparatur_id-error" class="error invalid-feedback" for="aparatur_id">:message</label>')!!}

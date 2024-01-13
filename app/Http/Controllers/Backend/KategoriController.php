@@ -123,7 +123,7 @@ class KategoriController extends Controller
             $update = $request->status == "1" ? "0" : "1";
             $status->update([
                 'status' => $update,
-            ]);        
+            ]);
             DB::commit();
             return response()->json(['status' => 'success', 'message' => 'UBAH STATUS '. $status->nama. ' BERHASIL']);  
         } catch (QueryException $qe) {

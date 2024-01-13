@@ -26,13 +26,14 @@ class StepDuaController extends Controller
             return redirect()->route('admin.akk.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP SATU TERLEBIH DAHULU']);
         }
 
-        if ($paket->hps_field == "0") {
-            return redirect()->route('admin.hps.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP SATU TERLEBIH DAHULU']);
-        }
+        // if ($paket->hps_field == "0") {
+        //     return redirect()->route('admin.hps.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP SATU TERLEBIH DAHULU']);
+        // }
 
         if ($paket->undangan_field == "0") {
             return redirect()->route('admin.undangan.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'LENGKAPI STEP SATU TERLEBIH DAHULU']);
         }
+
         $tab = "evaluasi-penawaran";
         return view('backend.paket.stepdua.evaluasi_penawaran', compact('bread', 'paket', 'tab'));
     }
@@ -136,8 +137,13 @@ class StepDuaController extends Controller
     {
         $bread = $this->bread('STEP KEDUA', 'Nego Harga', 'Formulir', route('admin.paket.index'));
         $akses  = $this->aksesRole();
-        $paket  = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->with('negoHarga')->firstOrFail();
+        $paket  = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->with('negoHarga', 'evaluasiPenawaran')->firstOrFail();
         $tab    = "nego-harga";
+
+        if (empty($paket->vendor_id)) {
+            return redirect()->route('admin.hasil-evaluasi-penawaran.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'Vendor Belum Pilih']);
+        }
+
         return view('backend.paket.stepdua.nego_harga', compact('bread', 'paket', 'tab'));
     }
 

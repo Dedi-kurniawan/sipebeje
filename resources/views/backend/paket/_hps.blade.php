@@ -5,7 +5,7 @@
                 <h5 class="modal-title" id="staticBackdropLabel">HARGA PERKIRAAN KERJA (HPS)</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="form_validate" method="POST">
+            <form id="form_validate_modal" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">

@@ -8,6 +8,7 @@ use App\Models\UndanganMaterial;
 use App\Models\UndanganVendor;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Str;
 
 class PrintController extends Controller
 {
@@ -30,7 +31,7 @@ class PrintController extends Controller
         // $undanganMaterial = UndanganMaterial::where('undangan_id', $request->undangan_id)->get();
         $pdf = PDF::loadView('backend.paket.cetak.print_undangan', compact('undanganVendor', 'paket'));
         return $pdf->download('surat_undangan.pdf');
-        // $pdf = PDF::loadView('backend.paket.cetak.print_undangan', compact('undanganVendor'));    
+        // $pdf = PDF::loadView('backend.paket.cetak.print_undangan', compact('undanganVendor'));
         // return $pdf->setPaper('a4', 'potrait')->stream();
         // return view('backend.paket.cetak.print_undangan', compact('undanganVendor'));
     }
@@ -41,12 +42,12 @@ class PrintController extends Controller
         $paket = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->with(['akk', 'hpsTable'])->firstOrFail();
         $pdf   = PDF::loadView('backend.paket.cetak.step_pertama_print', compact('paket'));
         // return $pdf->setPaper('a4', 'potrait')->stream();
-        return $pdf->setPaper('a4', 'potrait')->download('step_pertama.pdf');
+        $fileName = sprintf('%s_step_pertama.pdf', Str::slug($paket->desa->nama));
+        return $pdf->setPaper('a4', 'potrait')->download($fileName);
     }
 
     public function printStepKedua($id)
     {
-        
         $akses = $this->aksesRole();
         $paket = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->with(['evaluasiPenawaran', 'negoHarga', 'suratPerjanjian', 'desa', 'vendor', 'vendor.user'])->firstOrFail();
         if ($paket->akk_field == "0") {
@@ -56,12 +57,12 @@ class PrintController extends Controller
             return redirect()->back()->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP SATU', 'message' => 'OPERATOR DESA BELUM MELENGKAPI KAK DI STEP SATU']);            
         }
 
-        if ($paket->hps_field == "0") {            
-            if ($akses['role'] == 'desa') {
-                return redirect()->route('admin.hps.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP SATU', 'message' => 'LENGKAPI HPS DI STEP SATU TERLEBIH DAHULU']);
-            }
-            return redirect()->back()->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP SATU', 'message' => 'OPERATOR DESA BELUM MELENGKAPI HPS DI STEP SATU']);
-        }
+        // if ($paket->hps_field == "0") {
+        //     if ($akses['role'] == 'desa') {
+        //         return redirect()->route('admin.hps.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP SATU', 'message' => 'LENGKAPI HPS DI STEP SATU TERLEBIH DAHULU']);
+        //     }
+        //     return redirect()->back()->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP SATU', 'message' => 'OPERATOR DESA BELUM MELENGKAPI HPS DI STEP SATU']);
+        // }
 
         if ($paket->undangan_field == "0") {
             if ($akses['role'] == 'desa') {
@@ -97,9 +98,10 @@ class PrintController extends Controller
             }
             return redirect()->back()->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'OPERATOR DESA BELUM MELENGKAPI HASIL SURAT PERJANJIAN DI STEP DUA']);
         }
-        
-        $pdf   = PDF::loadView('backend.paket.cetak.step_kedua', compact('paket'));
-        return $pdf->setPaper('a4', 'potrait')->download();
+
+        $pdf = PDF::loadView('backend.paket.cetak.step_kedua', compact('paket'));
+        $fileName = sprintf('%s_step_kedua.pdf', Str::slug($paket->desa->nama));
+        return $pdf->setPaper('a4', 'potrait')->download($fileName);
     }
 
     public function printKak($id)

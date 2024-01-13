@@ -33,7 +33,7 @@
                                 </button>
                                 <input type="hidden" value="{{ $edit->id }}" id="paket_id_value">
                             </div>
-                            <div class="tab-pane {{ $tab == "hps" ? "active" : "" }}" id="first">                                
+                            <div class="tab-pane {{ $tab == "hps" ? "active" : "" }}" id="first">
                                 <div class="table-responsive">
                                     <table id="datatable" class="table nowrap w-100 mt-3">
                                         <thead>
@@ -64,11 +64,11 @@
                                     @endif
                                     <a href="{{ route('admin.undangan.edit', $edit->id) }}" class="btn btn-primary width-md waves-effect waves-light float-end">
                                          UNDANGAN <i class="fe-arrow-right"></i>
-                                     </a>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>

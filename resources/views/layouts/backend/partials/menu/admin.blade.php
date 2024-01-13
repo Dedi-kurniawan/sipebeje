@@ -24,6 +24,26 @@
             <span>Vendor</span>
         </a>
     </li>
+    <li>
+        <a href="#sidebarPengadaan" data-bs-toggle="collapse">
+            <i data-feather="align-justify"></i>
+            <span> Bukti Pengadaan </span>
+            <span class="menu-arrow"></span>
+        </a>
+        <div class="collapse" id="sidebarPengadaan">
+            <ul class="nav-second-level">
+                <li>
+                    <a href="{{ route('admin.surat-pesanan.index') }}">Surat Pesanan</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.ba-barang.index') }}">BA Serah Terima Barang</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.ba-pekerjaan.index') }}">BA Serah Terima Pekerjaan</a>
+                </li>
+            </ul>
+        </div>
+    </li>
     <li class="menu-title mt-2">MASTER</li>
     <li>
         <a href="#sidebarEcommerce" data-bs-toggle="collapse">
@@ -37,10 +57,28 @@
                     <a href="{{ route('admin.kecamatan.index') }}">Kecamatan</a>
                 </li>
                 <li>
-                  <a href="{{ route('admin.desa.index') }}">Desa</a>
+                    <a href="{{ route('admin.desa.index') }}">Desa</a>
                 </li>
                 <li>
-                  <a href="{{ route('admin.kategori.index') }}">Jenis Pengadaan/Usaha</a>
+                    <a href="{{ route('admin.kategori.index') }}">Jenis Pengadaan/Usaha</a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.satuan.index') }}">Satuan</a>
+                </li>
+            </ul>
+        </div>
+    </li>
+    <li class="menu-title mt-2">Laporan</li>
+    <li>
+        <a href="#laporan" data-bs-toggle="collapse">
+            <i data-feather="align-justify"></i>
+            <span> Laporan </span>
+            <span class="menu-arrow"></span>
+        </a>
+        <div class="collapse" id="laporan">
+            <ul class="nav-second-level">
+                <li>
+                    <a href="{{ route('admin.laporan.index') }}">Laporan</a>
                 </li>
             </ul>
         </div>

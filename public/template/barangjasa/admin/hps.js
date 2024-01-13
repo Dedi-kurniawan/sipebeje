@@ -30,7 +30,7 @@ var table = $('#datatable').DataTable({
     	url: HOST_URL + '/dt/admin/master/hps',   
         data: function (d) {
             d.paket_id = $("#paket_id_value").val();
-        }    
+        }
     },
     columns: [{
             data: 'DT_RowIndex',
@@ -116,7 +116,7 @@ var table = $('#datatable').DataTable({
 $("#submitData").click(function (event) {
     event.preventDefault();
     startLoading();
-    var validat = $("#form_validate").valid();
+    var validat = $("#form_validate_modal").valid();
     var action = $(this).val();
     if (!validat) {
         finishLoading();
@@ -129,7 +129,7 @@ $("#submitData").click(function (event) {
     $.ajax({
         url: url,
         method: "POST",
-        data: $('#form_validate').serialize(),
+        data: $('#form_validate_modal').serialize(),
         dataType: 'json',
         error: function (json) {
             console.log(json);
@@ -208,3 +208,15 @@ $(document).on('click', '#deleteData', function (e) {
         }
     });
 });
+
+$( "#terbilang_rupiah" ).click(function() {
+    rupiahTerbilang($("#hps").val());
+});
+
+function rupiahTerbilang(rupiah) {
+    var url   = HOST_URL + '/admin/rupiah-terbilang?rupiah='+ rupiah;
+    $.get(url, function (d) {
+        var terbilang = d.rupiah+ " rupiah";
+        $("#terbilang").val(terbilang);
+    });
+}
