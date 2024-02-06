@@ -47,7 +47,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Jam:<span class="text-danger">*</span></label>
-                                                <input type="time" class="form-control {{ $errors->has('pukul') ? 'is-invalid' : '' }}" autocomplete="off" name="pukul" value="{{ old('pukul', $paket->negoHarga->pukul) }}" id="pukul" title="kolom pukul di larang kosong" required />
+                                                <input type="time" class="form-control {{ $errors->has('pukul') ? 'is-invalid' : '' }}" autocomplete="off" readonly name="pukul" value="{{ old('pukul', empty($paket->negoHarga->pukul) ? $paket->evaluasiPenawaran->jam : $paket->negoHarga->pukul) }}" id="pukul" title="kolom pukul di larang kosong" required />
                                                 {!! $errors->first('pukul', '<label id="pukul-error" class="error invalid-feedback" for="pukul">:message</label>')!!}
                                             </div>
                                             <div class="mb-2 fw-bold">
@@ -131,7 +131,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <button type="submit"class="btn btn-info width-md waves-effect waves-light">
-                                                    <i class="fa fa-save"></i> SIMPAN 
+                                                    <i class="fa fa-save"></i> SIMPAN
                                                 </button>
                                                 <a href="{{ route('admin.surat-perjanjian.edit', $paket->id) }}" class="btn btn-primary width-md waves-effect waves-light float-end">
                                                     SURAT PERJANJIAN <i class="fe-arrow-right"></i>

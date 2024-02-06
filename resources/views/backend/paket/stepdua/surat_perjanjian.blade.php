@@ -22,7 +22,7 @@
                 <div class="card-body">
 
                     <h4 class="header-titl text-uppercase"> FORMULIR {{ $bread['second'] }}</h4>
-                    <p class="mb-3">{{ $paket->nama }}</p> 
+                    <p class="mb-3">{{ $paket->nama }}</p>
                     <div id="rootwizard">
                         <ul class="nav nav-pills bg-light nav-justified form-wizard-header mb-3">
                             @include('backend.paket.stepdua._tab')
@@ -44,8 +44,8 @@
                                             </div>
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">Tanggal:<span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" autocomplete="off" name="tanggal" value="{{ old('tanggal', $paket->suratPerjanjian->tanggal) }}"  id="tanggal" title="kolom tanggal di larang kosong" placeholder="Tanggal..." required/>
-                                                {!! $errors->first('tanggal', '<label id="tanggal-error" class="error invalid-feedback" for="tanggal">:message</label>')!!}  
+                                                <input type="date" class="form-control {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" autocomplete="off" name="tanggal" readonly value="{{ old('tanggal', empty($paket->suratPerjanjian->tanggal) ? $paket->evaluasiPenawaran->tanggal : $paket->suratPerjanjian->tanggal) }}"  id="tanggal" title="kolom tanggal di larang kosong" placeholder="Tanggal..." required/>
+                                                {!! $errors->first('tanggal', '<label id="tanggal-error" class="error invalid-feedback" for="tanggal">:message</label>')!!}
                                             </div>
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">Bertempat di:<span class="text-danger">*</span></label>
@@ -73,14 +73,14 @@
                                                 <label for="example-input-normal" class="form-label">Nilai pekerjaan yang disepakati:<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <span class="btn input-group-text btn-dark waves-effect waves-light">Rp. </span>
-                                                    <input type="text" class="form-control rupiah {{ $errors->has('harga_final') ? 'is-invalid' : '' }}" autocomplete="off" name="harga_final" value="{{ old('harga_final', $paket->suratPerjanjian->harga_final) }}" id="harga_final" title="kolom nilai pekerjaan yang disepakati di larang kosong" placeholder="nilai pekerjaan yang disepakati..." required />
+                                                    <input type="text" class="form-control rupiah {{ $errors->has('harga_final') ? 'is-invalid' : '' }}" readonly autocomplete="off" name="harga_final" value="{{ old('harga_final', empty($paket->suratPerjanjian->harga_final) ? $paket->negoHarga->harga_final : $paket->suratPerjanjian->harga_final) }}" id="harga_final" title="kolom nilai pekerjaan yang disepakati di larang kosong" placeholder="nilai pekerjaan yang disepakati..." required />
                                                     {!! $errors->first('harga_final', '<label id="harga_final-error" class="error invalid-feedback" for="harga_final">:message</label>')!!}
                                                 </div>
                                             </div>
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">Nilai pekerjaan yang disepakati (Terbilang):<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control {{ $errors->has('harga_final_terbilang') ? 'is-invalid' : '' }}" autocomplete="off" name="harga_final_terbilang" value="{{ old('harga_final_terbilang', $paket->suratPerjanjian->harga_final_terbilang) }}" id="harga_final_terbilang" title="kolom nilai pekerjaan yang disepakati terbilang di larang kosong" placeholder="Nilai pekerjaan yang disepakati..." required />
+                                                    <input type="text" readonly class="form-control {{ $errors->has('harga_final_terbilang') ? 'is-invalid' : '' }}" autocomplete="off" name="harga_final_terbilang" value="{{ old('harga_final_terbilang', $paket->suratPerjanjian->harga_final_terbilang) }}" id="harga_final_terbilang" title="kolom nilai pekerjaan yang disepakati terbilang di larang kosong" placeholder="Nilai pekerjaan yang disepakati..." required />
                                                     <button class="btn input-group-text btn-dark waves-effect waves-light" type="button" id="terbilang_rupiah"><i class="fas fa-sync-alt"></i></button>
                                                     {!! $errors->first('harga_final_terbilang', '<label id="harga_final_terbilang-error" class="error invalid-feedback" for="harga_final_terbilang">:message</label>')!!}
                                                 </div>
@@ -109,17 +109,17 @@
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">Hari kerja mulai tanggal :<span class="text-danger">*</span></label>
                                                 <input type="date" class="form-control {{ $errors->has('mulai_jangka_waktu') ? 'is-invalid' : '' }}" autocomplete="off" name="mulai_jangka_waktu" value="{{ old('mulai_jangka_waktu', $paket->suratPerjanjian->mulai_jangka_waktu) }}"  id="mulai_jangka_waktu" title="kolom hari kerja mulai tanggal di larang kosong" required/>
-                                                {!! $errors->first('mulai_jangka_waktu', '<label id="mulai_jangka_waktu-error" class="error invalid-feedback" for="mulai_jangka_waktu">:message</label>')!!}  
+                                                {!! $errors->first('mulai_jangka_waktu', '<label id="mulai_jangka_waktu-error" class="error invalid-feedback" for="mulai_jangka_waktu">:message</label>')!!}
                                             </div>
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">Hari kerja selesai tanggal:<span class="text-danger">*</span></label>
                                                 <input type="date" class="form-control {{ $errors->has('selesai_jangka_waktu') ? 'is-invalid' : '' }}" autocomplete="off" name="selesai_jangka_waktu" value="{{ old('selesai_jangka_waktu', $paket->suratPerjanjian->selesai_jangka_waktu) }}"  id="selesai_jangka_waktu" title="kolom hari kerja selesai tanggal di larang kosong" required/>
-                                                {!! $errors->first('selesai_jangka_waktu', '<label id="selesai_jangka_waktu-error" class="error invalid-feedback" for="selesai_jangka_waktu">:message</label>')!!}  
+                                                {!! $errors->first('selesai_jangka_waktu', '<label id="selesai_jangka_waktu-error" class="error invalid-feedback" for="selesai_jangka_waktu">:message</label>')!!}
                                             </div>
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">Pekerjaan harus selesai dan diserahkan pada tanggal:<span class="text-danger">*</span></label>
                                                 <input type="date" class="form-control {{ $errors->has('diserahkan_jangka_waktu') ? 'is-invalid' : '' }}" autocomplete="off" name="diserahkan_jangka_waktu" value="{{ old('diserahkan_jangka_waktu', $paket->suratPerjanjian->diserahkan_jangka_waktu) }}"  id="diserahkan_jangka_waktu" title="kolom harus selesai tanggal di larang kosong" required/>
-                                                {!! $errors->first('diserahkan_jangka_waktu', '<label id="diserahkan_jangka_waktu-error" class="error invalid-feedback" for="diserahkan_jangka_waktu">:message</label>')!!}  
+                                                {!! $errors->first('diserahkan_jangka_waktu', '<label id="diserahkan_jangka_waktu-error" class="error invalid-feedback" for="diserahkan_jangka_waktu">:message</label>')!!}
                                             </div>
                                             <div class="mb-1 fw-bold text-center">
                                                 Pasal 5
@@ -136,23 +136,23 @@
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">Membayar denda sebesar %:<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control {{ $errors->has('persen_denda') ? 'is-invalid' : '' }}" autocomplete="off" name="persen_denda" value="{{ old('persen_denda', $paket->suratPerjanjian->persen_denda) }}"  id="persen_denda" title="kolom denda % di larang kosong" placeholder="Denda..." required/>
+                                                    <input type="number" class="form-control {{ $errors->has('persen_denda') ? 'is-invalid' : '' }}" readonly value="1.5" autocomplete="off" name="persen_denda" value="{{ old('persen_denda', $paket->suratPerjanjian->persen_denda) }}"  id="persen_denda" title="kolom denda % di larang kosong" placeholder="Denda..." required/>
                                                     <button class="btn input-group-text btn-dark waves-effect waves-light">%</button>
-                                                    {!! $errors->first('persen_denda', '<label id="persen_denda-error" class="error invalid-feedback" for="persen_denda">:message</label>')!!}  
+                                                    {!! $errors->first('persen_denda', '<label id="persen_denda-error" class="error invalid-feedback" for="persen_denda">:message</label>')!!}
                                                 </div>
                                             </div>
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">Nominal sebesar:<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <span class="btn input-group-text btn-dark waves-effect waves-light">Rp. </span>
-                                                    <input type="text" class="form-control rupiah {{ $errors->has('nominal_denda') ? 'is-invalid' : '' }}" autocomplete="off" name="nominal_denda" value="{{ old('nominal_denda', $paket->suratPerjanjian->nominal_denda) }}" id="nominal_denda" title="kolom nominal sebesar di larang kosong" placeholder="nominal sebesar..." required />
+                                                    <input type="text" class="form-control rupiah {{ $errors->has('nominal_denda') ? 'is-invalid' : '' }}" readonly autocomplete="off" name="nominal_denda" value="{{ old('nominal_denda', $paket->suratPerjanjian->nominal_denda) }}" id="nominal_denda" title="kolom nominal sebesar di larang kosong" placeholder="nominal sebesar..." required />
                                                     {!! $errors->first('nominal_denda', '<label id="nominal_denda-error" class="error invalid-feedback" for="nominal_denda">:message</label>')!!}
                                                 </div>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Nominal sebesar (Terbilang):<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control {{ $errors->has('nominal_denda_terbilang') ? 'is-invalid' : '' }}" autocomplete="off" name="nominal_denda_terbilang" value="{{ old('nominal_denda_terbilang', $paket->suratPerjanjian->nominal_denda_terbilang) }}" id="nominal_denda_terbilang" title="kolom nominal sebesar terbilang di larang kosong" placeholder="Nominal sebesar Terbilang..." required />
+                                                    <input type="text" readonly class="form-control {{ $errors->has('nominal_denda_terbilang') ? 'is-invalid' : '' }}" autocomplete="off" name="nominal_denda_terbilang" value="{{ old('nominal_denda_terbilang', $paket->suratPerjanjian->nominal_denda_terbilang) }}" id="nominal_denda_terbilang" title="kolom nominal sebesar terbilang di larang kosong" placeholder="Nominal sebesar Terbilang..." required />
                                                     <button class="btn input-group-text btn-dark waves-effect waves-light" type="button" id="nominal_denda_terbilang_rupiah"><i class="fas fa-sync-alt"></i></button>
                                                     {!! $errors->first('nominal_denda_terbilang', '<label id="nominal_denda_terbilang-error" class="error invalid-feedback" for="nominal_denda_terbilang">:message</label>')!!}
                                                 </div>

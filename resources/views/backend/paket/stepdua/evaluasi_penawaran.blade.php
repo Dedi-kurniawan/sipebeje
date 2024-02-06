@@ -38,38 +38,38 @@
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Nomor:<span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control {{ $errors->has('nomor') ? 'is-invalid' : '' }}" maxlength="100" autocomplete="off" name="nomor" value="{{ old('nomor', $paket->evaluasiPenawaran->nomor) }}"  id="nomor" title="kolom nomor di larang kosong" placeholder="Nomor..." required/>
-                                                {!! $errors->first('nomor', '<label id="nomor-error" class="error invalid-feedback" for="nomor">:message</label>')!!}  
+                                                {!! $errors->first('nomor', '<label id="nomor-error" class="error invalid-feedback" for="nomor">:message</label>')!!}
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Kegiatan:<span class="text-danger">*</span></label>
                                                 <textarea name="kegiatan" class="form-control {{ $errors->has('kegiatan') ? 'is-invalid' : '' }}" cols="30" rows="3" placeholder="Kegiatan..." required>{{ $paket->evaluasiPenawaran->kegiatan == NULL ? $paket->nama : old('kegiatan', $paket->evaluasiPenawaran->kegiatan) }}</textarea>
-                                                {!! $errors->first('kegiatan', '<label id="kegiatan-error" class="error invalid-feedback" for="kegiatan">:message</label>')!!}  
+                                                {!! $errors->first('kegiatan', '<label id="kegiatan-error" class="error invalid-feedback" for="kegiatan">:message</label>')!!}
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Tanggal:<span class="text-danger">*</span></label>
                                                 <input type="date" class="form-control {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" maxlength="100" autocomplete="off" name="tanggal" value="{{ old('tanggal', $paket->evaluasiPenawaran->tanggal) }}"  id="tanggal" title="kolom tanggal di larang kosong" placeholder="Nomor..." required/>
-                                                {!! $errors->first('tanggal', '<label id="tanggal-error" class="error invalid-feedback" for="tanggal">:message</label>')!!}  
+                                                {!! $errors->first('tanggal', '<label id="tanggal-error" class="error invalid-feedback" for="tanggal">:message</label>')!!}
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Jam:<span class="text-danger">*</span></label>
                                                 <input type="time" class="form-control {{ $errors->has('jam') ? 'is-invalid' : '' }}" autocomplete="off" name="jam" value="{{ old('jam', $paket->evaluasiPenawaran->jam) }}"  id="jam" title="kolom jam di larang kosong" required/>
-                                                {!! $errors->first('jam', '<label id="jam-error" class="error invalid-feedback" for="jam">:message</label>')!!}  
+                                                {!! $errors->first('jam', '<label id="jam-error" class="error invalid-feedback" for="jam">:message</label>')!!}
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">SK Kepala Desa Nomor:<span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control {{ $errors->has('nomor_sk') ? 'is-invalid' : '' }}" maxlength="100" autocomplete="off" name="nomor_sk" value="{{ old('nomor_sk', $paket->evaluasiPenawaran->nomor_sk) }}"  id="nomor_sk" title="kolom nomor_sk di larang kosong" placeholder="Nomor..." required/>
-                                                {!! $errors->first('nomor_sk', '<label id="nomor_sk-error" class="error invalid-feedback" for="nomor_sk">:message</label>')!!}  
+                                                {!! $errors->first('nomor_sk', '<label id="nomor_sk-error" class="error invalid-feedback" for="nomor_sk">:message</label>')!!}
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Tahun Anggaran<span class="text-danger">*</span></label>
-                                                <select name="tahun_anggaran" id="tahun_anggaran" class="form-control selectFormClass {{ $errors->has('tahun_anggaran') ? 'is-invalid' : '' }}" required>     
-                                                    <option value="">TAHUN</option>                                               
+                                                <select name="tahun_anggaran" id="tahun_anggaran" class="form-control selectFormClass {{ $errors->has('tahun_anggaran') ? 'is-invalid' : '' }}" required>
+                                                    <option value="">TAHUN</option>
                                                     @for ($i = 2019; $i < date('Y')+5; $i++)
                                                         <option value="{{ $i }}" {{ $paket->evaluasiPenawaran->tahun_anggaran == $i ? "selected" : "" }}>{{ $i }}</option>
                                                     @endfor
                                                 </select>
-                                                {!! $errors->first('tahun_anggaran', '<label id="tahun_anggaran-error" class="error invalid-feedback" for="tahun_anggaran">:message</label>')!!}  
-                                            </div>  
+                                                {!! $errors->first('tahun_anggaran', '<label id="tahun_anggaran-error" class="error invalid-feedback" for="tahun_anggaran">:message</label>')!!}
+                                            </div>
                                             <div class="mb-3">
                                                 <button type="submit" class="btn btn-info width-md waves-effect waves-light">
                                                    <i class="fa fa-save"></i> SIMPAN
@@ -83,7 +83,7 @@
                                 </form>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>

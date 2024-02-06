@@ -8,9 +8,9 @@
     <title>STEP PERTAMA</title>
     <style>
         body {
-            font-family: "Times New Roman", Times, serif;
-            /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
-            font-size: 12px; */
+            font-family: "Arial Narrow", Times, serif;
+            /* font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  */
+            font-size: 12px;
             margin: 0cm 2cm 2cm 2cm;
         }
 
@@ -93,11 +93,11 @@
                 <td>
                     <img alt="Logo" src="{{ asset('template/images/logo/logo-sm.png') }}" class="text-right" align="bottom" width="70" height="80" />
                 </td>
-                <td class="text-center">
+                <td class="text-center text-bold">
                     <div class="kop-surat">
                         <div>PEMERINTAH KABUPATEN BENGKULU UTARA </div>
-                        <div class="text-bold"> KECAMATAN {{ $paket->kecamatan->nama }} </div>
-                        <div> DESA {{ $paket->desa->nama }} </div>
+                        <div class="text-bold">KECAMATAN {{ $paket->kecamatan->nama }}</div>
+                        <div>{{ $paket->desa->nama }} - Kabupaten Bengkulu Utara</div>
                     </div>
                 </td>
             </tr>
@@ -106,7 +106,9 @@
             <div class="lineup"></div>
             <div class="linebottom"></div>
         </div>
-        <br>
+    </div>
+    <br>
+    <div class="akk text-uppercase">
         <div class="f-11">
             <div class="text-center">
                 <span class="text-bold">KERANGKA ACUAN KERJA (KAK)</span><br>
@@ -187,7 +189,7 @@
     <div style="float: right;">
         <table>
             <tr>
-                <td>Bengkulu Utara, {{ $paket->akk->CreatedAtFormat }}</td>
+                <td>{{ ucwords(strtolower($paket->desa->nama)) }}, {{ $paket->akk->CreatedAtFormat }}</td>
             </tr>
             <tr>
                 <td>PELAKSANA KEGIATAN</td>
@@ -205,7 +207,7 @@
     </div>
     <div class="page-break"></div>
 
-    <div class="akk text-uppercase">
+    {{-- <div class="akk text-uppercase">
         <table width="100%">
             <tr>
                 <td>
@@ -223,6 +225,27 @@
     <div class="kop-surat">
         <div class="lineup"></div>
         <div class="linebottom"></div>
+    </div> --}}
+</div>
+<br>
+<div class="akk text-uppercase">
+    <table width="100%">
+        <tr>
+            <td>
+                <img alt="Logo" src="{{ asset('template/images/logo/logo-sm.png') }}" class="text-right" align="bottom" width="70" height="80" />
+            </td>
+            <td class="text-center text-bold">
+                <div class="kop-surat">
+                    <div>PEMERINTAH KABUPATEN BENGKULU UTARA </div>
+                    <div class="text-bold">KECAMATAN {{ $paket->kecamatan->nama }}</div>
+                    <div>{{ $paket->desa->nama }} - Kabupaten Bengkulu Utara</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="kop-surat">
+        <div class="lineup"></div>
+        <div class="linebottom"></div>
     </div>
 </div>
 <br>
@@ -235,22 +258,22 @@
     </div>
     <br>
     <table class="table-bordered">
-        <tr>
+        <tr class="text-bold">
             <td>NO</td>
             <td>URAIAN</td>
             <td>VOLUME</td>
             <td>SATUAN</td>
-            <td>HARGA SATUAN</td>                
+            <td>HARGA SATUAN</td>
             <td>JUMLAH</td>
             <td>PAJAK</td>
             <td>TOTAL (Jumlah + Pajak)</td>
         </tr>
         @php
-                $total = 0; 
+                $total = 0;
             @endphp
             @foreach($paket->hpsTable as $hps)
             @php
-                 $total += ($hps->jumlah + $hps->harga_pajak); 
+                 $total += ($hps->jumlah + $hps->harga_pajak);
             @endphp
                 <tr>
                     <td>{{ $loop->iteration }}</td>
