@@ -43,7 +43,7 @@ class PrintController extends Controller
         $pdf   = PDF::loadView('backend.paket.cetak.step_pertama_print', compact('paket'));
         // return $pdf->setPaper('a4', 'potrait')->stream();
         $fileName = sprintf('%s_step_pertama.pdf', Str::slug($paket->desa->nama));
-        return $pdf->setPaper('a4', 'potrait')->stream($fileName);
+        return $pdf->setPaper('a4', 'potrait')->download($fileName);
     }
 
     public function printStepKedua($id)
