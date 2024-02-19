@@ -26,7 +26,7 @@ class PaketRequest extends FormRequest
         return [
             'nama'      => 'required',
             'jenis'     => 'required',
-            'hps'       => 'required',
+            'hps'       => 'nullable',
             'aparatur_id' => 'required',
             'tanggal_selesai' => 'required',
         ];
@@ -36,6 +36,6 @@ class PaketRequest extends FormRequest
     {
         return [
             'aparatur_id.required'  => 'Kolom penanggung jawab di larang kosong',
-        ];        
+        ];
     }
 }

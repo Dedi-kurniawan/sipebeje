@@ -19,7 +19,7 @@ class CreatePaketsTable extends Migration
             $table->string('jenis');
             $table->text('keterangan')->nullable();
             $table->enum('status', ['draft', 'proses', 'selesai']);
-            $table->decimal('hps', 18,2);
+            $table->decimal('hps', 18,2)->nullable();
             $table->text('terbilang')->nullable();
             $table->unsignedBigInteger('desa_id');
             $table->foreign('desa_id')->references('id')->on('desa');

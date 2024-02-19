@@ -24,11 +24,8 @@ class SuratPesananRequest extends FormRequest
     public function rules()
     {
         return [
-            'vendor_id'  => 'required',
-            'aparatur_id'  => 'required',
+            'paket_id'  => 'required',
             'nomor_surat'  => 'required',
-            'tanggal'  => 'required',
-            'tanggal_lambat'  => 'required',
         ];
     }
 }

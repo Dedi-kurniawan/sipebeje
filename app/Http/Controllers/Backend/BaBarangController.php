@@ -18,6 +18,8 @@ use App\Models\BaBarang;
 use App\Models\BaBarangDetail;
 use App\Models\Vendor;
 use App\Models\Desa;
+use App\Models\HpsBaNego;
+use App\Models\Paket;
 
 class BaBarangController extends Controller
 {
@@ -25,25 +27,34 @@ class BaBarangController extends Controller
     {
         $desa = Desa::select('desa.*');
         $aparatur = Aparatur::select('aparatur.*');
-        $vendor = Vendor::select('vendor.*', 'users.name as name_vendor')
-                        ->join('users', 'users.vendor_id', '=', 'vendor.id');
+
+        $paket = Paket::select('paket.*')
+                        ->join('desa', 'desa.id', '=', 'paket.desa_id');
 
         $akses = $this->aksesRole();
         $desaId = null;
 
         if($akses['role'] == 'desa') {
             $aparatur->where('desa_id', $akses['desa_id']);
-            $vendor->where('vendor.desa_id', $akses['desa_id']);
-            $desa->where('desa.id', $akses['desa_id']);
+            $desa->where('id', $akses['desa_id']);
             $desaId = $akses['desa_id'];
+
+            $paket->where('paket.desa_id', $akses['desa_id']);
+
+            $paketIds = BaBarang::select('ba_barang.*')
+                                ->join('paket', 'paket.id', '=', 'ba_barang.paket_id')
+                                ->where('paket.desa_id', $akses['desa_id'])
+                                ->pluck('paket_id');
+
+            $paket->whereNotIn('paket.id', $paketIds);
         }
 
         $aparatur = $aparatur->get();
-        $vendor = $vendor->get();
         $desa = $desa->get();
+        $paket = $paket->get();
 
         $bread = $this->bread('Master', 'Berita Acara Serah Terima Barang', 'Table', route('admin.ba-barang.index'));
-        return view('backend.BaBarang.index', compact('bread', 'aparatur', 'vendor', 'desa', 'desaId'));
+        return view('backend.BaBarang.index', compact('bread', 'aparatur', 'desa', 'desaId', 'paket'));
     }
 
     /**
@@ -66,16 +77,14 @@ class BaBarangController extends Controller
     {
         DB::beginTransaction();
         try {
-            $akses = $this->aksesRole();
             $data  = $request->all();
-            $data['desa_id'] = $akses['desa_id'];
-            $create = BaBarang::create($data);
+            BaBarang::create($data);
             DB::commit();
-            return redirect()->route('admin.ba-barang.edit', $create->id);
+            return redirect()->route('admin.ba-barang.index');
             // return response()->json(['status' => 'success', 'message' => 'TAMBAH DATA ' .$create->nama. ' BERHASIL']);
         } catch (QueryException $qe) {
             DB::rollback();
-            return response()->json(['status' => 'error', 'message' => 'Terjadi Kesalah Pada Server, Mohon Di Ulangi']);
+            return redirect()->back(['status' => 'error', 'message' => 'Terjadi Kesalah Pada Server, Mohon Di Ulangi']);
         }
     }
 
@@ -166,19 +175,23 @@ class BaBarangController extends Controller
     {
         $ba = BaBarang::select(
             'ba_barang.*',
+            'paket.id as paket_id',
             'desa.nama as nama_desa',
             'desa.alamat as alamat_desa',
-            'aparatur.nama as nama_aparatur',
+            'pihak_1.nama as pihak_1',
+            'pihak_2.nama as pihak_2',
             'kecamatan.nama as kecamatan'
         )
-        ->join('desa', 'desa.id', '=', 'ba_barang.desa_id')
+        ->join('paket', 'paket.id', '=', 'ba_barang.paket_id')
+        ->join('aparatur as pihak_1', 'pihak_1.id', '=', 'paket.aparatur_id')
+        ->join('desa', 'desa.id', '=', 'paket.desa_id')
         ->join('kecamatan', 'kecamatan.id', '=', 'desa.kecamatan_id')
-        ->join('aparatur', 'aparatur.id', '=', 'ba_barang.aparatur_id')
+        ->join('aparatur as pihak_2', 'pihak_2.id', '=', 'ba_barang.aparatur_id')
         ->where('ba_barang.id', $id);
 
         $akses = $this->aksesRole();
         if($akses['role'] == 'desa') {
-            $ba->where('ba_barang.desa_id', $akses['desa_id']);
+            $ba->where('paket.desa_id', $akses['desa_id']);
         }
 
         $ba = $ba->first();
@@ -186,7 +199,7 @@ class BaBarangController extends Controller
         $ba['tanggal_text'] = sprintf('Pada hari ini %s tanggal %s bulan %s tahun %s', Carbon::parse($ba['tanggal'])->isoFormat('dddd'), ucwords($this->convert(Carbon::parse($ba['tanggal'])->isoFormat('d'))), ucwords(Carbon::parse($ba['tanggal'])->isoFormat('MMMM')), ucwords($this->convert(Carbon::parse($ba['tanggal'])->isoFormat('Y'))));
         $ba['tanggal'] = Carbon::parse($ba['tanggal'])->isoFormat('d MMMM Y');
 
-        $details = BaBarangDetail::where('ba_barang_id', $id)->get();
+        $details = HpsBaNego::where('paket_id', $ba->paket_id)->get();
         $fileName = sprintf('berita_acara_serah_terima_barang_%s.pdf', Str::slug($ba->nama_desa));
         $pdf = PDF::loadView('backend.BaBarang.cetak', compact('ba', 'details'));
         return $pdf->setPaper('a4', 'potrait')->download($fileName);

@@ -15,17 +15,12 @@ class CreateBaBarangTable extends Migration
     {
         Schema::create('ba_barang', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('desa_id');
-            $table->foreign('desa_id')->references('id')->on('desa');
+            $table->unsignedBigInteger('paket_id');
+            $table->foreign('paket_id')->references('id')->on('paket');
             $table->unsignedBigInteger('aparatur_id');
             $table->foreign('aparatur_id')->references('id')->on('aparatur');
-            $table->text('alamat_aparatur')->nullable();
-            $table->string('vendor');
-            $table->string('vendor_alamat');
-            $table->string('vendor_jabatan');
             $table->string('nomor_surat');
             $table->date('tanggal');
-            $table->decimal('ppn', 5,2)->default(0);
             $table->timestamps();
         });
     }

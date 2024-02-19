@@ -24,11 +24,11 @@ class HpsRequest extends FormRequest
     public function rules()
     {
         return [
-            'paket_id' => 'required', 
-            'uraian' => 'required', 
-            'volume' => 'required', 
-            'harga_satuan' => 'required', 
-            'pajak' => 'required', 
+            'paket_id' => 'required',
+            'uraian' => 'required',
+            'volume' => 'required',
+            'harga_satuan' => 'required',
+            'pajak' => 'required',
             'keterangan' => 'required',
         ];
     }

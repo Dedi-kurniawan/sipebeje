@@ -67,7 +67,6 @@
                                 <th>DESA</th>
                                 <th>PIHAK I</th>
                                 <th>PIHAK II</th>
-                                <th>PPN</th>
                                 <th>AKSI</th>
                             </tr>
                         </thead>

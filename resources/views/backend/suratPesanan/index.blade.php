@@ -62,16 +62,14 @@
                         <thead>
                             <tr>
                                 <th>NO</th>
-                                <th>TANGGAL</th>
-                                <th>NOMOR</th>
+                                <th>NO PESANAN</th>
+                                <th>PAKET</th>
                                 <th>DESA</th>
                                 <th>PENYEDIA</th>
-                                <th>LAMBAT TANGGAL</th>
-                                <th>JENIS BELANJA</th>
                                 <th>AKSI</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody class="text-uppercase"></tbody>
                     </table>
                 </div>
             </div>

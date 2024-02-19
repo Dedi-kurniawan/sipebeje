@@ -24,7 +24,7 @@
     <a href="{{ route('admin.surat-perjanjian.edit', $paket->id) }}"
         class="nav-link rounded-0 pt-2 pb-2 {{ $tab == "surat-perjanjian" ? "active" : "" }}">
         <i class="mdi mdi-file-sync me-1"></i>
-        <span class="d-none d-sm-inline">Surat Perjanjian</span>
+        <span class="d-none d-sm-inline">SURAT PERJANJIAN</span>
         <i class="mdi {{ $paket->perjanjian_field == " 0" ? "mdi-close-thick text-danger" : "mdi-check-bold text-success" }}"></i>
     </a>
 </li>

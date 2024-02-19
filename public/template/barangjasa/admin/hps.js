@@ -149,6 +149,8 @@ $("#submitData").click(function (event) {
                 $("#form_validate")[0].reset();
                 table.ajax.reload(null, false);
                 notifToast(action, title, d.message);
+
+                location.reload();
                 return false;
             } else if ((d.status == 'error')) {
                 // $("#formModal").modal("hide");
@@ -186,6 +188,7 @@ $(document).on('click', '#deleteData', function (e) {
                     if (d.status == 'success') {
                         table.ajax.reload(null, false);
                         notifToast(action, title, d.message);
+                        location.reload();
                         return false;
                     } else if (d.status == 'error') {
                         table.ajax.reload(null, false);

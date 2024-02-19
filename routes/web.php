@@ -21,6 +21,11 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth'], fu
         Route::get('hps/{id}/edit', [App\Http\Controllers\Backend\PaketController::class, 'editHps'])->name('hps.edit');
         Route::post('hps', [App\Http\Controllers\Backend\PaketController::class, 'storeHps']);
         Route::delete('hps/{id}', [App\Http\Controllers\Backend\PaketController::class, 'destroyHps'])->name('hps.destroy');
+
+        Route::get('hps-ba-nego/{id}/edit', [App\Http\Controllers\Backend\PaketController::class, 'editHpsBaNego'])->name('hps-ba-nego.edit');
+        Route::post('hps-ba-nego', [App\Http\Controllers\Backend\PaketController::class, 'storeHpsBaNego']);
+        Route::delete('hps-ba-nego/{id}', [App\Http\Controllers\Backend\PaketController::class, 'destroyHpsBaNego'])->name('hps-ba-nego.destroy');
+
         Route::get('get-vendor', [App\Http\Controllers\Backend\PaketController::class, 'getVendor']);
         Route::get('undangan/{id}/edit', [App\Http\Controllers\Backend\UndanganController::class, 'editUndangan'])->name('undangan.edit');
         Route::put('undangan/{id}', [App\Http\Controllers\Backend\UndanganController::class, 'updateUndangan'])->name('undangan.update');

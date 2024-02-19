@@ -15,17 +15,10 @@ class CreateBaPekerjaanTable extends Migration
     {
         Schema::create('ba_pekerjaan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('desa_id');
-            $table->foreign('desa_id')->references('id')->on('desa');
-            $table->unsignedBigInteger('kepala_desa_id');
-            $table->foreign('kepala_desa_id')->references('id')->on('aparatur');
-            $table->text('alamat_kepala_desa')->nullable();
-            $table->unsignedBigInteger('aparatur_id');
-            $table->foreign('aparatur_id')->references('id')->on('aparatur');
-            $table->text('alamat_aparatur')->nullable();
+            $table->unsignedBigInteger('paket_id');
+            $table->foreign('paket_id')->references('id')->on('paket');
             $table->string('nomor_surat');
             $table->date('tanggal');
-            $table->date('tanggal_nota_barang');
             $table->timestamps();
         });
     }

@@ -11,6 +11,11 @@ class BaPekerjaan extends Model
     protected $table = "ba_pekerjaan";
 
     protected $fillable = [
-        'desa_id', 'kepala_desa_id', 'alamat_kepala_desa', 'aparatur_id', 'nomor_surat', 'tanggal', 'alamat_aparatur', 'tanggal_nota_barang'
+        'paket_id', 'nomor_surat', 'tanggal',
     ];
+
+    public function paket()
+    {
+        return $this->belongsTo(Paket::class);
+    }
 }

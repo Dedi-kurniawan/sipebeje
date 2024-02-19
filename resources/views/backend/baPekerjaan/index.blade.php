@@ -64,13 +64,13 @@
                                 <th>NO</th>
                                 <th>TANGGAL</th>
                                 <th>NOMOR</th>
+                                <th>PAKET</th>
                                 <th>DESA</th>
-                                <th>KEPALA DESA</th>
                                 <th>KETUA TPK</th>
                                 <th>AKSI</th>
                             </tr>
                         </thead>
-                        <tbody></tbody>
+                        <tbody class="text-uppercase"></tbody>
                     </table>
                 </div>
             </div>

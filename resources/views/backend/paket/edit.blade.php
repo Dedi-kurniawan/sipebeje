@@ -63,14 +63,14 @@
                                                 <label for="example-input-normal" class="form-label">HPS:<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <span class="btn input-group-text btn-dark waves-effect waves-light">Rp. </span>
-                                                    <input type="text" class="form-control rupiah {{ $errors->has('hps') ? 'is-invalid' : '' }}" autocomplete="off" name="hps" value="{{ old('hps', $edit->hps) }}" id="hps" title="kolom hps di larang kosong" placeholder="HPS..." required />
+                                                    <input type="text" class="form-control rupiah {{ $errors->has('hps') ? 'is-invalid' : '' }}" autocomplete="off" name="hps" value="{{ old('hps', $edit->hps) }}" id="hps" title="kolom hps di larang kosong" placeholder="HPS..." readonly/>
                                                     {!! $errors->first('hps', '<label id="hps-error" class="error invalid-feedback" for="hps">:message</label>')!!}
                                                 </div>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">HPS (Terbilang):<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control {{ $errors->has('terbilang') ? 'is-invalid' : '' }}" autocomplete="off" name="terbilang" value="{{ old('terbilang', $edit->terbilang) }}" id="terbilang" title="kolom terbilang di larang kosong" placeholder="HPS Terbilang..." required />
+                                                    <input type="text" class="form-control {{ $errors->has('terbilang') ? 'is-invalid' : '' }}" autocomplete="off" name="terbilang" value="{{ old('terbilang', $edit->terbilang) }}" id="terbilang" title="kolom terbilang di larang kosong" placeholder="HPS Terbilang..." readonly/>
                                                     <button class="btn input-group-text btn-dark waves-effect waves-light" type="button" id="terbilang_rupiah"><i class="fas fa-sync-alt"></i></button>
                                                     {!! $errors->first('terbilang', '<label id="terbilang-error" class="error invalid-feedback" for="terbilang">:message</label>')!!}
                                                 </div>

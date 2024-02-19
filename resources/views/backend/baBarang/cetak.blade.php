@@ -118,12 +118,12 @@
     <tr>
         <td>Nama</td>
         <td>:</td>
-        <td><strong>{{ $ba->nama_aparatur }}</strong></td>
+        <td><strong>{{ $ba->pihak_1 }}</strong></td>
     </tr>
     <tr>
         <td>Alamat</td>
         <td>:</td>
-        <td>{{ $ba->alamat_aparatur }}</td>
+        <td>Desa {{ ucwords(strtolower($ba->nama_desa)) }}</td>
     </tr>
     <tr>
         <td>Jabatan</td>
@@ -141,12 +141,12 @@
     <tr>
         <td>Nama</td>
         <td>:</td>
-        <td><strong>{{ strtoupper($ba->vendor) }}</strong></td>
+        <td><strong>{{ strtoupper($ba->pihak_2) }}</strong></td>
     </tr>
     <tr>
         <td>Alamat</td>
         <td>:</td>
-        <td>{{ $ba->vendor_alamat }}</td>
+        <td>Desa {{ ucwords(strtolower($ba->nama_desa)) }}</td>
     </tr>
     <tr>
         <td>Jabatan</td>
@@ -177,12 +177,12 @@
         @foreach ($details as $key => $x)
             <tr>
                 <td>{{ $key + 1 }}</td>
-                <td>{{ ucwords(strtolower($x->nama)) }}</td>
-                <td class="text-right">{{ $x->qty }} {{ $x->satuan }}</td>
+                <td>{{ ucwords(strtolower($x->uraian)) }}</td>
+                <td class="text-right">{{ $x->volume }} {{ $x->satuan }}</td>
                 <td class="text-right">{{ number_format($x->harga_satuan, 2)  }}</td>
-                <td class="text-right">{{ number_format($x->qty * $x->harga_satuan, 2)  }}</td>
+                <td class="text-right">{{ number_format($x->volume * $x->harga_satuan, 2)  }}</td>
             </tr>
-        @php $total += ($x->qty * $x->harga_satuan) @endphp
+        @php $total += ($x->volume * $x->harga_satuan) @endphp
         @endforeach
         <tr>
             <td colspan="4" class="text-center">Total</td>
@@ -226,11 +226,11 @@
     <tr>
         <td class="text-center">
             <p>
-                <u><strong>{{ strtoupper($ba->vendor) }}</strong></u>
+                <u><strong>{{ strtoupper($ba->pihak_1) }}</strong></u>
             </p>
         </td>
         <td class="text-center">
-            <u><strong>{{ strtoupper($ba->nama_aparatur) }}</strong></u>
+            <u><strong>{{ strtoupper($ba->pihak_2) }}</strong></u>
         </td>
     </tr>
 </table>

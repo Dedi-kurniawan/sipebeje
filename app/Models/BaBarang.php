@@ -11,6 +11,6 @@ class BaBarang extends Model
     protected $table = "ba_barang";
 
     protected $fillable = [
-        'desa_id', 'vendor', 'vendor_alamat', 'vendor_jabatan', 'aparatur_id', 'nomor_surat', 'tanggal', 'alamat_aparatur', 'tanggal_lambat', 'ppn', 'tanggal_nota_barang'
+        'aparatur_id', 'nomor_surat', 'tanggal', 'paket_id'
     ];
 }

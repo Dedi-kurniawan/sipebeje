@@ -24,12 +24,9 @@ class BaPekerjaanRequest extends FormRequest
     public function rules()
     {
         return [
-            'kepala_desa_id'  => 'required',
-            'alamat_kepala_desa'  => 'required',
-            'aparatur_id'  => 'required',
+            'paket_id'  => 'required',
             'nomor_surat'  => 'required',
             'tanggal'  => 'required',
-            'alamat_aparatur' => 'required'
         ];
     }
 }

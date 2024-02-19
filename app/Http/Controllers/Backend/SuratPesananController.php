@@ -17,38 +17,39 @@ use App\Models\Satuan;
 use App\Models\Desa;
 use App\Models\SuratPesanan;
 use App\Models\SuratPesananDetail;
-use App\Models\Vendor;
+use App\Models\Paket;
+use App\Models\HpsBaNego;
 
 class SuratPesananController extends Controller
 {
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+        $paket = Paket::select('paket.*')
+                        ->join('desa', 'desa.id', '=', 'paket.desa_id');
+
         $desa = Desa::select('desa.*');
-        $aparatur = Aparatur::select('aparatur.*');
-        $vendor = Vendor::select('vendor.*', 'users.name as name_vendor')
-                        ->join('users', 'users.vendor_id', '=', 'vendor.id');
 
         $akses = $this->aksesRole();
-
         $desaId = null;
         if($akses['role'] == 'desa') {
-            $aparatur->where('desa_id', $akses['desa_id']);
-            $vendor->where('vendor.desa_id', $akses['desa_id']);
-            $desa->where('desa.id', $akses['desa_id']);
+            $paket->where('paket.desa_id', $akses['desa_id']);
+
+            $paketIds = SuratPesanan::select('surat_pesanan.*')
+                                ->join('paket', 'paket.id', '=', 'surat_pesanan.paket_id')
+                                ->where('paket.desa_id', $akses['desa_id'])
+                                ->pluck('paket_id');
+
+            $paket->whereNotIn('paket.id', $paketIds);
+            $desa->where('id', $akses['desa_id']);
             $desaId = $akses['desa_id'];
         }
 
-        $aparatur = $aparatur->get();
-        $vendor = $vendor->get();
+        $paket->where('paket.status', 'selesai');
+        $paket = $paket->get();
         $desa = $desa->get();
 
         $bread = $this->bread('Master', 'Surat Pesanan', 'Table', route('admin.surat-pesanan.index'));
-        return view('backend.suratPesanan.index', compact('bread', 'aparatur', 'vendor', 'desa', 'desaId'));
+        return view('backend.suratPesanan.index', compact('bread', 'paket', 'desa', 'desaId'));
     }
 
     /**
@@ -71,16 +72,14 @@ class SuratPesananController extends Controller
     {
         DB::beginTransaction();
         try {
-            $akses = $this->aksesRole();
             $data  = $request->all();
-            $data['desa_id'] = $akses['desa_id'];
             $create = SuratPesanan::create($data);
             DB::commit();
-            return redirect()->route('admin.surat-pesanan.edit', $create->id);
+            return redirect()->route('admin.surat-pesanan.index');
             // return response()->json(['status' => 'success', 'message' => 'TAMBAH DATA ' .$create->nama. ' BERHASIL']);
         } catch (QueryException $qe) {
             DB::rollback();
-            return response()->json(['status' => 'error', 'message' => 'Terjadi Kesalah Pada Server, Mohon Di Ulangi']);
+            return redirect()->back(['status' => 'error', 'message' => 'Terjadi Kesalah Pada Server, Mohon Di Ulangi']);
         }
     }
 
@@ -103,24 +102,9 @@ class SuratPesananController extends Controller
      */
     public function edit($id)
     {
-        $aparatur = Aparatur::select('aparatur.*');
-        $vendor = Vendor::select('vendor.*', 'users.name as name_vendor')
-                        ->join('users', 'users.vendor_id', '=', 'vendor.id');
-
-        $akses = $this->aksesRole();
-
-        if($akses['role'] == 'desa') {
-            $aparatur->where('desa_id', $akses['desa_id']);
-            $vendor->where('vendor.desa_id', $akses['desa_id']);
-        }
-
-        $aparatur = $aparatur->get();
-        $vendor = $vendor->get();
-        $satuan = Satuan::all();
-
         $edit = SuratPesanan::findOrFail($id);
         $bread = $this->bread('Master', 'Surat Pesanan', 'Table', route('admin.surat-pesanan.index'));
-        return view('backend.suratPesanan.detail', compact('bread', 'aparatur', 'vendor', 'edit', 'satuan'));
+        return view('backend.suratPesanan.detail', compact('bread', 'edit'));
     }
 
     /**
@@ -155,8 +139,6 @@ class SuratPesananController extends Controller
     {
         DB::beginTransaction();
         try {
-            SuratPesananDetail::where('surat_pesanan_id', $id)
-                                ->delete();
             $delete = SuratPesanan::findOrFail($id);
             $delete->delete();
             DB::commit();
@@ -171,21 +153,23 @@ class SuratPesananController extends Controller
     {
         $sp = SuratPesanan::select(
             'surat_pesanan.*',
+            'paket.id as paket_id',
             'desa.nama as nama_desa', 'desa.alamat as alamat_desa',
             'vendor.nama_perusahaan as nama_vendor', 'vendor.alamat as alamat_vendor',
             'aparatur.nama as nama_aparatur',
             'users.name as nama_pimpinan_toko', 'kecamatan.nama as kecamatan'
         )
-        ->join('desa', 'desa.id', '=', 'surat_pesanan.desa_id')
+        ->join('paket', 'paket.id', '=', 'surat_pesanan.paket_id')
+        ->join('desa', 'desa.id', '=', 'paket.desa_id')
         ->join('kecamatan', 'kecamatan.id', '=', 'desa.kecamatan_id')
-        ->join('vendor', 'vendor.id', '=', 'surat_pesanan.vendor_id')
-        ->join('users', 'users.vendor_id', '=', 'surat_pesanan.vendor_id')
-        ->join('aparatur', 'aparatur.id', '=', 'surat_pesanan.aparatur_id')
+        ->join('vendor', 'vendor.id', '=', 'paket.vendor_id')
+        ->join('users', 'users.vendor_id', '=', 'paket.vendor_id')
+        ->join('aparatur', 'aparatur.id', '=', 'paket.aparatur_id')
         ->where('surat_pesanan.id', $id);
 
         $akses = $this->aksesRole();
         if($akses['role'] == 'desa') {
-            $sp->where('surat_pesanan.desa_id', $akses['desa_id']);
+            $sp->where('paket.desa_id', $akses['desa_id']);
         }
 
         $sp = $sp->first();
@@ -194,7 +178,7 @@ class SuratPesananController extends Controller
         $sp['tanggal_lambat_text'] = Carbon::parse($sp['tanggal_lambat'])->isoFormat('d MMMM Y');
         $sp['tanggal'] = Carbon::parse($sp['tanggal'])->isoFormat('d MMMM Y');
 
-        $details = SuratPesananDetail::where('surat_pesanan_id', $id)->get();
+        $details = HpsBaNego::where('paket_id', $sp->paket_id)->get();
         $fileName = sprintf('surat_pesanan_%s.pdf', Str::slug($sp->nama_desa));
         $pdf   = PDF::loadView('backend.suratPesanan.cetak', compact('sp', 'details'));
         return $pdf->setPaper('a4', 'potrait')->download($fileName);

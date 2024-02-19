@@ -125,11 +125,11 @@
         <td>:</td>
         <td>Ketua Tim Pengelola Kegiatan</td>
     </tr>
-    <tr>
+    {{-- <tr>
         <td>Alamat</td>
         <td>:</td>
         <td>{{ $sp->alamat_aparatur }}</td>
-    </tr>
+    </tr> --}}
 </table>
 <table>
     <tr>
@@ -177,13 +177,13 @@
         @foreach ($details as $key => $x)
             <tr>
                 <td>{{ $key + 1 }}</td>
-                <td>{{ ucwords(strtolower($x->nama)) }}</td>
-                <td class="text-right">{{ $x->qty }}</td>
+                <td>{{ ucwords(strtolower($x->uraian)) }}</td>
+                <td class="text-right">{{ $x->volume }}</td>
                 <td class="text-center">{{ $x->satuan }}</td>
-                <td class="text-right">{{ number_format($x->sp, 2)  }}</td>
-                <td class="text-right">{{ number_format($x->qty * $x->sp, 2)  }}</td>
+                <td class="text-right">{{ number_format($x->harga_satuan, 2)  }}</td>
+                <td class="text-right">{{ number_format($x->volume * $x->harga_satuan, 2)  }}</td>
             </tr>
-        @php $total += ($x->qty * $x->sp) @endphp
+        @php $total += ($x->volume * $x->harga_satuan) @endphp
         @endforeach
         @php
             $ppn = 0;
@@ -198,7 +198,7 @@
         @endphp
         <tr>
             <td colspan="5" class="text-center">Jumlah setelah pajak</td>
-            <td class="text-right">{{ number_format($total + $ppn + $pph, 2) }}</td>
+            <td class="text-right">{{ number_format($total, 2) }}</td>
         </tr>
         <tr>
             <td colspan="5" class="text-center">PPN</td>
@@ -238,19 +238,19 @@
         <td>3.</td>
         <td>Dibebankan Kepada</td>
         <td style="width: 5px">:</td>
-        <td>{{ $sp->beban_kepada }}</td>
+        <td>Bidang Pelaksanaan Pembangunan Desa Kegiatan  Dukungan Pembinaan dan Keagamaan</td>
     </tr>
     <tr>
         <td>4.</td>
         <td>Jenis Belanja</td>
         <td style="width: 5px">:</td>
-        <td>{{ $sp->jenis_belanja }}</td>
+        <td>Belanja Barang dan Jasa</td>
     </tr>
     <tr>
         <td>5.</td>
         <td>Uraian rincian Jenis Belanja</td>
         <td>:</td>
-        <td>{{ $sp->uraian_jenis_belanja }}</td>
+        <td>{{ $sp->uraian }}</td>
     </tr>
     <tr>
         <td>6.</td>

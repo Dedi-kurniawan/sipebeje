@@ -5,11 +5,12 @@ namespace App\Http\Controllers\DataTable;
 use App\Http\Controllers\DataTable\BaseController as Controller;
 use App\Models\HasilEvaluasiPenawaran;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Http\Request;
 use App\Models\UndanganMaterial;
 use App\Models\UndanganVendor;
 use App\Models\Hps;
 use App\Models\Paket;
-use Illuminate\Http\Request;
+use App\Models\HpsBaNego;
 
 class PaketController extends Controller
 {
@@ -72,6 +73,27 @@ class PaketController extends Controller
             })
             ->addColumn('action', function ($data) {
                 return "<button id='deleteData' data-id='$data->id' data-name='$data->uraian' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash'></i> Hapus</button>";
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    public function hpsBaNego(Request $request)
+    {
+        $data = HpsBaNego::OfPaketId($request->paket_id)->orderby('created_at', 'asc');
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('harga_satuan_format', function ($data) {
+                return $this->rupiahFormat($data->harga_satuan);
+            })
+            ->addColumn('jumlah_format', function ($data) {
+                return $this->rupiahFormat($data->jumlah);
+            })
+            ->addColumn('harga_pajak_format', function ($data) {
+                return $this->rupiahFormat($data->jumlah + $data->harga_pajak);
+            })
+            ->addColumn('action', function ($data) {
+                return "<button type='button' id='deleteData' data-id='$data->id' data-name='$data->uraian' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash'></i> Hapus</button>";
             })
             ->rawColumns(['action'])
             ->toJson();

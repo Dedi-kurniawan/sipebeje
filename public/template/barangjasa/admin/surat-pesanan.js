@@ -27,14 +27,14 @@ var table = $('#datatable').DataTable({
             searchable: false
         },
         {
-            data: 'tanggal',
-            name: 'tanggal',
+            data: 'nomor_surat',
+            name: 'nomor_surat',
             orderable: true,
             searchable: true,
         },
         {
-            data: 'nomor_surat',
-            name: 'nomor_surat',
+            data: 'nama_paket',
+            name: 'nama_paket',
             orderable: true,
             searchable: true,
         },
@@ -47,18 +47,6 @@ var table = $('#datatable').DataTable({
         {
             data: 'nama_vendor',
             name: 'nama_vendor',
-            orderable: true,
-            searchable: true,
-        },
-        {
-            data: 'tanggal_lambat',
-            name: 'tanggal_lambat',
-            orderable: true,
-            searchable: true,
-        },
-        {
-            data: 'jenis_belanja',
-            name: 'jenis_belanja',
             orderable: true,
             searchable: true,
         },

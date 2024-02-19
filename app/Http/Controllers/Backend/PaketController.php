@@ -6,6 +6,10 @@ use App\Http\Controllers\Backend\BaseController as Controller;
 use App\Http\Requests\AkkRequest;
 use App\Http\Requests\HpsRequest;
 use App\Http\Requests\PaketRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 use App\Models\Akk;
 use App\Models\Aparatur;
 use App\Models\EvaluasiPenawaran;
@@ -16,9 +20,7 @@ use App\Models\Satuan;
 use App\Models\SuratPerjanjian;
 use App\Models\Undangan;
 use App\Models\Vendor;
-use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\HpsBaNego;
 
 class PaketController extends Controller
 {
@@ -48,7 +50,7 @@ class PaketController extends Controller
             $data['kecamatan_id'] = $akses['kecamatan_id'];
             $data['status'] = 'draft';
             $rupiah = str_replace('.', '', $request->hps);
-            $data['hps'] = substr($rupiah, 0, -3);
+            // $data['hps'] = substr($rupiah, 0, -3);
             $create = Paket::create($data);
             Akk::create([
                 'paket_id' => $create->id
@@ -192,6 +194,8 @@ class PaketController extends Controller
                 $data['harga_pajak']  = ($request->pajak / 100) * $jumlah;
             }
             $create = Hps::create($data);
+            $this->storeHpsBaNego($request);
+            $this->updatePaket($request->paket_id);
             DB::commit();
             return response()->json(['status' => 'success', 'action' => 'success', 'message' => 'TAMBAH HPS ' . $create->uraian . ' BERHASIL']);
         } catch (QueryException $qe) {
@@ -206,13 +210,24 @@ class PaketController extends Controller
         try {
             $delete = Hps::findOrFail($id);
             $hps = Hps::where('paket_id', $delete->paket_id)->count();
+            $paket = Paket::where('id', $delete->paket_id)->firstOrFail();
+
             if ($hps == "1") {
-                $paket  = Paket::where('id', $delete->paket_id)->firstOrFail();
                 $paket->update([
                     'hps_field' => '0'
                 ]);
             }
+
+            $this->updatePaket($delete->paket_id);
+
+            if ($paket->undangan_field != "1") {
+                HpsBaNego::where('paket_id', $delete->paket_id)
+                            ->where('uraian', $delete->uraian)
+                            ->delete();
+            }
+
             $delete->delete();
+
             DB::commit();
             return response()->json(['status' => 'success', 'message' => 'HAPUS ' . $delete->uraian . ' BERHASIL']);
         } catch (QueryException $qe) {
@@ -259,5 +274,69 @@ class PaketController extends Controller
         $title    = "Vendor";
         $select   = view('layouts.backend.partials.select', compact('data', 'title', 'selected'))->render();
         return response()->json(['options' => $select]);
+    }
+
+    public function updatePaket($paketId)
+    {
+        $row = Paket::find($paketId);
+
+        $totalHps = Hps::where('paket_id', $paketId)->sum(DB::raw('jumlah + harga_pajak'));
+        $terbilang = null;
+
+        if($totalHps > 0) {
+            $totalHps = $totalHps;
+            $terbilang = $this->convert(substr($totalHps, 0, -3));
+        }
+
+        $row->hps = $totalHps;
+        $row->terbilang = $terbilang;
+        $row->save();
+    }
+
+    public function storeHpsBaNego(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $row = HpsBaNego::findOrNew($request->id);
+            $rupiah = str_replace('.', '', $request->harga_satuan);
+            $harga = substr($rupiah, 0, -3);
+            $jumlah = $harga * $request->volume;
+
+            $row->paket_id = $request->paket_id;
+            $row->uraian = $request->uraian;
+            $row->volume = $request->volume;
+            $row->satuan = $request->satuan;
+            $row->harga_satuan = $harga;
+            $row->jumlah = $jumlah;
+            $row->pajak = $request->pajak;
+            $row->keterangan = $request->keterangan;
+            if ($request->pajak == "0") {
+                $row->harga_pajak =  '0';
+            } else {
+                $row->harga_pajak = ($request->pajak / 100) * $jumlah;
+            }
+
+            $row->save();
+            DB::commit();
+            return response()->json(['status' => 'success', 'action' => 'success', 'message' => 'TAMBAH HPS ' . $row->uraian . ' BERHASIL']);
+        } catch (QueryException $qe) {
+            DB::rollback();
+            return response()->json(['status' => 'error', 'action' => 'error', 'message' => 'Terjadi Kesalah Pada Server, Mohon Di Ulangi']);
+        }
+    }
+
+    public function destroyHpsBaNego($id)
+    {
+        DB::beginTransaction();
+        try {
+            $delete = HpsBaNego::findOrFail($id);
+            $delete->delete();
+
+            DB::commit();
+            return response()->json(['status' => 'success', 'message' => 'HAPUS ' . $delete->uraian . ' BERHASIL']);
+        } catch (QueryException $qe) {
+            DB::rollback();
+            return response()->json(['status' => 'error', 'message' => 'Terjadi Kesalah Pada Server, Mohon Di Ulangi']);
+        }
     }
 }

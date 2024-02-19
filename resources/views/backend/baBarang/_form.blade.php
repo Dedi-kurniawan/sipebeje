@@ -22,8 +22,23 @@
                         <input type="text" class="form-control {{ $errors->has('nomor_surat') ? 'is-invalid' : '' }}" autocomplete="off" name="nomor_surat" value="{{ old('nomor_surat') }}"  id="nomor_surat" title="kolom nomor surat di larang kosong" placeholder="nomor surat..." required/>
                         {!! $errors->first('nomor_surat', '<label id="nomor_surat-error" class="error invalid-feedback" for="nomor_surat">:message</label>')!!}
                     </div>
+                    <div class="mb-2">
+                        <label for="example-input-normal" class="form-label">Tanggal:<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" autocomplete="off" name="tanggal" value="{{ old('tanggal') }}"  id="tanggal" title="kolom tanggal di larang kosong" required/>
+                        {!! $errors->first('tanggal', '<label id="tanggal-error" class="error invalid-feedback" for="tanggal">:message</label>')!!}
+                    </div>
                     <div class="col-12 mb-2">
-                        <h5>PIHAK PERTAMA</h5>
+                        <label for="example-input-normal" class="form-label">Paket:<span class="text-danger">*</span></label>
+                        <select name="paket_id" class="form-control selectForm {{ $errors->has('paket_id') ? 'is-invalid' : '' }}" id="paket_id" required title="Kolom Paket di larang kosong">
+                            <option value="">Pilih Paket</option>
+                            @foreach ($paket as $a)
+                                <option value="{{ $a->id }}" {{ old('paket_id') == $a->id ? "selected" : "" }}>{{ $a->nama }}</option>
+                            @endforeach
+                        </select>
+                        {!! $errors->first('paket_id', '<label id="paket_id-error" class="error invalid-feedback" for="paket_id">:message</label>')!!}
+                    </div>
+                    <div class="col-12 mb-2">
+                        <h5>PIHAK KEDUA</h5>
                     </div>
                     <div class="col-12 mb-2">
                         <label for="example-input-normal" class="form-label">Nama:<span class="text-danger">*</span></label>
@@ -34,34 +49,6 @@
                             @endforeach
                         </select>
                         {!! $errors->first('aparatur_id', '<label id="aparatur_id-error" class="error invalid-feedback" for="aparatur_id">:message</label>')!!}
-                    </div>
-                    <div class="mb-2">
-                        <label for="example-input-normal" class="form-label">Alamat:<span class="text-danger">*</span></label>
-                        <textarea name="alamat_aparatur" id="alamat_aparatur" class="form-control {{ $errors->has('alamat_aparatur') ? 'is-invalid' : '' }}" cols="3" rows="3" title="Kolom pihak pertama alamat di larang kosong" required>{{ old('alamat_aparatur') }}</textarea>
-                        {!! $errors->first('alamat_aparatur', '<label id="alamat_aparatur-error" class="error invalid-feedback" for="alamat_aparatur">:message</label>')!!}
-                    </div>
-                    <div class="col-12 mb-2">
-                        <h5>PIHAK KEDUA</h5>
-                    </div>
-                    <div class="col-12 mb-2">
-                        <label for="example-input-normal" class="form-label">Nama<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control {{ $errors->has('vendor') ? 'is-invalid' : '' }}" autocomplete="off" name="vendor" value="{{ old('vendor') }}"  id="vendor" title="kolom pihak kedua nama di larang kosong" placeholder="Nama..." required/>
-                        {!! $errors->first('vendor', '<label id="vendor-error" class="error invalid-feedback" for="vendor">:message</label>')!!}
-                    </div>
-                    <div class="mb-2">
-                        <label for="example-input-normal" class="form-label">Alamat:<span class="text-danger">*</span></label>
-                        <textarea name="vendor_alamat" id="vendor_alamat" class="form-control {{ $errors->has('vendor_alamat') ? 'is-invalid' : '' }}" cols="3" rows="3" title="Kolom pihak kedua alamat di larang kosong" required>{{ old('vendor_alamat') }}</textarea>
-                        {!! $errors->first('vendor_alamat', '<label id="vendor_alamat-error" class="error invalid-feedback" for="vendor_alamat">:message</label>')!!}
-                    </div>
-                    <div class="col-12 mb-2">
-                        <label for="example-input-normal" class="form-label">Jabatan<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control {{ $errors->has('vendor_jabatan') ? 'is-invalid' : '' }}" autocomplete="off" name="vendor_jabatan" value="{{ old('vendor_jabatan') }}"  id="vendor_jabatan" title="kolom pihak kedua jabatan di larang kosong" placeholder="Jabatan..." required/>
-                        {!! $errors->first('vendor_jabatan', '<label id="vendor_jabatan-error" class="error invalid-feedback" for="vendor_jabatan">:message</label>')!!}
-                    </div>
-                    <div class="mb-2">
-                        <label for="example-input-normal" class="form-label">Tanggal:<span class="text-danger">*</span></label>
-                        <input type="date" class="form-control {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" autocomplete="off" name="tanggal" value="{{ old('tanggal') }}"  id="tanggal" title="kolom tanggal di larang kosong" required/>
-                        {!! $errors->first('tanggal', '<label id="tanggal-error" class="error invalid-feedback" for="tanggal">:message</label>')!!}
                     </div>
                 </div>
                 <div class="modal-footer">

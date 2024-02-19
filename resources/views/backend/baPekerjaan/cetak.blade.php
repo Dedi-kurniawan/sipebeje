@@ -125,11 +125,11 @@
             <td>:</td>
             <td><strong>{{ $ba->kepala_desa }}</strong></td>
         </tr>
-        <tr>
+        {{-- <tr>
             <td>Alamat</td>
             <td>:</td>
             <td>{{ $ba->alamat_kepala_desa }}</td>
-        </tr>
+        </tr> --}}
         <tr>
             <td>Jabatan</td>
             <td>:</td>
@@ -148,11 +148,11 @@
             <td>:</td>
             <td><strong>{{ strtoupper($ba->nama_aparatur) }}</strong></td>
         </tr>
-        <tr>
+        {{-- <tr>
             <td>Alamat</td>
             <td>:</td>
             <td>{{ $ba->alamat_aparatur }}</td>
-        </tr>
+        </tr> --}}
         <tr>
             <td>Jabatan</td>
             <td>:</td>
@@ -187,11 +187,11 @@
                 @foreach($details as $key => $x)
                     <tr>
                         <td>{{ $key + 1 }}</td>
-                        <td>{{ ucwords(strtolower($x->nama)) }}</td>
-                        <td class="text-right">{{ $x->qty }} {{ $x->satuan }}</td>
+                        <td>{{ ucwords(strtolower($x->uraian)) }}</td>
+                        <td class="text-right">{{ $x->volume }} {{ $x->satuan }}</td>
                         <td class="text-right">@if($x->checklist == 'Ada') V @endif</td>
                         <td class="text-right">@if($x->checklist == 'Tidak Ada') V @endif</td>
-                        <td class="text-right">{{ $x->keterangan }}</td>
+                        <td class="text-center">{{ $x->keterangan }}</td>
                     </tr>
                 @endforeach
         </table>

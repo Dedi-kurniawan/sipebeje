@@ -39,14 +39,14 @@ var table = $('#datatable').DataTable({
             searchable: true,
         },
         {
-            data: 'nama_desa',
-            name: 'nama_desa',
+            data: 'nama_paket',
+            name: 'nama_paket',
             orderable: true,
             searchable: true,
         },
         {
-            data: 'kepala_desa',
-            name: 'kepala_desa',
+            data: 'nama_desa',
+            name: 'nama_desa',
             orderable: true,
             searchable: true,
         },

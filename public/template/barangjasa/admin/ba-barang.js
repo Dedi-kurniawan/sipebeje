@@ -51,14 +51,8 @@ var table = $('#datatable').DataTable({
             searchable: true,
         },
         {
-            data: 'vendor',
-            name: 'vendor',
-            orderable: true,
-            searchable: true,
-        },
-        {
-            data: 'ppn',
-            name: 'ppn',
+            data: 'pihak_2',
+            name: 'pihak_2',
             orderable: true,
             searchable: true,
         },

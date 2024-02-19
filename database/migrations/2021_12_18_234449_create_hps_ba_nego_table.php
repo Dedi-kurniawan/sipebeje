@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHpsTable extends Migration
+class CreateHpsBaNegoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateHpsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hps', function (Blueprint $table) {
+        Schema::create('hps_ba_nego', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('paket_id');
             $table->foreign('paket_id')->references('id')->on('paket')->onDelete('cascade');
@@ -25,6 +25,8 @@ class CreateHpsTable extends Migration
             $table->string('pajak', 4)->nullable();
             $table->decimal('harga_pajak',18,2)->nullable();
             $table->text('keterangan')->nullable();
+            $table->enum('checklist', ['Ada', 'Tidak Ada'])->nullable();
+            $table->string('checklist_keterangan')->nullable();
             $table->timestamps();
         });
     }
@@ -36,6 +38,6 @@ class CreateHpsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hps');
+        Schema::dropIfExists('hps_ba_nego');
     }
 }

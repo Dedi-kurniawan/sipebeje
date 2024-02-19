@@ -15,21 +15,12 @@ class CreateSuratPesananTable extends Migration
     {
         Schema::create('surat_pesanan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('desa_id');
-            $table->foreign('desa_id')->references('id')->on('desa');
-            $table->unsignedBigInteger('vendor_id');
-            $table->foreign('vendor_id')->references('id')->on('vendor');
-            $table->unsignedBigInteger('aparatur_id');
-            $table->foreign('aparatur_id')->references('id')->on('aparatur');
+            $table->unsignedBigInteger('paket_id');
+            $table->foreign('paket_id')->references('id')->on('paket');
             $table->string('nomor_surat');
             $table->date('tanggal');
-            $table->text('alamat_aparatur')->nullable();
-            $table->date('tanggal_lambat')->nullable();
-            $table->text('beban_kepada')->nullable();
-            $table->text('jenis_belanja')->nullable();
-            $table->text('uraian_jenis_belanja')->nullable();
-            $table->decimal('ppn', 5,2)->default(0);
-            $table->decimal('pph', 5,2)->default(0);
+            $table->date('tanggal_lambat');
+            $table->text('uraian');
             $table->timestamps();
         });
     }

@@ -25,4 +25,5 @@ Route::group(['prefix' => 'admin/master'], function () {
     Route::post('ba-barang-detail', [App\Http\Controllers\DataTable\AdminController::class, 'baBarangDetail']);
     Route::post('ba-pekerjaan', [App\Http\Controllers\DataTable\AdminController::class, 'baPekerjaan']);
     Route::post('ba-pekerjaan-detail', [App\Http\Controllers\DataTable\AdminController::class, 'baPekerjaanDetail']);
+    Route::post('hps-ba-nego-harga', [App\Http\Controllers\DataTable\PaketController::class, 'hpsBaNego']);
 });

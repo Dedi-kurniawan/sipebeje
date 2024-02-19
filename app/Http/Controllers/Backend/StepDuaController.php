@@ -12,8 +12,7 @@ use App\Models\UndanganVendor;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
-use function GuzzleHttp\Promise\all;
+use App\Models\Satuan;
 
 class StepDuaController extends Controller
 {
@@ -139,12 +138,13 @@ class StepDuaController extends Controller
         $akses  = $this->aksesRole();
         $paket  = Paket::where('id', $id)->OfDesaId($akses['desa_id'])->with('negoHarga', 'evaluasiPenawaran')->firstOrFail();
         $tab    = "nego-harga";
+        $satuan   = Satuan::orderby('nama', 'asc')->get();
 
         if (empty($paket->vendor_id)) {
             return redirect()->route('admin.hasil-evaluasi-penawaran.edit', $id)->with(['status' => 'error', 'action' => 'error', 'title' =>  'STEP DUA', 'message' => 'Vendor Belum Pilih']);
         }
 
-        return view('backend.paket.stepdua.nego_harga', compact('bread', 'paket', 'tab'));
+        return view('backend.paket.stepdua.nego_harga', compact('bread', 'paket', 'tab', 'satuan'));
     }
 
     public function negoHargaUpdate(Request $request, $id)

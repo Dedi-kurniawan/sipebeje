@@ -24,9 +24,6 @@ class BaBarangRequest extends FormRequest
     public function rules()
     {
         return [
-            'vendor'  => 'required',
-            'vendor_alamat'  => 'required',
-            'vendor_jabatan'  => 'required',
             'aparatur_id'  => 'required',
             'nomor_surat'  => 'required',
             'tanggal'  => 'required',

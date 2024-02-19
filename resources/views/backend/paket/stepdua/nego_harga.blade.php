@@ -50,6 +50,35 @@
                                                 <input type="time" class="form-control {{ $errors->has('pukul') ? 'is-invalid' : '' }}" autocomplete="off" readonly name="pukul" value="{{ old('pukul', empty($paket->negoHarga->pukul) ? $paket->evaluasiPenawaran->jam : $paket->negoHarga->pukul) }}" id="pukul" title="kolom pukul di larang kosong" required />
                                                 {!! $errors->first('pukul', '<label id="pukul-error" class="error invalid-feedback" for="pukul">:message</label>')!!}
                                             </div>
+                                            <div class="row mb-3">
+                                                <div class="col-12">
+                                                    <input type="hidden" id="paket_id_value" value="{{ $paket->id }}">
+                                                    <button type="button" class="btn btn-success btn-md float-end" onclick="createData()">
+                                                        <i class="fe-plus"></i> TAMBAH HPS
+                                                    </button>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="table-responsive">
+                                                        <table id="datatable" class="table nowrap w-100 mt-3">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>NO</th>
+                                                                    <th>URAIAN</th>
+                                                                    <th>VOLUME</th>
+                                                                    <th>HARGA @</th>
+                                                                    <th>SATUAN</th>
+                                                                    <th>JUMLAH</th>
+                                                                    <th>PAJAK</th>
+                                                                    <th>HARGA SETELAH PAJAK</th>
+                                                                    <th>KETERANGAN</th>
+                                                                    <th>AKSI</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="mb-2 fw-bold">
                                                 I. Uraian Klarifikasi mengenai
                                             </div>
@@ -148,6 +177,7 @@
         </div>
     </div>
 </div>
+@include('backend.paket._hps')
 @endsection
 @push('css')
 <link href="{{ asset('backend/libs/quill/quill.core.css') }}" rel="stylesheet" type="text/css" />

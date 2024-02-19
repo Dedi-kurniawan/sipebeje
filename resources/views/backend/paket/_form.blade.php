@@ -43,7 +43,7 @@
                             {!! $errors->first('aparatur_id', '<label id="aparatur_id-error" class="error invalid-feedback" for="aparatur_id">:message</label>')!!}
                         </div>
                     </div>
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="example-input-normal" class="form-label">HPS:<span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="btn input-group-text btn-dark waves-effect waves-light">Rp. </span>
@@ -58,7 +58,7 @@
                             <button class="btn input-group-text btn-dark waves-effect waves-light" type="button" id="terbilang_rupiah"><i class="fas fa-sync-alt"></i></button>
                             {!! $errors->first('terbilang', '<label id="terbilang-error" class="error invalid-feedback" for="terbilang">:message</label>')!!} 
                         </div> 
-                    </div>
+                    </div> --}}
                     <div class="mb-3">
                         <label for="example-input-normal" class="form-label">Akhir Pendaftaran:<span class="text-danger">*</span></label>
                         <input type="date" class="form-control {{ $errors->has('tanggal_selesai') ? 'is-invalid' : '' }}" autocomplete="off" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}"  id="tanggal_selesai" title="kolom tanggal selesai di larang kosong" placeholder="Akhir Pendaftaran..." required/>
