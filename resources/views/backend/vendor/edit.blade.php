@@ -68,13 +68,13 @@
                                     {!! $errors->first('nama_perusahaan', '<label id="nama_perusahaan-error" class="error invalid-feedback" for="nama_perusahaan">:message</label>')!!}
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="email_perusahaan" class="form-label">E-mail perusahaan <span class="text-danger">*</span></label>
                                     <input name="email_perusahaan" type="email" class="form-control {{ $errors->has('email_perusahaan') ? 'is-invalid' : '' }}" id="email_perusahaan" value="{{ old('email_perusahaan', $edit->email_perusahaan) }}" placeholder="Email perusahaan" required>
                                     {!! $errors->first('email_perusahaan', '<label id="email_perusahaan-error" class="error invalid-feedback" for="email_perusahaan">:message</label>')!!}
                                 </div>
-                            </div>
+                            </div> --}}
                         </div> 
                         <div class="row">
                             <div class="col-md-6">

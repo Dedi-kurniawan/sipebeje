@@ -42,11 +42,12 @@
                                                 <input type="text" class="form-control {{ $errors->has('nomor') ? 'is-invalid' : '' }}" autocomplete="off" name="nomor" value="{{ old('nomor', $paket->suratPerjanjian->nomor) }}" id="nomor" placeholder="Nomor..." title="kolom nomor di larang kosong" required/>
                                                 {!! $errors->first('nomor', '<label id="nomor-error" class="error invalid-feedback" for="nomor">:message</label>')!!}
                                             </div>
-                                            <div class="mb-2">
+                                            <input type="hidden" class="form-control {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" autocomplete="off" name="tanggal" readonly value="{{ old('tanggal', empty($paket->suratPerjanjian->tanggal) ? $paket->evaluasiPenawaran->tanggal : $paket->suratPerjanjian->tanggal) }}"  id="tanggal" title="kolom tanggal di larang kosong" placeholder="Tanggal..." required/>
+                                            {{-- <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">Tanggal:<span class="text-danger">*</span></label>
                                                 <input type="date" class="form-control {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" autocomplete="off" name="tanggal" readonly value="{{ old('tanggal', empty($paket->suratPerjanjian->tanggal) ? $paket->evaluasiPenawaran->tanggal : $paket->suratPerjanjian->tanggal) }}"  id="tanggal" title="kolom tanggal di larang kosong" placeholder="Tanggal..." required/>
                                                 {!! $errors->first('tanggal', '<label id="tanggal-error" class="error invalid-feedback" for="tanggal">:message</label>')!!}
-                                            </div>
+                                            </div> --}}
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">Bertempat di:<span class="text-danger">*</span></label>
                                                 <textarea class="form-control {{ $errors->has('tempat') ? 'is-invalid' : '' }}" name="tempat" id="tempat" cols="30" rows="3" title="kolom tempat di larang kosong" placeholder="Bertempat..." required>{{ old('tempat', $paket->suratPerjanjian->tempat) }}</textarea>
@@ -73,7 +74,7 @@
                                                 <label for="example-input-normal" class="form-label">Nilai pekerjaan yang disepakati:<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <span class="btn input-group-text btn-dark waves-effect waves-light">Rp. </span>
-                                                    <input type="text" class="form-control rupiah {{ $errors->has('harga_final') ? 'is-invalid' : '' }}" readonly autocomplete="off" name="harga_final" value="{{ old('harga_final', empty($paket->suratPerjanjian->harga_final) ? $paket->negoHarga->harga_final : $paket->suratPerjanjian->harga_final) }}" id="harga_final" title="kolom nilai pekerjaan yang disepakati di larang kosong" placeholder="nilai pekerjaan yang disepakati..." required />
+                                                    <input type="text" class="form-control rupiah {{ $errors->has('harga_final') ? 'is-invalid' : '' }}" readonly autocomplete="off" name="harga_final" value="{{ old('harga_final', $paket->negoHarga->harga_final) }}" id="harga_final" title="kolom nilai pekerjaan yang disepakati di larang kosong" placeholder="nilai pekerjaan yang disepakati..." required />
                                                     {!! $errors->first('harga_final', '<label id="harga_final-error" class="error invalid-feedback" for="harga_final">:message</label>')!!}
                                                 </div>
                                             </div>

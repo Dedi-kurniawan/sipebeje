@@ -174,7 +174,7 @@
         <table class="table-bordered">
             <tr class="text-center">
                 <td rowspan="2">No</td>
-                <td rowspan="2">Uraian Barang</td>
+                <td rowspan="2">Uraian Pekerjaan</td>
                 <td rowspan="2">Volume</td>
                 <td colspan="2">Cheklist</td>
                 <td rowspan="2">Keterangan</td>
@@ -198,7 +198,7 @@
     </div>
     <br>
     <p>Demikian Berita Acara Serah Terima Hasil Pekerjaan ini dibuat dengan sebenarnya dan dipergunakan sebagaimana mestinya.</p>
-    <table style="width:100%">
+    {{-- <table style="width:100%">
         <tr>
             <td class="text-center" style="width: 50%">
                 <p>
@@ -229,7 +229,39 @@
                 <u><strong>{{ strtoupper($ba->nama_aparatur) }}</strong></u>
             </td>
         </tr>
-    </table>
+    </table> --}}
+    <table style="width:100%">
+    <tr>
+        <td class="text-center" style="width: 50%">
+            <p>
+                &nbsp;<br>
+                <strong>Menerima Pesanan</strong> <br>
+            </p>
+        </td>
+        <td class="text-center" style="width: 50%">
+            <p>
+                <span>{{ ucwords(strtolower($ba->nama_desa)) }}, {{ strtoupper($ba->tanggal) }}</span><br>
+                <strong>Untuk dan atas nama Ketua</strong> <br>
+                Tim Pengelola Kegiatan
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td><br><br></td>
+        <td><br><br></td>
+    </tr>
+    <tr>
+        <td class="text-center">
+            <p>
+                <strong><u>{{ strtoupper($ba->nama_pimpinan_toko) }}</u></strong><br/>
+                Pimpinan Toko
+            </p>
+        </td>
+        <td class="text-center">
+            <strong>{{ strtoupper($ba->nama_aparatur) }}</strong><br/>&nbsp;
+        </td>
+    </tr>
+</table>
 </body>
 
 </html>

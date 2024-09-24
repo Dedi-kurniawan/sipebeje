@@ -28,7 +28,7 @@
                         {!! $errors->first('volume', '<label id="volume-error" class="error invalid-feedback" for="volume">:message</label>')!!}  
                     </div>
                     <div class="mb-2">
-                        <label for="example-input-normal" class="form-label">Harga @<span class="text-danger">*</span></label>
+                        <label for="example-input-normal" class="form-label">Harga sebelum pajak<span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="btn input-group-text btn-dark waves-effect waves-light">Rp. </span>
                             <input type="text" class="form-control rupiah {{ $errors->has('harga_satuan') ? 'is-invalid' : '' }}" autocomplete="off" name="harga_satuan" value="{{ old('harga_satuan') }}"  id="harga_satuan" title="kolom harga satuan di larang kosong" placeholder="Harga Satuan..." required/>

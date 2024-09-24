@@ -37,7 +37,7 @@
                     <div class="mb-4">
                         <h5>Kontak</h5>
                         <div class="text-uppercase">
-                            <a href="mailto:{{ $show->email_perusahaan }}" class="btn btn-sm btn-soft-primary me-1"><i class="fa fa-envelope"></i> {{ $show->email_perusahaan }}</a>
+                            {{-- <a href="mailto:{{ $show->email_perusahaan }}" class="btn btn-sm btn-soft-primary me-1"><i class="fa fa-envelope"></i> {{ $show->email_perusahaan }}</a> --}}
                             <a href="tel:{{ $show->telepon }}" class="btn btn-sm btn-soft-primary me-1"><i class="fa fa-phone"></i> {{ $show->telepon }}</a>
                         </div>
                     </div>

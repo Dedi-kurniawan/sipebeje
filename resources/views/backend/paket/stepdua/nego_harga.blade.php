@@ -36,20 +36,22 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="mb-3">
-                                                <label for="example-input-normal" class="form-label">Nomor:<span class="text-danger">*</span></label>
+                                                <label for="example-input-normal" class="form-label">Nomor Surat Berita Acara Nego Harga:<span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control {{ $errors->has('nomor') ? 'is-invalid' : '' }}" autocomplete="off" name="nomor" value="{{ old('nomor', $paket->negoHarga->nomor) }}"  id="nomor" title="kolom nomor di larang kosong" placeholder="Nomor..." required/>
                                                 {!! $errors->first('nomor', '<label id="nomor-error" class="error invalid-feedback" for="nomor">:message</label>')!!}
                                             </div>
-                                            <div class="mb-3">
+                                            <input type="hidden" class="form-control {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" autocomplete="off" readonly name="tanggal" value="{{ old('tanggal', empty($paket->negoHarga->tanggal) ? $paket->evaluasiPenawaran->tanggal : $paket->negoHarga->tanggal) }}"  id="tanggal" title="kolom tanggal di larang kosong" placeholder="Nomor..." required/>
+                                            <input type="hidden" class="form-control {{ $errors->has('pukul') ? 'is-invalid' : '' }}" autocomplete="off" readonly name="pukul" value="{{ old('pukul', empty($paket->negoHarga->pukul) ? $paket->evaluasiPenawaran->jam : $paket->negoHarga->pukul) }}" id="pukul" title="kolom pukul di larang kosong" required />
+                                            {{-- <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Tanggal:<span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" autocomplete="off" readonly name="tanggal" value="{{ old('tanggal', empty($paket->negoHarga->tanggal) ? $paket->evaluasiPenawaran->tanggal : $paket->negoHarga->tanggal) }}"  id="tanggal" title="kolom tanggal di larang kosong" placeholder="Nomor..." required/>
+                                                <input type="hidden" class="form-control {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" autocomplete="off" readonly name="tanggal" value="{{ old('tanggal', empty($paket->negoHarga->tanggal) ? $paket->evaluasiPenawaran->tanggal : $paket->negoHarga->tanggal) }}"  id="tanggal" title="kolom tanggal di larang kosong" placeholder="Nomor..." required/>
                                                 {!! $errors->first('tanggal', '<label id="tanggal-error" class="error invalid-feedback" for="tanggal">:message</label>')!!}
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Jam:<span class="text-danger">*</span></label>
-                                                <input type="time" class="form-control {{ $errors->has('pukul') ? 'is-invalid' : '' }}" autocomplete="off" readonly name="pukul" value="{{ old('pukul', empty($paket->negoHarga->pukul) ? $paket->evaluasiPenawaran->jam : $paket->negoHarga->pukul) }}" id="pukul" title="kolom pukul di larang kosong" required />
+                                                <input type="hidden" class="form-control {{ $errors->has('pukul') ? 'is-invalid' : '' }}" autocomplete="off" readonly name="pukul" value="{{ old('pukul', empty($paket->negoHarga->pukul) ? $paket->evaluasiPenawaran->jam : $paket->negoHarga->pukul) }}" id="pukul" title="kolom pukul di larang kosong" required />
                                                 {!! $errors->first('pukul', '<label id="pukul-error" class="error invalid-feedback" for="pukul">:message</label>')!!}
-                                            </div>
+                                            </div> --}}
                                             <div class="row mb-3">
                                                 <div class="col-12">
                                                     <input type="hidden" id="paket_id_value" value="{{ $paket->id }}">
@@ -65,7 +67,7 @@
                                                                     <th>NO</th>
                                                                     <th>URAIAN</th>
                                                                     <th>VOLUME</th>
-                                                                    <th>HARGA @</th>
+                                                                    <th>HARGA SEBELUM PAJAK</th>
                                                                     <th>SATUAN</th>
                                                                     <th>JUMLAH</th>
                                                                     <th>PAJAK</th>
@@ -95,14 +97,14 @@
                                                 <label for="example-input-normal" class="form-label">Penawaran Rekanan:<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <span class="btn input-group-text btn-dark waves-effect waves-light">Rp. </span>
-                                                    <input type="text" class="form-control rupiah {{ $errors->has('penawaran_rekanan') ? 'is-invalid' : '' }}" autocomplete="off" name="penawaran_rekanan" value="{{ old('penawaran_rekanan', $paket->negoHarga->penawaran_rekanan) }}" id="penawaran_rekanan" title="kolom penawaran rekanan di larang kosong" placeholder="Penawaran Rekanan..." required />
+                                                    <input type="text" class="form-control rupiah {{ $errors->has('penawaran_rekanan') ? 'is-invalid' : '' }}" autocomplete="off" name="penawaran_rekanan" value="{{ old('penawaran_rekanan', $paket->negoHarga->penawaran_rekanan ?? $paket->hps) }}" id="penawaran_rekanan" title="kolom penawaran rekanan di larang kosong" placeholder="Penawaran Rekanan..." required />
                                                     {!! $errors->first('penawaran_rekanan', '<label id="penawaran_rekanan-error" class="error invalid-feedback" for="penawaran_rekanan">:message</label>')!!}
                                                 </div>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Penawaran Rekanan (Terbilang):<span class="text-danger">*</span></label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control {{ $errors->has('penawaran_rekanan_terbilang') ? 'is-invalid' : '' }}" autocomplete="off" name="penawaran_rekanan_terbilang" value="{{ old('penawaran_rekanan_terbilang', $paket->negoHarga->penawaran_rekanan_terbilang) }}" id="penawaran_rekanan_terbilang" title="kolom penawaran rekanan terbilang di larang kosong" placeholder="Penawaran diajukan Terbilang..." required />
+                                                    <input type="text" class="form-control {{ $errors->has('penawaran_rekanan_terbilang') ? 'is-invalid' : '' }}" autocomplete="off" name="penawaran_rekanan_terbilang" value="{{ old('penawaran_rekanan_terbilang', $paket->negoHarga->penawaran_rekanan_terbilang ?? $paket->hps) }}" id="penawaran_rekanan_terbilang" title="kolom penawaran rekanan terbilang di larang kosong" placeholder="Penawaran diajukan Terbilang..." required />
                                                     <button class="btn input-group-text btn-dark waves-effect waves-light" type="button" id="penawaran_rekanan_terbilang_rupiah"><i class="fas fa-sync-alt"></i></button>
                                                     {!! $errors->first('penawaran_rekanan_terbilang', '<label id="penawaran_rekanan_terbilang-error" class="error invalid-feedback" for="penawaran_rekanan_terbilang">:message</label>')!!}
                                                 </div>
@@ -112,7 +114,7 @@
                                                 <label for="example-input-normal" class="form-label">Penawaran diAjukan:<span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <span class="btn input-group-text btn-dark waves-effect waves-light">Rp. </span>
-                                                    <input type="text" class="form-control rupiah {{ $errors->has('penawaran_diajukan') ? 'is-invalid' : '' }}" autocomplete="off" name="penawaran_diajukan" value="{{ old('penawaran_diajukan', $paket->negoHarga->penawaran_diajukan) }}" id="penawaran_diajukan" title="kolom penawaran diajukan di larang kosong" placeholder="Penawaran diajukan..." required />
+                                                    <input type="text" class="form-control rupiah {{ $errors->has('penawaran_diajukan') ? 'is-invalid' : '' }}" autocomplete="off" name="penawaran_diajukan" value="{{ old('penawaran_diajukan', $paket->negoHarga->penawaran_diajukan ?? $paket->hps) }}" id="penawaran_diajukan" title="kolom penawaran diajukan di larang kosong" placeholder="Penawaran diajukan..." required />
                                                     {!! $errors->first('penawaran_diajukan', '<label id="penawaran_diajukan-error" class="error invalid-feedback" for="penawaran_diajukan">:message</label>')!!}
                                                 </div>
                                             </div>

@@ -33,9 +33,9 @@
                             {!! $errors->first('jenis', '<label id="jenis-error" class="error invalid-feedback" for="jenis">:message</label>')!!}
                         </div>
                         <div class="col-6">
-                            <label for="example-input-normal" class="form-label">Penanggung Jawab:<span class="text-danger">*</span></label>
-                            <select name="aparatur_id" class="form-control selectForm {{ $errors->has('aparatur_id') ? 'is-invalid' : '' }}" id="aparatur_id" required title="Kolom penanggung jawab di larang kosong">
-                                <option value="">Pilih Penanggung Jawab</option>
+                            <label for="example-input-normal" class="form-label">Pelaksana Kegiatan:<span class="text-danger">*</span></label>
+                            <select name="aparatur_id" class="form-control selectForm {{ $errors->has('aparatur_id') ? 'is-invalid' : '' }}" id="aparatur_id" required title="Kolom Pelaksana Kegiatan di larang kosong">
+                                <option value="">Pilih Pelaksana Kegiatan</option>
                                 @foreach ($aparatur as $a)
                                     <option value="{{ $a->id }}" {{ old('aparatur_id') == $a->id ? "selected" : "" }}>{{ $a->nama }} - {{ $a->jabatan }}</option>
                                 @endforeach
@@ -59,11 +59,11 @@
                             {!! $errors->first('terbilang', '<label id="terbilang-error" class="error invalid-feedback" for="terbilang">:message</label>')!!} 
                         </div> 
                     </div> --}}
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="example-input-normal" class="form-label">Akhir Pendaftaran:<span class="text-danger">*</span></label>
                         <input type="date" class="form-control {{ $errors->has('tanggal_selesai') ? 'is-invalid' : '' }}" autocomplete="off" name="tanggal_selesai" value="{{ old('tanggal_selesai') }}"  id="tanggal_selesai" title="kolom tanggal selesai di larang kosong" placeholder="Akhir Pendaftaran..." required/>
                         {!! $errors->first('tanggal_selesai', '<label id="tanggal_selesai-error" class="error invalid-feedback" for="tanggal_selesai">:message</label>')!!}  
-                    </div>
+                    </div> --}}
                     <div class="mb-3">
                         <label for="example-input-normal" class="form-label">Deskripsi:<span class="text-danger">*</span></label>
                         <input type="hidden" name="keterangan" id="keterangan" value="{{ old('keterangan') }}">

@@ -60,6 +60,8 @@ class PaketController extends Controller
     public function hps(Request $request)
     {
         $data = Hps::OfPaketId($request->paket_id)->orderby('created_at', 'asc');
+        $total = $data->sum('harga_satuan');
+
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('harga_satuan_format', function ($data) {
@@ -69,11 +71,12 @@ class PaketController extends Controller
                 return $this->rupiahFormat($data->jumlah);
             })
             ->addColumn('harga_pajak_format', function ($data) {
-                return $this->rupiahFormat($data->jumlah + $data->harga_pajak);
+                return $this->rupiahFormat($data->harga_pajak);
             })
             ->addColumn('action', function ($data) {
                 return "<button id='deleteData' data-id='$data->id' data-name='$data->uraian' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash'></i> Hapus</button>";
             })
+            ->with('total', $this->rupiahFormat($total))
             ->rawColumns(['action'])
             ->toJson();
     }

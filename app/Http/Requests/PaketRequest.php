@@ -28,7 +28,7 @@ class PaketRequest extends FormRequest
             'jenis'     => 'required',
             'hps'       => 'nullable',
             'aparatur_id' => 'required',
-            'tanggal_selesai' => 'required',
+            // 'tanggal_selesai' => 'required',
         ];
     }
 

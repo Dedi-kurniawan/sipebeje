@@ -23,7 +23,12 @@ class EvaluasiPenawaran extends Model
 
     public function getTanggalFormatAtAttribute()
     {
-        return ' Pada hari ini ' .Carbon::parse($this->attributes['tanggal'])->isoFormat('dddd'). ' tanggal ' .Carbon::parse($this->attributes['created_at'])->isoFormat('D'). ' bulan ' .Carbon::parse($this->attributes['created_at'])->isoFormat('MMMM'). ' tahun ' .Carbon::parse($this->attributes['created_at'])->isoFormat('Y');  
+        return ' Pada hari ini ' .Carbon::parse($this->attributes['tanggal'])->isoFormat('dddd'). ' tanggal ' .Carbon::parse($this->attributes['tanggal'])->isoFormat('D'). ' bulan ' .Carbon::parse($this->attributes['tanggal'])->isoFormat('MMMM'). ' tahun ' .Carbon::parse($this->attributes['tanggal'])->isoFormat('Y');  
+    }
+    
+    public function getTanggalBuatFormatAtAttribute()
+    {
+        return Carbon::parse($this->attributes['tanggal'])->isoFormat('D MMMM Y');
     }
 
     public function getCreatedAtFormatAttribute()

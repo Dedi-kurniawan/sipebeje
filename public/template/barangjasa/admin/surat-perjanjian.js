@@ -59,3 +59,27 @@ function convertToNumber(value) {
     var angkaTanpaKomaTitik = value.replace(/\./g, "").replace(",", ".");
     return parseFloat(angkaTanpaKomaTitik);
 }
+
+function calculateEndDate() {
+    var jangkaWaktu = parseInt($('#jangka_waktu').val()); // Get jangka waktu value
+    var mulaiTanggal = $('#mulai_jangka_waktu').val(); // Get start date value
+
+    if (jangkaWaktu && mulaiTanggal) {
+        var startDate = new Date(mulaiTanggal);
+        startDate.setDate(startDate.getDate() + jangkaWaktu); // Add the number of days to the start date
+
+        var dd = String(startDate.getDate()).padStart(2, '0');
+        var mm = String(startDate.getMonth() + 1).padStart(2, '0'); // January is 0
+        var yyyy = startDate.getFullYear();
+
+        var endDate = yyyy + '-' + mm + '-' + dd; // Format the date
+
+        $('#selesai_jangka_waktu').val(endDate); // Set the end date field
+        $('#diserahkan_jangka_waktu').val(endDate); // Set the end date field
+    }
+}
+
+// Trigger the calculation when 'jangka_waktu' or 'mulai_jangka_waktu' changes
+$('#jangka_waktu, #mulai_jangka_waktu').on('input change', function() {
+    calculateEndDate();
+});

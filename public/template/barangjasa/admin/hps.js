@@ -1,6 +1,6 @@
 "use strict";
 
-$('.rupiah').mask('000.000.000.000.000,00', {
+$('.rupiah').mask('000.000.000.000.000', {
     reverse: true
 });
 
@@ -27,7 +27,7 @@ var table = $('#datatable').DataTable({
     ],
     ajax: {
         method: 'POST',
-    	url: HOST_URL + '/dt/admin/master/hps',   
+    	url: HOST_URL + '/dt/admin/master/hps',
         data: function (d) {
             d.paket_id = $("#paket_id_value").val();
         }
@@ -91,7 +91,6 @@ var table = $('#datatable').DataTable({
             orderable: false,
             searchable: false,
         }
-        
     ],
     columnDefs: [{
         "targets": '_all',
@@ -110,6 +109,9 @@ var table = $('#datatable').DataTable({
             previous: "<",
             next: ">"
         }
+    },
+    "drawCallback": function(x) {
+        $("#hps").html(x.json.total);
     }
 });
 

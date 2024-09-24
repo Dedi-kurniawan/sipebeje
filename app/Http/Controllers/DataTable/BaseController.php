@@ -10,7 +10,7 @@ class BaseController extends Controller
 {
     public function rupiahFormat($value)
     {
-        return number_format($value,2,',','.');
+        return number_format($value,0,',','.');
     }
 
     public function aksesRole()

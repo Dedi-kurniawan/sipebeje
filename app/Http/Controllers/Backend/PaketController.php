@@ -21,6 +21,7 @@ use App\Models\SuratPerjanjian;
 use App\Models\Undangan;
 use App\Models\Vendor;
 use App\Models\HpsBaNego;
+use Carbon\Carbon;
 
 class PaketController extends Controller
 {
@@ -49,6 +50,7 @@ class PaketController extends Controller
             $data['desa_id'] = $akses['desa_id'];
             $data['kecamatan_id'] = $akses['kecamatan_id'];
             $data['status'] = 'draft';
+            $data['tanggal_selesai'] = Carbon::now()->addDays(3);
             $rupiah = str_replace('.', '', $request->hps);
             // $data['hps'] = substr($rupiah, 0, -3);
             $create = Paket::create($data);
@@ -67,6 +69,8 @@ class PaketController extends Controller
             SuratPerjanjian::create([
                 'paket_id' => $create->id
             ]);
+
+            $this->updatePaket($create->id);
             DB::commit();
             return redirect()->route('admin.paket.edit', $create->id);
         } catch (QueryException $qe) {
@@ -104,6 +108,7 @@ class PaketController extends Controller
             $data['hps'] = $harga;
             $update = Paket::findOrFail($id);
             $update->update($data);
+            $this->updatePaket($update->id);
             DB::commit();
             if ($update->akk_field == "0") {
                 return redirect()->route('admin.akk.edit', $update->id)->with(['status' => 'success', 'action' => 'success', 'title' =>  'UBAH PAKET', 'message' => 'UBAH PAKET BERHASIL']);
@@ -183,16 +188,18 @@ class PaketController extends Controller
             ]);
 
             $data   = $request->all();
-            $rupiah = str_replace('.', '', $request->harga_satuan);
-            $harga = substr($rupiah, 0, -3);
+            $harga = str_replace('.', '', $request->harga_satuan);
             $jumlah = $harga * $request->volume;
             $data['harga_satuan'] = $harga;
-            $data['jumlah']       = $jumlah;
-            if ($request->pajak == "0") {
-                $data['harga_pajak']  =  '0';
-            } else {
-                $data['harga_pajak']  = ($request->pajak / 100) * $jumlah;
+            $data['jumlah'] = $jumlah;
+            if ($request->pajak == "12.5") {
+                $data['harga_pajak']  =  $jumlah + ($jumlah * (0.099 + 0.015));
+            } else if ($request->pajak == "13") {
+                $data['harga_pajak']  =  $jumlah + ($jumlah * (0.099 + 0.020));
+            } else if ($request->pajak == "13.5") {
+                $data['harga_pajak']  =  $jumlah + ($jumlah * (0.099 + 0.025));
             }
+
             $create = Hps::create($data);
             $this->storeHpsBaNego($request);
             $this->updatePaket($request->paket_id);
@@ -227,6 +234,7 @@ class PaketController extends Controller
             }
 
             $delete->delete();
+            $this->updatePaket($delete->paket_id);
 
             DB::commit();
             return response()->json(['status' => 'success', 'message' => 'HAPUS ' . $delete->uraian . ' BERHASIL']);
@@ -269,23 +277,41 @@ class PaketController extends Controller
 
     public function getVendor(Request $request)
     {
-        $data     = Vendor::where('desa_id', $request->desa_id)->get();
+        $data = Vendor::with(['desa.kecamatan'])
+                        ->orderBy('nama_perusahaan', 'asc')
+                        ->get();
+
         $selected = $request->village_id;
         $title    = "Vendor";
         $select   = view('layouts.backend.partials.select', compact('data', 'title', 'selected'))->render();
         return response()->json(['options' => $select]);
     }
 
+    public function getVendorId($id)
+    {
+        $data = Vendor::with(['desa.kecamatan'])
+                        ->where('id', $id)
+                        ->first();
+
+        $result = [
+            'desa_id' => $data->desa_id,
+            'desa' => $data->desa->nama,
+            'kecamatan' => $data->kecamatan->nama,
+        ];
+
+        return response()->json(['data' => $result]);
+    }
+
     public function updatePaket($paketId)
     {
         $row = Paket::find($paketId);
 
-        $totalHps = Hps::where('paket_id', $paketId)->sum(DB::raw('jumlah + harga_pajak'));
+        $totalHps = Hps::where('paket_id', $paketId)->sum('harga_pajak');
         $terbilang = null;
 
         if($totalHps > 0) {
             $totalHps = $totalHps;
-            $terbilang = $this->convert(substr($totalHps, 0, -3));
+            $terbilang = $this->convert($totalHps);
         }
 
         $row->hps = $totalHps;

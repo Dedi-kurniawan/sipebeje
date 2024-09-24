@@ -45,10 +45,14 @@ class VendorController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('hps_format', function ($data) {
-                return "Rp. " . $this->rupiahFormat($data->paket->hps);
+                if(isset($data->paket->hps)) {
+                    return "Rp. " . $this->rupiahFormat($data->paket->hps);
+                }
             })
             ->addColumn('nama_kegiatan', function ($data) {
-                return ucwords(strtolower($data->paket->akk->dp_bidang)) ." ". ucwords(strtolower($data->paket->akk->dp_subbidang));
+                if(isset($data->paket->nama)) {
+                    return ucwords(strtolower($data->paket->nama));
+                }
             })
             ->addColumn('status_format', function ($data) {
                 if ($data->status == "2") {
@@ -56,16 +60,19 @@ class VendorController extends Controller
                 }elseif ($data->status == "1") {
                     return "<span class='badge bg-sm bg-danger'>Tidak Ikut</span>";
                 }else{
-                    return "<span class='badge bg-sm bg-info'>Belum di Konfirmasi</span>";
-                }  
+                    return "<span class='badge bg-sm bg-info'>Belum Konfirmasi</span>";
+                }
             })
             ->addColumn('tanggal_selesai_format', function ($data) {
+                if(isset($data->paket->TanggalSelesaiAt)) {
                 return $data->paket->TanggalSelesaiAt;
+                }
             })
-            
             ->addColumn('action', function ($data) {
+                if(isset($data->paket->id) && ($data->status != "1" && $data->status != "2")) {
                 $route = route('admin.undangan.paket.konfirmasi', $data->paket->id);
-                return "<a href='$route' class='btn btn-sm btn-outline-danger'><i class='fa fa-bell'></i> Konfirmasi</a>";
+                    return "<a href='$route' class='btn btn-sm btn-outline-danger'><i class='fa fa-bell'></i> Konfirmasi</a>";
+                }
             })
             ->rawColumns(['action', 'status_format', 'nama_format', 'tanggal_selesai_format'])
             ->toJson();

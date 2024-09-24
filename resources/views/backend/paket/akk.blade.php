@@ -37,19 +37,19 @@
                                         <div class="col-12">
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">KEGIATAN<span class="text-danger">*</span></label>
-                                                <textarea class="form-control {{ $errors->has('kegiatan') ? 'is-invalid' : '' }}" name="kegiatan" id="kegiatan" cols="30" rows="3" title="kolom kegiatan di larang kosong" required>{{ old('kegiatan', $edit->akk->kegiatan) == NULL ? $edit->nama : old('kegiatan', $edit->akk->kegiatan) }}</textarea>
+                                                <textarea class="form-control {{ $errors->has('kegiatan') ? 'is-invalid' : '' }}" name="kegiatan" id="kegiatan" readonly cols="30" rows="3" title="kolom kegiatan di larang kosong" required>{{ old('kegiatan', $edit->akk->kegiatan) == NULL ? $edit->nama : old('kegiatan', $edit->akk->kegiatan) }}</textarea>
                                                 {!! $errors->first('kegiatan', '<label id="kegiatan-error" class="error invalid-feedback" for="kegiatan">:message</label>')!!}
                                             </div>
                                             <div class="row mb-2">
                                                 <div class="col-6">
-                                                    <label for="example-input-normal" class="form-label">DUSUN<span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control {{ $errors->has('dusun') ? 'is-invalid' : '' }}" autocomplete="off" name="dusun" value="{{ old('dusun', $edit->akk->dusun) }}"  id="dusun" title="kolom dusun di larang kosong" placeholder="DUSUN" required/>
-                                                    {!! $errors->first('dusun', '<label id="dusun-error" class="error invalid-feedback" for="dusun">:message</label>')!!}  
+                                                    <label for="example-input-normal" class="form-label">DUSUN</label>
+                                                    <input type="text" class="form-control {{ $errors->has('dusun') ? 'is-invalid' : '' }}" autocomplete="off" name="dusun" value="{{ old('dusun', $edit->akk->dusun) }}"  id="dusun" title="kolom dusun di larang kosong" placeholder="DUSUN"/>
+                                                    {!! $errors->first('dusun', '<label id="dusun-error" class="error invalid-feedback" for="dusun">:message</label>')!!}
                                                 </div>
                                                 <div class="col-6">
-                                                    <label for="example-input-normal" class="form-label">RT<span class="text-danger">*</span></label>
-                                                    <input type="number" class="form-control {{ $errors->has('rt') ? 'is-invalid' : '' }}" autocomplete="off" name="rt" value="{{ old('rt', $edit->akk->rt) }}"  id="rt" title="kolom rt di larang kosong" placeholder="RT" required/>
-                                                    {!! $errors->first('rt', '<label id="rt-error" class="error invalid-feedback" for="rt">:message</label>')!!}  
+                                                    <label for="example-input-normal" class="form-label">RT</label>
+                                                    <input type="number" class="form-control {{ $errors->has('rt') ? 'is-invalid' : '' }}" autocomplete="off" name="rt" value="{{ old('rt', $edit->akk->rt) }}"  id="rt" title="kolom rt di larang kosong" placeholder="RT"/>
+                                                    {!! $errors->first('rt', '<label id="rt-error" class="error invalid-feedback" for="rt">:message</label>')!!}
                                                 </div>
                                             </div>
                                             <div class="mb-2">
@@ -83,7 +83,7 @@
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">V.	DASAR PENGANGGARAN<span class="text-danger">*</span></label>
                                             </div>
-                                            <div class="row mb-2">
+                                            {{-- <div class="row mb-2">
                                                 <div class="col-md-4 col-lg-4 mb-2 col-12">
                                                     <label for="example-input-normal" class="form-label">PERDES APBDES<span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control {{ $errors->has('dasar_penganggaran') ? 'is-invalid' : '' }}" autocomplete="off" name="dasar_penganggaran" value="{{ old('dasar_penganggaran', $edit->akk->dasar_penganggaran) }}"  id="dasar_penganggaran" title="kolom dasar penganggaran di larang kosong" placeholder="PERDESA... PBDES..." required/>
@@ -99,7 +99,7 @@
                                                     <input type="date" class="form-control {{ $errors->has('dp_tgl') ? 'is-invalid' : '' }}" autocomplete="off" name="dp_tgl" value="{{ old('dp_tgl', $edit->akk->dp_tgl) }}"  id="dp_tgl" title="kolom tanggal di larang kosong" placeholder="TANGGAL" required/>
                                                     {!! $errors->first('dp_tgl', '<label id="dp_tgl-error" class="error invalid-feedback" for="dp_tgl">:message</label>')!!}  
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             <div class="row mb-2">
                                                 <div class="col-md-3 col-lg-3 mb-2 col-12">
                                                     <label for="example-input-normal" class="form-label">BIDANG<span class="text-danger">*</span></label>
@@ -110,12 +110,12 @@
                                                     <label for="example-input-normal" class="form-label">SUB BIDANG<span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control {{ $errors->has('dp_subbidang') ? 'is-invalid' : '' }}" autocomplete="off" name="dp_subbidang" value="{{ old('dp_subbidang', $edit->akk->dp_subbidang) }}"  id="dp_subbidang" title="kolom subbidang di larang kosong" placeholder="SUB BIDANG" required/>
                                                     {!! $errors->first('dp_subbidang', '<label id="dp_subbidang-error" class="error invalid-feedback" for="dp_subbidang">:message</label>')!!}  
-                                                </div> 
+                                                </div>
                                                 <div class="col-md-6 col-lg-6 mb-2 col-12">
                                                     <label for="example-input-normal" class="form-label">KEGIATAN<span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control {{ $errors->has('dp_kegiatan') ? 'is-invalid' : '' }}" maxlength="255" autocomplete="off" name="dp_kegiatan" value="{{ old('dp_kegiatan', $edit->akk->dp_kegiatan) == NULL ? $edit->nama : $edit->akk->dp_kegiatan }}"  id="dp_kegiatan" title="kolom kegiatan di larang kosong" placeholder="KEGIATAN" required/>
                                                     {!! $errors->first('dp_kegiatan', '<label id="dp_kegiatan-error" class="error invalid-feedback" for="dp_kegiatan">:message</label>')!!}  
-                                                </div>                                               
+                                                </div>
                                             </div>
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">VI. JANGKA WAKTU PELAKSANAAN<span class="text-danger">*</span></label>
@@ -139,18 +139,16 @@
                                                 {!! $errors->first('tenaga_kerja', '<label id="tenaga_kerja-error" class="error invalid-feedback" for="tenaga_kerja">:message</label>')!!}
                                             </div>
                                             <div class="mb-2">
-                                                <label for="example-input-normal" class="form-label">X.	METODE PENGADAAN<span class="text-danger">*</span></label>
+                                                <label for="example-input-normal" class="form-label">X.	JENIS PENGADAAN<span class="text-danger">*</span></label>
                                                 @php
                                                     $metode_pengadaan =  $edit->akk->metode_pengadaan == NULL ? $edit->jenis : $edit->akk->metode_pengadaan
                                                 @endphp
-                                                <select name="metode_pengadaan" class="form-control selectFormClass {{ $errors->has('metode_pengadaan') ? 'is-invalid' : '' }}" id="metode_pengadaan" required>
-                                                    <option value="">PILIH METODE PENGADAAN</option>
-                                                    <option value="Pengadaan Langsung" {{ old('metode_pengadaan', $metode_pengadaan) == "Pengadaan Langsung" ? "selected" : "" }}>Pengadaan Langsung</option>
-                                                    <option value="Tender" {{ old('metode_pengadaan', $metode_pengadaan) == "Tender" ? "selected" : "" }}>Tender</option>
+                                                <select name="metode_pengadaan" readonly class="form-control {{ $errors->has('metode_pengadaan') ? 'is-invalid' : '' }}" id="metode_pengadaan" required>
+                                                    <option value="{{ $metode_pengadaan }}" {{ old('metode_pengadaan', $metode_pengadaan) == "Metode Penawaran" ? "selected" : "" }}>{{ $metode_pengadaan }}</option>
                                                 </select>
                                                 {!! $errors->first('metode_pengadaan', '<label id="metode_pengadaan-error" class="error invalid-feedback" for="metode_pengadaan">:message</label>')!!}
                                             </div>
-                                            <div class="mb-3 mt-4">
+                                            {{-- <div class="mb-3 mt-4">
                                                 <label for="example-input-normal" class="form-label">XI. PAGU ANGGARAN<span class="text-danger">*</span></label>
                                             </div>
                                             <div class="mb-2">
@@ -173,7 +171,7 @@
                                                     <button class="btn input-group-text btn-dark waves-effect waves-light" type="button" id="pagu_anggaran_terbilang_rupiah"><i class="fas fa-sync-alt"></i></button>
                                                     {!! $errors->first('pagu_anggaran_terbilang', '<label id="pagu_anggaran_terbilang-error" class="error invalid-feedback" for="pagu_anggaran_terbilang">:message</label>')!!} 
                                                 </div> 
-                                            </div>
+                                            </div> --}}
                                             <div class="mb-3">
                                                 <button type="submit" class="btn btn-info width-md waves-effect waves-light">
                                                    <i class="fa fa-save"></i> SIMPAN

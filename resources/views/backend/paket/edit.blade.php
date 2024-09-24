@@ -49,43 +49,15 @@
                                                     {!! $errors->first('jenis', '<label id="jenis-error" class="error invalid-feedback" for="jenis">:message</label>')!!}
                                                 </div>
                                                 <div class="col-6">
-                                                    <label for="example-input-normal" class="form-label">Penanggung Jawab:<span class="text-danger">*</span></label>
-                                                    <select name="aparatur_id" class="form-control selectFormClass {{ $errors->has('aparatur_id') ? 'is-invalid' : '' }}" id="aparatur_id" required title="Kolom penanggung jawab di larang kosong">
-                                                        <option value="">Pilih Penanggung Jawab</option>
+                                                    <label for="example-input-normal" class="form-label">Pelaksana Kegiatan:<span class="text-danger">*</span></label>
+                                                    <select name="aparatur_id" class="form-control selectFormClass {{ $errors->has('aparatur_id') ? 'is-invalid' : '' }}" id="aparatur_id" required title="Kolom Pelaksana Kegiatan di larang kosong">
+                                                        <option value="">Pilih Pelaksana Kegiatan</option>
                                                         @foreach ($aparatur as $a)
                                                             <option value="{{ $a->id }}" {{ old('aparatur_id', $edit->aparatur_id) == $a->id ? "selected" : "" }}>{{ $a->nama }}-{{ $a->jabatan }}</option>
                                                         @endforeach
                                                     </select>
                                                     {!! $errors->first('aparatur_id', '<label id="aparatur_id-error" class="error invalid-feedback" for="aparatur_id">:message</label>')!!}
                                                 </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="example-input-normal" class="form-label">HPS:<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <span class="btn input-group-text btn-dark waves-effect waves-light">Rp. </span>
-                                                    <input type="text" class="form-control rupiah {{ $errors->has('hps') ? 'is-invalid' : '' }}" autocomplete="off" name="hps" value="{{ old('hps', $edit->hps) }}" id="hps" title="kolom hps di larang kosong" placeholder="HPS..." readonly/>
-                                                    {!! $errors->first('hps', '<label id="hps-error" class="error invalid-feedback" for="hps">:message</label>')!!}
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="example-input-normal" class="form-label">HPS (Terbilang):<span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control {{ $errors->has('terbilang') ? 'is-invalid' : '' }}" autocomplete="off" name="terbilang" value="{{ old('terbilang', $edit->terbilang) }}" id="terbilang" title="kolom terbilang di larang kosong" placeholder="HPS Terbilang..." readonly/>
-                                                    <button class="btn input-group-text btn-dark waves-effect waves-light" type="button" id="terbilang_rupiah"><i class="fas fa-sync-alt"></i></button>
-                                                    {!! $errors->first('terbilang', '<label id="terbilang-error" class="error invalid-feedback" for="terbilang">:message</label>')!!}
-                                                </div>
-                                                <small class="text-info">Perbaiki secara manual jika terjadi kesalahan</small>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="example-input-normal" class="form-label">Akhir Pendaftaran:<span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control {{ $errors->has('tanggal_selesai') ? 'is-invalid' : '' }}" maxlength="100" autocomplete="off" name="tanggal_selesai" value="{{ old('tanggal_selesai', $edit->tanggal_selesai) }}" id="tanggal_selesai" title="kolom tanggal selesai di larang kosong" placeholder="Akhir Pendaftaran..." required />
-                                                {!! $errors->first('tanggal_selesai', '<label id="tanggal_selesai-error" class="error invalid-feedback" for="tanggal_selesai">:message</label>')!!}
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="example-input-normal" class="form-label">Deskripsi:<span class="text-danger">*</span></label>
-                                                <input type="hidden" name="keterangan" id="keterangan" value="{{ old('keterangan', $edit->keterangan) }}">
-                                                <div id="editor" style="min-height: 160px;">{!! old('keterangan', $edit->keterangan) !!}</div>
-                                                {!! $errors->first('keterangan', '<label id="keterangan-error" class="error invalid-feedback" for="keterangan">:message</label>')!!}
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-12">
@@ -102,7 +74,7 @@
                                                                     <th>NO</th>
                                                                     <th>URAIAN</th>
                                                                     <th>VOLUME</th>
-                                                                    <th>HARGA @</th>
+                                                                    <th>HARGA SEBELUM PAJAK</th>
                                                                     <th>SATUAN</th>
                                                                     <th>JUMLAH</th>
                                                                     <th>PAJAK</th>
@@ -115,6 +87,34 @@
                                                         </table>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="example-input-normal" class="form-label">HPS:<span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="btn input-group-text btn-dark waves-effect waves-light">Rp. </span>
+                                                    <input type="text" class="form-control rupiah {{ $errors->has('hps') ? 'is-invalid' : '' }}" autocomplete="off" name="hps" value="{{ old('hps', $edit->hps) }}" id="hps" title="kolom hps di larang kosong" disabled placeholder="HPS..."/>
+                                                    {!! $errors->first('hps', '<label id="hps-error" class="error invalid-feedback" for="hps">:message</label>')!!}
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="example-input-normal" class="form-label">HPS (Terbilang):<span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control {{ $errors->has('terbilang') ? 'is-invalid' : '' }}" autocomplete="off" name="terbilang" value="{{ old('terbilang', $edit->terbilang) }}" id="terbilang" disabled title="kolom terbilang di larang kosong" placeholder="HPS Terbilang..."/>
+                                                    <button class="btn input-group-text btn-dark waves-effect waves-light" type="button" id="terbilang_rupiah"><i class="fas fa-sync-alt"></i></button>
+                                                    {!! $errors->first('terbilang', '<label id="terbilang-error" class="error invalid-feedback" for="terbilang">:message</label>')!!}
+                                                </div>
+                                                <small class="text-info">Perbaiki secara manual jika terjadi kesalahan</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="example-input-normal" class="form-label">Akhir Pendaftaran:<span class="text-danger">*</span></label>
+                                                <input type="date" class="form-control {{ $errors->has('tanggal_selesai') ? 'is-invalid' : '' }}" maxlength="100" autocomplete="off" name="tanggal_selesai" value="{{ old('tanggal_selesai', $edit->tanggal_selesai) }}" id="tanggal_selesai" title="kolom tanggal selesai di larang kosong" placeholder="Akhir Pendaftaran..." required />
+                                                {!! $errors->first('tanggal_selesai', '<label id="tanggal_selesai-error" class="error invalid-feedback" for="tanggal_selesai">:message</label>')!!}
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="example-input-normal" class="form-label">Deskripsi:<span class="text-danger">*</span></label>
+                                                <input type="hidden" name="keterangan" id="keterangan" value="{{ old('keterangan', $edit->keterangan) }}">
+                                                <div id="editor" style="min-height: 160px;">{!! old('keterangan', $edit->keterangan) !!}</div>
+                                                {!! $errors->first('keterangan', '<label id="keterangan-error" class="error invalid-feedback" for="keterangan">:message</label>')!!}
                                             </div>
                                             <div class="mb-3">
                                                 <button type="submit" class="btn btn-info width-md waves-effect waves-light">

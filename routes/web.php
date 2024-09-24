@@ -27,6 +27,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => 'auth'], fu
         Route::delete('hps-ba-nego/{id}', [App\Http\Controllers\Backend\PaketController::class, 'destroyHpsBaNego'])->name('hps-ba-nego.destroy');
 
         Route::get('get-vendor', [App\Http\Controllers\Backend\PaketController::class, 'getVendor']);
+        Route::get('get-vendor-id/{id}', [App\Http\Controllers\Backend\PaketController::class, 'getVendorId']);
         Route::get('undangan/{id}/edit', [App\Http\Controllers\Backend\UndanganController::class, 'editUndangan'])->name('undangan.edit');
         Route::put('undangan/{id}', [App\Http\Controllers\Backend\UndanganController::class, 'updateUndangan'])->name('undangan.update');
         Route::post('add-vendor', [App\Http\Controllers\Backend\UndanganController::class, 'addVendor']);

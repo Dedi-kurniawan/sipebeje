@@ -8,8 +8,8 @@ var dt_vendor = $('#dt_vendor').DataTable({
     processing: true,
     serverSide: true,
     responsive: true,
-    searching: false, 
-    paging: false, 
+    searching: false,
+    paging: false,
     info: false,
     "pageLength": 50,
     "lengthMenu": [
@@ -80,7 +80,19 @@ var dt_vendor = $('#dt_vendor').DataTable({
     },
 });
 
-getVendor($("#desa_id").val());        
+$("#vendor_id").change(function () {
+    var url   = HOST_URL + '/admin/get-vendor-id/'+ $("#vendor_id").val();
+    $.get(url, function (d) {
+        if($("#user_desa_id").val() != d.data.desa_id) {
+            var confirmMessage = "Penyedia yang Anda pilih berada di Kecamatan: " + d.data.kecamatan + " Desa: " + d.data.desa + ", lanjutkan?";
+            if (!confirm(confirmMessage)) {
+                getVendor();
+            }
+        }
+    });
+});
+
+getVendor($("#desa_id").val());
 
 $("#desa_id").change(function () {
     getVendor($("#desa_id").val());
@@ -106,8 +118,8 @@ $("#addVendor").click(function (event) {
         data: {
             '_token'      : $('meta[name="csrf-token"]').attr('content'),
             'vendor_id'   : $("#vendor_id").val(),
-            'undangan_id' : $("#undangan_id").val(),    
-            'paket_id'    : $("#paket_id").val(), 
+            'undangan_id' : $("#undangan_id").val(),
+            'paket_id'    : $("#paket_id").val(),
         },
         dataType: 'json',
         error: function (json) {
@@ -116,7 +128,7 @@ $("#addVendor").click(function (event) {
             $.each(errors.errors, function (key, value) {
                 if (key == "vendor_id") {
                     $("#vendor_id_error").html(value);
-                }                
+                }
             });
         },
         success: function (d) {

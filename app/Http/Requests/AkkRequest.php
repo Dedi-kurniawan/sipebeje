@@ -16,16 +16,16 @@ class AkkRequest extends FormRequest
     {
         return [
             'kegiatan'             => 'required',
-            'dusun'                => 'required',
-            'rt'                   => 'required',
+            'dusun'                => 'nullable',
+            'rt'                   => 'nullable',
             'latar_belakang'       => 'required',
             'maksud'               => 'required',
             'tujuan'               => 'required',
             'hasil'                => 'required',
             'lokasi_kegiatan'      => 'required',
-            'dasar_penganggaran'   => 'required',
-            'dp_no'                => 'required',
-            'dp_tgl'               => 'required',
+            // 'dasar_penganggaran'   => 'required',
+            // 'dp_no'                => 'required',
+            // 'dp_tgl'               => 'required',
             'dp_bidang'            => 'required',
             'dp_subbidang'         => 'required',
             'dp_kegiatan'          => 'required',
@@ -34,9 +34,9 @@ class AkkRequest extends FormRequest
             'spesifikasi_teknis'   => 'required',
             'tenaga_kerja'         => 'required',
             'metode_pengadaan'     => 'required',
-            'pagu_anggaran'        => 'required',
-            'pagu_anggaran_rp'     => 'required',
-            'pagu_anggaran_terbilang' => 'required',
+            // 'pagu_anggaran'        => 'required',
+            // 'pagu_anggaran_rp'     => 'required',
+            // 'pagu_anggaran_terbilang' => 'required',
         ];
     }
 

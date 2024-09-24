@@ -54,7 +54,7 @@ class BaBarangController extends Controller
         $paket = $paket->get();
 
         $bread = $this->bread('Master', 'Berita Acara Serah Terima Barang', 'Table', route('admin.ba-barang.index'));
-        return view('backend.BaBarang.index', compact('bread', 'aparatur', 'desa', 'desaId', 'paket'));
+        return view('backend.baBarang.index', compact('bread', 'aparatur', 'desa', 'desaId', 'paket'));
     }
 
     /**
@@ -196,13 +196,13 @@ class BaBarangController extends Controller
 
         $ba = $ba->first();
 
-        $ba['tanggal_text'] = sprintf('Pada hari ini %s tanggal %s bulan %s tahun %s', Carbon::parse($ba['tanggal'])->isoFormat('dddd'), ucwords($this->convert(Carbon::parse($ba['tanggal'])->isoFormat('d'))), ucwords(Carbon::parse($ba['tanggal'])->isoFormat('MMMM')), ucwords($this->convert(Carbon::parse($ba['tanggal'])->isoFormat('Y'))));
-        $ba['tanggal'] = Carbon::parse($ba['tanggal'])->isoFormat('d MMMM Y');
+        $ba['tanggal_text'] = sprintf('Pada hari ini %s tanggal %s bulan %s tahun %s', Carbon::parse($ba['tanggal'])->isoFormat('dddd'), ucwords($this->convert(Carbon::parse($ba['tanggal'])->isoFormat('D'))), ucwords(Carbon::parse($ba['tanggal'])->isoFormat('MMMM')), ucwords($this->convert(Carbon::parse($ba['tanggal'])->isoFormat('Y'))));
+        $ba['tanggal'] = Carbon::parse($ba['tanggal'])->isoFormat('D MMMM Y');
 
         $details = HpsBaNego::where('paket_id', $ba->paket_id)->get();
         $fileName = sprintf('berita_acara_serah_terima_barang_%s.pdf', Str::slug($ba->nama_desa));
-        $pdf = PDF::loadView('backend.BaBarang.cetak', compact('ba', 'details'));
+        $pdf = PDF::loadView('backend.baBarang.cetak', compact('ba', 'details'));
         return $pdf->setPaper('a4', 'potrait')->download($fileName);
-        return view('backend.BaBarang.cetak', compact('sp', 'details'));
+        return view('backend.baBarang.cetak', compact('sp', 'details'));
     }
 }

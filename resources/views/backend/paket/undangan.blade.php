@@ -37,22 +37,32 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="mb-3">
-                                                <label for="example-input-normal" class="form-label">Nomor<span class="text-danger">*</span></label>
+                                                <label for="example-input-normal" class="form-label">Nomor Undangan<span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control {{ $errors->has('nomor') ? 'is-invalid' : '' }}" maxlength="255" autocomplete="off" name="nomor" id="nomor" value="{{ old('nomor', $edit->undangan->nomor) }}" title="kolom nomor di larang kosong" placeholder="Nomor..."required />
                                                 {!! $errors->first('nomor', '<label id="nomor-error"class="error invalid-feedback" for="nomor">:message</label>')!!}
                                             </div>
                                             <div class="mb-3">
                                                 <label for="example-input-normal" class="form-label">Perihal<span class="text-danger">*</span></label>
-                                                <input type="text"class="form-control {{ $errors->has('perihal') ? 'is-invalid' : '' }}"maxlength="255" autocomplete="off" name="perihal" id="perihal"value="{{ old('perihal', $edit->undangan->perihal) == NULL ? $edit->nama : $edit->undangan->perihal }}"title="kolom perihal di larang kosong" placeholder="Perihal..."required />
+                                                <input type="text"class="form-control {{ $errors->has('perihal') ? 'is-invalid' : '' }}"maxlength="255" autocomplete="off" name="perihal" readonly id="perihal" value="Undangan" title="kolom perihal di larang kosong" placeholder="Perihal..." />
                                                 {!! $errors->first('perihal', '<label id="perihal-error"class="error invalid-feedback" for="perihal">:message</label>')!!}
                                             </div>
                                             <div class="mb-2">
                                                 <label for="example-input-normal" class="form-label">Pilih Vendor YangAkan Di Undang<span class="text-danger">*</span></label>
                                             </div>
                                             <div class="mb-1">
-                                                <div class="row"><div class="col-5">    <label for="example-input-normal" class="form-label">Desa<span class="text-danger">*</span></label>    <select class="form-control selectFormClass" id="desa_id">        @foreach ($desa as $v)        <option value="{{ $v->id }}" {{ $desa_id==$v->id ?            "selected" : "" }}>{{ $v->nama }}</option>        @endforeach    </select></div><div class="col-5">
+                                                <div class="row">
+                                                    {{-- <div class="col-5">
+                                                        <label for="example-input-normal" class="form-label">Desa<span class="text-danger">*</span></label>
+                                                        <select class="form-control selectFormClass" id="desa_id">
+                                                            @foreach ($desa as $v)
+                                                                <option value="{{ $v->id }}" {{ $desa_id==$v->id ? "selected" : "" }}>{{ $v->nama }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div> --}}
+                                                    <div class="col-10">
                                                         <input type="hidden" id="undangan_id" value="{{ $edit->undangan->id }}">
                                                         <input type="hidden" id="paket_id" value="{{ $edit->id }}">
+                                                        <input type="hidden" id="user_desa_id" value="{{ Auth::user()->desa_id }}">
                                                         <label for="example-input-normal" class="form-label">Vendor<span class="text-danger">*</span></label>
                                                         <select class="form-control selectFormClass" id="vendor_id" name="vendor_id"></select>
                                                         <label id='vendor_id_error' class='error text-danger' for='vendor_id_error'></label>
@@ -65,7 +75,7 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive">
-                                                <h5><span id="total_data_vendor"></span> total vendor</h5>
+                                                <h5><span id="total_data_vendor"></span> total penyedia</h5>
                                                 <table id="dt_vendor" class="table table-bordered table-sm nowrap w-100 text-center">
                                                     <thead>
                                                         <tr>
@@ -119,12 +129,11 @@
                                             </div> --}}
                                             <div class="mb-3 mt-2">
                                                 <label for="example-input-normal" class="form-label">Sumber dana (APB Desa Tahun Anggaran)<span class="text-danger">*</span></label>
-                                                <select name="sumber_dana" id="sumber_dana" class="form-control selectFormClass {{ $errors->has('sumber_dana') ? 'is-invalid' : '' }}" required>
-                                                    <option value="">TAHUN</option>
-                                                    @for ($i = 2019; $i < date('Y')+5; $i++) 
-                                                        <option value="{{ $i }}" {{ $edit->undangan->sumber_dana == $i ? "selected" : "" }}>{{ $i }}</option>
-                                                    @endfor
-                                                </select>
+                                                <div class="mb-3">
+                                                    <label for="example-input-normal" class="form-label">Perihal<span class="text-danger">*</span></label>
+                                                    <input type="text"class="form-control {{ $errors->has('sumber_dana') ? 'is-invalid' : '' }}"maxlength="255" autocomplete="off" name="sumber_dana" id="sumber_dana" readonly value="{{ date('Y') }}" placeholder="Perihal..."/>
+                                                    {!! $errors->first('perihal', '<label id="perihal-error"class="error invalid-feedback" for="perihal">:message</label>')!!}
+                                                </div>
                                                 {!! $errors->first('sumber_dana', '<label id="sumber_dana-error" class="error invalid-feedback" for="sumber_dana">:message</label>')!!}
                                             </div>
                                             <hr>

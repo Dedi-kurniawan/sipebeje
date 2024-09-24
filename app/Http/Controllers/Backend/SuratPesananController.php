@@ -174,14 +174,14 @@ class SuratPesananController extends Controller
 
         $sp = $sp->first();
 
-        $sp['tanggal_text'] = sprintf('Pada hari ini %s tanggal %s bulan %s tahun %s', Carbon::parse($sp['tanggal'])->isoFormat('dddd'), ucwords($this->convert(Carbon::parse($sp['tanggal'])->isoFormat('d'))), ucwords(Carbon::parse($sp['tanggal'])->isoFormat('MMMM')), ucwords($this->convert(Carbon::parse($sp['tanggal'])->isoFormat('Y'))));
-        $sp['tanggal_lambat_text'] = Carbon::parse($sp['tanggal_lambat'])->isoFormat('d MMMM Y');
-        $sp['tanggal'] = Carbon::parse($sp['tanggal'])->isoFormat('d MMMM Y');
+        $sp['tanggal_text'] = ' Pada hari ini ' .Carbon::parse($sp['tanggal'])->isoFormat('dddd'). ' tanggal ' .Carbon::parse($sp['tanggal'])->isoFormat('D'). ' bulan ' .Carbon::parse($sp['tanggal'])->isoFormat('MMMM'). ' tahun ' .Carbon::parse($sp['tanggal'])->isoFormat('Y');  
+        $sp['tanggal_lambat_text'] = Carbon::parse($sp['tanggal_lambat'])->isoFormat('D MMMM Y');
+        $sp['tanggal'] = Carbon::parse($sp['tanggal'])->isoFormat('D MMMM Y');
 
         $details = HpsBaNego::where('paket_id', $sp->paket_id)->get();
         $fileName = sprintf('surat_pesanan_%s.pdf', Str::slug($sp->nama_desa));
         $pdf   = PDF::loadView('backend.suratPesanan.cetak', compact('sp', 'details'));
-        return $pdf->setPaper('a4', 'potrait')->download($fileName);
+        return $pdf->setPaper('a4', 'potrait')->stream($fileName);
         return view('backend.suratPesanan.cetak', compact('sp', 'details'));
     }
 }

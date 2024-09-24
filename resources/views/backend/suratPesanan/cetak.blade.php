@@ -84,17 +84,26 @@
             border: 1px solid black;
             border-collapse: collapse;
         }
-
+        .footer {
+            position: fixed;
+            bottom: -80px;
+            /* Adjust based on the header height */
+            left: 0;
+            right: 0;
+            height: 80px;
+            /* Adjust based on the header height */
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-<div class="akk text-uppercase">
+<div class="akk">
     <table width="100%">
         <tr>
             <td>
                 <img alt="Logo" src="{{ asset('template/images/logo/logo-sm.png') }}" class="text-right" align="bottom" width="70" height="80" />
             </td>
-            <td class="text-center text-bold">
+            <td class="text-center text-bold text-uppercase">
                 <div class="kop-surat">
                     <div>PEMERINTAH KABUPATEN BENGKULU UTARA </div>
                     <div class="text-bold">KECAMATAN {{ strtoupper($sp->kecamatan) }}</div>
@@ -170,7 +179,7 @@
             <td>Uraian Barang</td>
             <td>Volume</td>
             <td>Satuan</td>
-            <td>SP</td>
+            <td>Harga</td>
             <td>Total  Harga  (Rp)</td>
         </tr>
         @php $total = 0 @endphp
@@ -180,8 +189,8 @@
                 <td>{{ ucwords(strtolower($x->uraian)) }}</td>
                 <td class="text-right">{{ $x->volume }}</td>
                 <td class="text-center">{{ $x->satuan }}</td>
-                <td class="text-right">{{ number_format($x->harga_satuan, 2)  }}</td>
-                <td class="text-right">{{ number_format($x->volume * $x->harga_satuan, 2)  }}</td>
+                <td class="text-right">{{ number_format($x->harga_satuan, 0)  }}</td>
+                <td class="text-right">{{ number_format($x->volume * $x->harga_satuan, 0)  }}</td>
             </tr>
         @php $total += ($x->volume * $x->harga_satuan) @endphp
         @endforeach
@@ -197,30 +206,13 @@
             }
         @endphp
         <tr>
-            <td colspan="5" class="text-center">Jumlah setelah pajak</td>
-            <td class="text-right">{{ number_format($total, 2) }}</td>
-        </tr>
-        <tr>
-            <td colspan="5" class="text-center">PPN</td>
-            <td class="text-right">
-                @if($sp->ppn != 0)
-                    {{ $sp->ppn }}%
-                @endif
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5" class="text-center">PPH. 23</td>
-            <td class="text-right">
-                @if($sp->pph != 0)
-                    {{ $sp->pph }}%
-                @endif
-            </td>
-        </tr>
-        <tr>
-            <td colspan="5" class="text-center">Jumlah sebelum pajak</td>
-            <td class="text-right">{{ number_format($total + $ppn + $pph, 2) }}</td>
+            <td colspan="5" class="text-center">Total</td>
+            <td class="text-right">{{ number_format($total, 0) }}</td>
         </tr>
     </table>
+    <span style="font-style:italic;">
+        Keterangan : Harga Total sudah termasuk pajak, dll
+    </span>
 </div>
 <br>
 <table style="margin-left: -2px; width: 100%">
@@ -279,7 +271,6 @@
             <p>
                 &nbsp;<br>
                 <strong>Menerima Pesanan</strong> <br>
-                Toko Fernando II
             </p>
         </td>
         <td class="text-center" style="width: 50%">
@@ -306,5 +297,8 @@
         </td>
     </tr>
 </table>
+<footer>
+    @sipebeje.bengkuluutarakab.go.id
+</footer>
 </body>
 </html>

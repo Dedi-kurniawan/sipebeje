@@ -75,20 +75,6 @@
                                 {!! $errors->first('alamat', '<label id="alamat-error" class="error invalid-feedback" for="alamat">:message</label>')!!}
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="example-input-normal" class="form-label">Tahun Berdiri<span class="text-danger">*</span></label>
-                                    <select name="tahun_berdiri" id="tahun_berdiri" class="form-control selectFormClass {{ $errors->has('tahun_berdiri') ? 'is-invalid' : '' }}" required>
-                                        <option value="">Tahun Berdiri</option>
-                                        @for ($i = 1900; $i < date('Y')+5; $i++) 
-                                            <option value="{{ $i }}" {{ old('tahun_berdiri', $desa->desa->tahun_berdiri) == $i ? "selected" : "" }}>{{ $i }}</option>
-                                        @endfor
-                                    </select>
-                                    {!! $errors->first('tahun_berdiri', '<label id="tahun_berdiri-error" class="error invalid-feedback" for="tahun_berdiri">:message</label>')!!}
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-12">
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Pendamping Desa <span class="text-danger">*</span></label>
@@ -99,16 +85,9 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">E-mail</label>
-                                    <input name="email" type="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" value="{{ old('email', $desa->desa->email) }}" placeholder="email@desa.com">
-                                    {!! $errors->first('email', '<label id="email-error" class="error invalid-feedback" for="email">:message</label>')!!}
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="mb-3">
-                                    <label for="telepon" class="form-label">Handphone</label>
-                                    <input name="telepon" type="text" class="form-control {{ $errors->has('telepon') ? 'is-invalid' : '' }}" value="{{ old('telepon', $desa->desa->telepon) }}" placeholder="0812123456789">
-                                    {!! $errors->first('telepon', '<label id="telepon-error" class="error invalid-feedback" for="telepon">:message</label>')!!}
+                                    <label for="kode_pos" class="form-label">Kode Pos</label>
+                                    <input name="kode_pos" type="kode_pos" class="form-control {{ $errors->has('kode_pos') ? 'is-invalid' : '' }}" value="{{ old('kode_pos', $desa->desa->kode_pos) }}" placeholder="kode_pos@desa.com">
+                                    {!! $errors->first('kode_pos', '<label id="kode_pos-error" class="error invalid-feedback" for="kode_pos">:message</label>')!!}
                                 </div>
                             </div>
                         </div>

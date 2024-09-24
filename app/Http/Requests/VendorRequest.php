@@ -29,7 +29,7 @@ class VendorRequest extends FormRequest
             'name'             => 'required|string|max:255',
             'email'            => 'required|string|email|max:255|unique:users,email,'.$user_id,
             'nama_perusahaan'  => 'required|string|max:255',
-            'email_perusahaan' => 'nullable|string|email|max:255',
+            // 'email_perusahaan' => 'nullable|string|email|max:255',
             'kecamatan_id'     => 'required',
             'desa_id'          => 'required',
             'telepon'          => 'required',

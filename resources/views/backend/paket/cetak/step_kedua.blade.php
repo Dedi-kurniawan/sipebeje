@@ -87,7 +87,7 @@
         </div>
         <br>
         <span>Nomor &nbsp;&nbsp;&nbsp;&nbsp;: {{ $paket->evaluasiPenawaran->nomor }}</span><br>
-        <span>Kegiatan &nbsp;: {{ $paket->evaluasiPenawaran->kegiatan }}</span>
+        <span>Kegiatan &nbsp;: {{ strtoupper($paket->evaluasiPenawaran->kegiatan) }}</span>
         <p style="text-align: justify">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $paket->evaluasiPenawaran->TanggalFormatAt }},
             dimulai pada pukul {{ $paket->evaluasiPenawaran->jam }} WIB, yang bertanda tangan di bawah ini Tim
@@ -104,7 +104,7 @@
     <div style="float: right;">
         <table>
             <tr>
-                <td>{{ ucwords(strtolower($paket->desa->nama)) }}, {{ $paket->evaluasiPenawaran->CreatedAtFormat }}</td>
+                <td>{{ ucwords(strtolower($paket->desa->nama)) }}, {{ $paket->evaluasiPenawaran->TanggalBuatFormatAt }}</td>
             </tr>
             <tr>
                 <td>Untuk dan atas nama TPK</td>
@@ -178,28 +178,27 @@
         <span>NOMOR: {{ $paket->negoHarga->nomor }}</span>
     </div>
     <br><br>
-    <table width="100%">
-        <tr>
-            <td colspan="2">{{ $paket->negoHarga->TanggalFormatAt }}, dimulai pada pukul {{ $paket->negoHarga->jam }} WIB, yang bertanda tangan di bawah ini Tim Pengelola Kegiatan (TPK) telah mengadakan negosiasi harga terhadap Surat Penawaran yang sah yang diajukan oleh rekanan.</td>
-        </tr>
-        <tr>
-            <td colspan="2">I. Uraian Klarifikasi mengenai:</td>
-        </tr>
-        <tr>
-            <td style="width: 10px">&nbsp;</td>
-            <td>{!! $paket->negoHarga->uraian_klarifikasi !!}</td>
-        </tr>
-        <tr>
-            <td colspan="2">II. Uraian negosiasi:</td>
-        </tr>
-        <tr>
-            <td style="width: 10px">&nbsp;</td>
-            <td>Dari penawaran yang diajukan oleh rekanan sebesar Rp. {{ number_format($paket->negoHarga->penawaran_rekanan,2,',','.') }} ({{ $paket->negoHarga->penawaran_rekanan_terbilang }}) berdasarkan Pengadaan Desa TPK menetapkan dan menerima penawaran yang diajukan oleh rekanan sebesar Rp. {{ number_format($paket->negoHarga->penawaran_diajukan,2,',','.') }} ({{ $paket->negoHarga->penawaran_diajukan_terbilang }}) dan pihak Rekanan dapat menerima dan menyetujui hasil negosiasi tersebut.</td>
-        </tr>
-        <tr>
-            <td colspan="2">III. Kesimpulan:</td>
-        </tr>
-    </table>
+    <div style="width: 100%;">
+        <table style="text-align: justify; width: 100%">
+            <tr>
+                <td>{{ $paket->evaluasiPenawaran->TanggalFormatAt }}, dimulai pada pukul {{ $paket->evaluasiPenawaran->jam }} WIB, yang bertanda tangan di bawah ini Tim Pengelola Kegiatan (TPK) telah mengadakan negosiasi harga terhadap Surat Penawaran yang sah yang diajukan oleh rekanan.</td>
+            </tr>
+            <tr>
+                <td><br>I. Uraian Klarifikasi mengenai:
+                    &nbsp;&nbsp;{!! $paket->negoHarga->uraian_klarifikasi !!}
+                </td>
+            </tr>
+            <tr>
+                <td><br>II. Uraian negosiasi:</td>
+            </tr>
+            <tr>
+                <td style="width: 10px">Dari penawaran yang diajukan oleh rekanan sebesar Rp. {{ number_format($paket->negoHarga->penawaran_rekanan,2,',','.') }} ({{ $paket->negoHarga->penawaran_rekanan_terbilang }}) berdasarkan Pengadaan Desa TPK menetapkan dan menerima penawaran yang diajukan oleh rekanan sebesar Rp. {{ number_format($paket->negoHarga->penawaran_diajukan,2,',','.') }} ({{ $paket->negoHarga->penawaran_diajukan_terbilang }}) dan pihak Rekanan dapat menerima dan menyetujui hasil negosiasi tersebut.</td>
+            </tr>
+            <tr>
+                <td><br>III. Kesimpulan:</td>
+            </tr>
+        </table>
+    </div>
     <div class="table-material" style="margin-left: 1.5em">
         <table width="100%">
             <tr>
@@ -227,7 +226,7 @@
             </tr>
         </table>
     </div>
-    
+    <br>
     <table width="100%">
          <tr>
             <td style="text-align:left;vertical-align:top;width: 10px;">IV.</td>
@@ -299,15 +298,14 @@
         <span>SURAT PERJANJIAN</span><br>
         <span class="text-center">Nomor : {{ $paket->suratPerjanjian->nomor }}</span><br><br>
     </div>
-        <p>{{ $paket->evaluasiPenawaran->TanggalFormatAt }} bertempat di {{ $paket->evaluasiPenawaran->tempat }}, kami yang bertandatangan dibawah ini :</p>
-    </div>
-    <table width="100%" class="text-center">
+    <p>{{ $paket->evaluasiPenawaran->TanggalFormatAt }} bertempat di {{ $paket->evaluasiPenawaran->tempat }}, kami yang bertandatangan dibawah ini :</p>
+    <table style="text-align: justify; width: 100%">
         <tr>
             <td style="text-align:left;vertical-align:top;width: 10px;">I.</td>
             <td style="text-align:left;vertical-align:top;width: 150px;">
                 Nama
             </td>
-            <td style="text-align:left;vertical-align:top;">
+            <td style="text-align:left;vertical-align:top; width:100%">
                 : {{ ucwords(strtolower($paket->aparatur->nama)) }}
             </td>
         </tr>
@@ -601,7 +599,7 @@
             <td rowspan="2">&nbsp;</td>
         </tr>
         <tr>
-            <td>{{ ucwords(strtolower($paket->desa->nama)) }}, {{ $paket->suratPerjanjian->CreatedFormatAt }}</td>
+            <td>{{ ucwords(strtolower($paket->desa->nama)) }}, {{ $paket->evaluasiPenawaran->TanggalBuatFormatAt }}</td>
             <td></td>
         </tr>
         <tr>

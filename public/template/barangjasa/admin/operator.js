@@ -48,7 +48,7 @@ var table = $('#datatable').DataTable({
             data: 'status_format',
             name: 'status_format',
             orderable: true,
-            searchable: true,
+            searchable: false,
         },
         {
             data: 'action',

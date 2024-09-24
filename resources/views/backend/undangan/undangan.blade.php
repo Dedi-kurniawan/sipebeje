@@ -164,12 +164,12 @@
                     <div class="float-end">
                         Untuk dan atas nama TPK Ketua, <br>
                        <span class="text-center"> {{ $show->aparatur->nama }} </span>
-                    </div>         
+                    </div>
                     <div class="mt-5 text-small">
                         Akhir Pendaftaran, <br>
                        <span class="text-center"> {!! $show->TanggalSelesaiAt !!} </span>
-                    </div>         
-                    <hr>                     
+                    </div>
+                    <hr>
                     <form action="{{ route('admin.undangan.paket.konfirmasi.post', $show->id) }}" method="POST">
                         @csrf
                         <div class="mt-3">
@@ -177,14 +177,13 @@
                             <input type="hidden" name="undangan_id" value="{{ $undangan->undangan_id }}">
                             <input type="hidden" name="vendor_id" value="{{ $undangan->vendor_id }}">
                             <button name="submit" value="2" class="btn btn-success width-md waves-effect waves-light float-start">
-                                <i class="fe-arrow-left"></i> IKUT TENDER 
+                                <i class="fe-arrow-left"></i> IKUT PENAWARAN 
                             </button>
                             <button name="submit" value="1" class="btn btn-danger width-md waves-effect waves-light float-end">
-                                <i class="fe-arrow-left"></i> TOLAK TENDER 
+                                <i class="fe-arrow-left"></i> TOLAK PENAWARAN 
                             </button>
                         </div>
-                    </form>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-                    
+                    </form>
                 </div>
             </div>
         </div>

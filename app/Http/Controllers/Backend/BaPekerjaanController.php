@@ -49,7 +49,7 @@ class BaPekerjaanController extends Controller
         $paket = $paket->get();
 
         $bread = $this->bread('Master', 'Berita Acara Serah Terima Pekerjaan', 'Table', route('admin.ba-pekerjaan.index'));
-        return view('backend.BaPekerjaan.index', compact('bread', 'desa', 'desaId', 'paket'));
+        return view('backend.baPekerjaan.index', compact('bread', 'desa', 'desaId', 'paket'));
     }
 
     /**
@@ -105,7 +105,7 @@ class BaPekerjaanController extends Controller
         $edit = BaPekerjaan::findOrFail($id);
         $details = HpsBaNego::where('paket_id', $edit->paket_id)->get();
         $bread = $this->bread('Master', 'Berita Acara Serah Terima Pekerjaan', 'Table', route('admin.ba-pekerjaan.index'));
-        return view('backend.BaPekerjaan.detail', compact('bread', 'edit', 'details'));
+        return view('backend.baPekerjaan.detail', compact('bread', 'edit', 'details'));
     }
 
     /**
@@ -123,9 +123,11 @@ class BaPekerjaanController extends Controller
 
             foreach ($details as $key => $detail) {
                 $row = HpsBaNego::find($key);
-                $row->checklist = $detail['checklist'];
-                $row->checklist_keterangan = $detail['keterangan'];
-                $row->save();
+                if(isset($detail['checklist'])) {
+                    $row->checklist = $detail['checklist'];
+                    $row->checklist_keterangan = $detail['keterangan'];
+                    $row->save();
+                }
             }
 
             DB::commit();
@@ -187,13 +189,13 @@ class BaPekerjaanController extends Controller
                     ->where('jabatan', 'KEPALA DESA')
                     ->first();
 
-        $ba['tanggal_text'] = sprintf('Pada hari ini %s tanggal %s bulan %s tahun %s', Carbon::parse($ba['tanggal'])->isoFormat('dddd'), ucwords($this->convert(Carbon::parse($ba['tanggal'])->isoFormat('d'))), ucwords(Carbon::parse($ba['tanggal'])->isoFormat('MMMM')), ucwords($this->convert(Carbon::parse($ba['tanggal'])->isoFormat('Y'))));
-        $ba['tanggal'] = Carbon::parse($ba['tanggal'])->isoFormat('d MMMM Y');
+        $ba['tanggal_text'] = sprintf('Pada hari ini %s tanggal %s bulan %s tahun %s', Carbon::parse($ba['tanggal'])->isoFormat('dddd'), ucwords($this->convert(Carbon::parse($ba['tanggal'])->isoFormat('D'))), ucwords(Carbon::parse($ba['tanggal'])->isoFormat('MMMM')), ucwords($this->convert(Carbon::parse($ba['tanggal'])->isoFormat('Y'))));
+        $ba['tanggal'] = Carbon::parse($ba['tanggal'])->isoFormat('D MMMM Y');
         $ba['kepala_desa'] = $aparatur ? $aparatur->nama : null;
 
         $details = HpsBaNego::where('paket_id', $ba->paket_id)->get();
         $fileName = sprintf('berita_acara_serah_terima_pekerjaan_%s.pdf', Str::slug($ba->nama_desa));
-        $pdf = PDF::loadView('backend.BaPekerjaan.cetak', compact('ba', 'details'));
+        $pdf = PDF::loadView('backend.baPekerjaan.cetak', compact('ba', 'details'));
         return $pdf->setPaper('a4', 'potrait')->download($fileName);
     }
 }

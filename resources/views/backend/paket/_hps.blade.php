@@ -27,10 +27,10 @@
                         {!! $errors->first('volume', '<label id="volume-error" class="error invalid-feedback" for="volume">:message</label>')!!}  
                     </div>
                     <div class="mb-2">
-                        <label for="example-input-normal" class="form-label">Harga @<span class="text-danger">*</span></label>
+                        <label for="example-input-normal" class="form-label">Harga sebelum pajak<span class="text-danger">*</span></label>
                         <div class="input-group">
                             <span class="btn input-group-text btn-dark waves-effect waves-light">Rp. </span>
-                            <input type="text" class="form-control rupiah {{ $errors->has('harga_satuan') ? 'is-invalid' : '' }}" autocomplete="off" name="harga_satuan" value="{{ old('harga_satuan') }}"  id="harga_satuan" title="kolom harga satuan di larang kosong" placeholder="Harga Satuan..." required/>
+                            <input type="text" class="form-control rupiah {{ $errors->has('harga_satuan') ? 'is-invalid' : '' }}" autocomplete="off" name="harga_satuan" value="{{ old('harga_satuan') }}"  id="harga_satuan" title="kolom Harga sebelum pajak di larang kosong" placeholder="Harga sebelum pajak..." required/>
                             {!! $errors->first('harga_satuan', '<label id="harga_satuan-error" class="error invalid-feedback" for="harga_satuan">:message</label>')!!}  
                         </div>
                     </div>
@@ -48,16 +48,8 @@
                         <label for="example-input-normal" class="form-label">Pajak<span class="text-danger">*</span></label>
                         <select name="pajak" id="pajak" class="form-control {{ $errors->has('pajak') ? 'is-invalid' : '' }} selectForm" title="kolom pajak terbilang di larang kosong" required>
                             <option value="">pilih pajak</option>
-                            <option value="0">0 %</option>
-                            <option value="0.5">0.5 %</option>
-                            <option value="1.5">1.5 %</option>
-                            <option value="2">2 %</option>
-                            <option value="2.5">2.5 %</option>
-                            <option value="5">5 %</option>
-                            <option value="10">10 %</option>
-                            <option value="11">11 %</option>
-                            <option value="11.5">11.5 %</option>
                             <option value="12.5">12.5 %</option>
+                            <option value="13">13 %</option>
                             <option value="13.5">13.5 %</option>
                         </select>
                         {!! $errors->first('pajak', '<label id="pajak-error" class="error invalid-feedback" for="pajak">:message</label>')!!}

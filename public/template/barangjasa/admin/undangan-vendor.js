@@ -17,7 +17,7 @@ var dt_undangan = $('#dt_undangan').DataTable({
         data: function (d) {
             d.search = $("#search_filter").val();
             d.status = $("#status_filter").val();
-        }         
+        }
     },
     columns: [{
             data: 'DT_RowIndex',
